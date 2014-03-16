@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from orders import views
 
 urlpatterns = patterns('',
+    url(r'^$', views.home),
     url(r'^client/(\w+)/seat/(\w+)$', views.init_session),
     url(r'^item/(\w+)$', views.item, name='item'),
     url(r'^manager/(\w+)/items$', views.manager_items),

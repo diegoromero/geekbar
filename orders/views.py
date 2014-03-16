@@ -13,6 +13,10 @@ logger = logging.getLogger('orders.views')
 # TODO: perhaps we should have a centralized call to render so it
 # includes the parent template as well as commons variables such as
 # client_name.
+def home(request):
+    return render(request, 'home_index.html',
+                  {'title': 'Welcome'})
+
 
 def init_session(request, client_id, seat_id):
     '''Initializes the session with the client_id and seat_id of the
