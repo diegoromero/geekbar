@@ -1,3 +1,14 @@
+import mongoengine
+_MONGODB_USER = 'heroku'
+_MONGODB_PASSWD = '67qXAWeeMw9GcsWbz9pCxC2N5aSZrblkTJrTVFj4csM6IUqF0cepykkVbOhENY1RYJ1Hc5Xu'
+_MONGODB_HOST = 'oceanic.mongohq.com'
+_MONGODB_NAME = 'app23079712'
+_MONGODB_PORT = '10010'
+_MONGODB_DATABASE_HOST = \
+    'mongodb://%s:%s@%s:%s/%s' \
+    % (_MONGODB_USER, _MONGODB_PASSWD, _MONGODB_HOST, _MONGODB_PORT, _MONGODB_NAME)
+
+
 import logging
 import os
 import pymongo
@@ -14,8 +25,8 @@ class MongoOrdersDAO(OrdersDAO):
     stored in MongoDB'''
 
     def __init__(self, bootstrap=False):
-        self.client = pymongo.MongoClient()
-        self.db = self.client.orders
+        self.client = mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
+        self.db = eval('self.client.' + _MONGODB_NAME)
         if bootstrap:
             # load bootstrap data
             self.db.menus.remove()

@@ -1,3 +1,19 @@
+import mongoengine
+_MONGODB_USER = 'heroku'
+_MONGODB_PASSWD = '67qXAWeeMw9GcsWbz9pCxC2N5aSZrblkTJrTVFj4csM6IUqF0cepykkVbOhENY1RYJ1Hc5Xu'
+_MONGODB_HOST = 'oceanic.mongohq.com'
+_MONGODB_NAME = 'app23079712'
+_MONGODB_PORT = '10010'
+_MONGODB_DATABASE_HOST = \
+    'mongodb://%s:%s@%s:%s/%s' \
+    % (_MONGODB_USER, _MONGODB_PASSWD, _MONGODB_HOST, _MONGODB_PORT, _MONGODB_NAME)
+
+mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 # Django settings for geekbar project.
 
 DEBUG = True
@@ -102,8 +118,12 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-# TODO: setup Memcached or MongoDB sessions before going to production
-SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+SESSION_ENGINE = 'mongoengine.django.sessions'
+SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
 
 ROOT_URLCONF = 'geekbar.urls'
 
@@ -118,6 +138,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'mongoengine.django.mongo_auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -129,6 +150,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'orders',
 )
+
+AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+
+MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
 
 # A sample logging configuration. It sends an email to the site admins
 # on every HTTP 500 error when DEBUG=False.  It also logs all INFO
