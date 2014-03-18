@@ -1,3 +1,7 @@
 # ignore python bynaries
+
 *.pyc
+venv
+*.swp
+
 *~
