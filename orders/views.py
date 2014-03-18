@@ -1,7 +1,7 @@
 import logging
 
 from mongoengine import NotUniqueError, ValidationError
-#from orders.models import User
+from orders.models import User
 from django.contrib.auth import login, logout, authenticate
 
 from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect
@@ -70,7 +70,7 @@ def signup(request):
         try:
             '''Tries to create a new client, if succeeds it logs in
             and redirects to the manager view'''
-            #User.create_user(username=username, email=email, password=password)
+            User.create_user(username=username, email=email, password=password)
             #dao.create_client(username)
             user = authenticate(username=username, password=password)
             login(request, user)
