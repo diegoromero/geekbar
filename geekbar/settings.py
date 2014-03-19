@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'orders',
+    'gunicorn',
 )
 
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
