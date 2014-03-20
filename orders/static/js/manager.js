@@ -131,7 +131,7 @@ function treemaker(){
 				"root" : {
 					"valid_children": ["section", "subsection"],
 					"icon": {
-						"image": "glyphicon glyphicon-hdd"
+						"image": "http://static.jstree.com/v.1.0rc/_docs/_drive.png"
 					},
 					"start_drag" : false,
                     "move_node" : false,
