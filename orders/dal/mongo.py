@@ -1,11 +1,11 @@
-import mongoengine
-_MONGODB_NAME = 'app23079712'
-_MONGODB_DATABASE_HOST = os.environ['MONGOHQ_URL']
-
 import logging
 import os
 import pymongo
 import datetime
+
+import mongoengine
+_MONGODB_NAME = 'app23079712'
+_MONGODB_DATABASE_HOST = os.environ['MONGOHQ_URL']
 
 from bson.objectid import ObjectId
 from bootstrap import menus, items, clients
