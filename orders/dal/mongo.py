@@ -1,13 +1,6 @@
 import mongoengine
-_MONGODB_USER = 'heroku'
-_MONGODB_PASSWD = '67qXAWeeMw9GcsWbz9pCxC2N5aSZrblkTJrTVFj4csM6IUqF0cepykkVbOhENY1RYJ1Hc5Xu'
-_MONGODB_HOST = 'oceanic.mongohq.com'
 _MONGODB_NAME = 'app23079712'
-_MONGODB_PORT = '10010'
-_MONGODB_DATABASE_HOST = \
-    'mongodb://%s:%s@%s:%s/%s' \
-    % (_MONGODB_USER, _MONGODB_PASSWD, _MONGODB_HOST, _MONGODB_PORT, _MONGODB_NAME)
-
+_MONGODB_DATABASE_HOST = os.environ['MONGOHQ_URL']
 
 import logging
 import os
