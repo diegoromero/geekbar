@@ -11,3 +11,5 @@ pystache==0.5.3
 static==1.0.2
 gevent==0.13.7
 greenlet==0.4.0
+django-storages==1.1.8
+boto==2.27.0

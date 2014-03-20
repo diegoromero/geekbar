@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'orders',
     'gunicorn',
+    'storages',
+    'boto',
 )
 
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
@@ -153,9 +155,13 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-
-
-
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+STATIC_DIRECTORY = '/static/'
+STATIC_URL = S3_URL + STATIC_DIRECTORY
 
 # A sample logging configuration. It sends an email to the site admins
 # on every HTTP 500 error when DEBUG=False.  It also logs all INFO
