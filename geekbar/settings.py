@@ -3,10 +3,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 import mongoengine
-_MONGODB_NAME = 'app23079712'
 _MONGODB_DATABASE_HOST = os.environ['MONGOHQ_URL']
+_MONGODB_NAME = _MONGODB_DATABASE_HOST.split('/')[-1]
 
-mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
+_MONGODB_CLIENT = mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
+_MONGODB = eval('_MONGODB_CLIENT.' + _MONGODB_NAME)
 
 # Django settings for geekbar project.
 
@@ -152,10 +153,13 @@ TEMPLATE_DIRS = (
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+DEFAULT_FILE_STORAGE = 'geekbar.s3utils.MediaS3BotoStorage'
+STATICFILES_STORAGE = 'geekbar.s3utils.StaticS3BotoStorage'
+S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 STATIC_DIRECTORY = '/static/'
+MEDIA_DIRECTORY = '/media/'
 STATIC_URL = S3_URL + STATIC_DIRECTORY
+MEDIA_URL = S3_URL + MEDIA_DIRECTORY
 
 # A sample logging configuration. It sends an email to the site admins
 # on every HTTP 500 error when DEBUG=False.  It also logs all INFO

@@ -3,10 +3,7 @@ import os
 import pymongo
 import datetime
 
-import mongoengine
-_MONGODB_NAME = 'app23079712'
-_MONGODB_DATABASE_HOST = os.environ['MONGOHQ_URL']
-
+from django.conf import settings
 from bson.objectid import ObjectId
 from bootstrap import menus, items, clients
 from orders import OrdersDAO
@@ -19,8 +16,7 @@ class MongoOrdersDAO(OrdersDAO):
     stored in MongoDB'''
 
     def __init__(self, bootstrap=False):
-        self.client = mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
-        self.db = eval('self.client.' + _MONGODB_NAME)
+        self.db = settings._MONGODB
         if bootstrap:
             # load bootstrap data
             self.db.user.remove()
