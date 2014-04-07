@@ -1,4 +1,5 @@
 import logging
+import os
 
 from mongoengine import NotUniqueError, ValidationError
 from orders.models import User
@@ -7,6 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.utils import simplejson
+from django.conf import settings
 
 from settings import dao, render_menu, customer_mods, server_mods
 from render.order import render_orders
@@ -213,7 +215,10 @@ def manager_items(request):
                   {'items': items,
                    'item_form': item_form,
                    'template': 'manager_items.html',
-                   'title': 'Manager'})
+                   'title': 'Manager',
+                   'AWS_ACCESS_KEY_ID': os.environ['AWS_ACCESS_KEY_ID'],
+                   'policy': settings.POLICY,
+                   'signature': settings.SIGNATURE})
 
 def manager_menus(request):
     #TODO: some refactoring,

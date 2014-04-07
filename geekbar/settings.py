@@ -160,6 +160,9 @@ STATIC_DIRECTORY = '/static/'
 MEDIA_DIRECTORY = '/media/'
 STATIC_URL = S3_URL + STATIC_DIRECTORY
 MEDIA_URL = S3_URL + MEDIA_DIRECTORY
+from s3utils import policy, signature
+POLICY = policy
+SIGNATURE = signature
 
 # A sample logging configuration. It sends an email to the site admins
 # on every HTTP 500 error when DEBUG=False.  It also logs all INFO
