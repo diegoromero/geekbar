@@ -166,9 +166,10 @@ function treemaker(){
 	//This function add the the tablesorter and tableFilter to the table of items
 	//In the item edit view
 	$('#myTable').tablesorter({
-		sortList: [[0,0], [1,0]],
+		sortList: [[1,0], [2,0]],
 		headers: {
-			3: { sorter: false }
+			0: { sorter: false },
+			4: { sorter: false }
 		}
 	}).tableFilter();
  };
