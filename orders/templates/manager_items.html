@@ -25,6 +25,21 @@
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<!-- Modal -->
+<div class="modal fade" id="upload_photo_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Upload Photo</h4>
+			</div>
+			<div class="modal-body">
+				test
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div id="table_div">
 <table id="myTable" class="tablesorter">
 	<thead>
@@ -40,11 +55,13 @@
 	{% for item in items %}
 		<tr class="menu_items ui-widget-content">
 			<td class="item_photo">
-				{% if item.photo %}
-					asd 
-				{% else %}
-					<img src="https://s3.amazonaws.com/geekbar_bucket/media/food-icon.png" height="42" width="42"/>
-				{% endif %}
+				<a data-toggle="modal" href="#upload_photo_modal">
+					{% if item.photo %}
+						asd 
+					{% else %}
+						<img src="https://s3.amazonaws.com/geekbar_bucket/media/food-icon.png" height="42" width="42"/>
+					{% endif %}
+				</a>
 			</td>
 			<td contentEditable class="item_name">{{ item.name }}</td>
 			<td contentEditable class="item_price">{{ item.price }}</td>
