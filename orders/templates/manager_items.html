@@ -29,6 +29,7 @@
 <table id="myTable" class="tablesorter">
 	<thead>
 		<tr>
+			<th>Photo<th>
 			<th>Name</th>
 			<th>Price</th>
 			<th>Description</th>
@@ -38,6 +39,7 @@
 	<tbody>
 	{% for item in items %}
 		<tr class="menu_items ui-widget-content">
+			<td><img src="https://s3.amazonaws.com/geekbar_bucket/media/food-icon.png" /> </td>
 			<td contentEditable class="item_name">{{ item.name }}</td>
 			<td contentEditable class="item_price">{{ item.price }}</td>
 			<td contentEditable class="item_description">{{ item.description}}</td>
