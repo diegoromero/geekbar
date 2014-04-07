@@ -13,7 +13,7 @@ policy_document = '''
     {"bucket": "geekbar_bucket"}, 
     ["starts-with", "$key", "media/"],
     {"acl": "public-read"},
-    {"success_action_redirect": "http://geekbar.herokuapp.com/"},
+    {"success_action_redirect": "http://geekbar-dev.herokuapp.com/"},
     ["starts-with", "$Content-Type", ""],
     ["content-length-range", 0, 1048576]
   ]
