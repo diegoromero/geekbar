@@ -273,7 +273,7 @@ $(document).ready(function() {
 				if (button_pressed == "Create") {
 					$('#create_item_modal').modal('toggle');
 				}
-				photo_upload_form_itemname()
+				photo_upload_form_itemname();
 			}
 		});	
 		return false;
