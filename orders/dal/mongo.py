@@ -118,7 +118,8 @@ class MongoOrdersDAO(OrdersDAO):
         self.db.items.insert({'client_id': client_id,
                               'name': name,
                               'price': price,
-                              'description': description})
+                              'description': description,
+                              'photo': False})
 
     def add_menu(self, title, client_id):
         menu_id = self.db.menus.insert({'title': title, 'structure': {}})
