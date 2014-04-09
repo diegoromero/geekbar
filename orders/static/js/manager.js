@@ -268,12 +268,14 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				$('#table_div').load(' #myTable', function(){tabledisplay()});
+				$('#table_div').load(' #myTable', function(){
+					tabledisplay();
+					photo_upload_form_itemname();
+				});
 				$('#insert_item_loader').load(' #insert_item_table_container', function(){item_insert_table()});
 				if (button_pressed == "Create") {
 					$('#create_item_modal').modal('toggle');
 				}
-				photo_upload_form_itemname();
 			}
 		});	
 		return false;
