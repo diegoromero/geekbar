@@ -266,6 +266,18 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$('#upload_photo_form').submit(function() {
+		$.ajax({
+			data: $(this).serialize(),
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+			
+			}
+		});
+		return false;
+	});
+	
 	$('#add_menu_form').submit(function() {
 		var title = $(this).find('#tab_title').val()
 			$.ajax({
