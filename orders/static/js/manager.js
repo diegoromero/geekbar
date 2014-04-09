@@ -192,6 +192,7 @@ function treemaker(){
 	var id = $('#tabs').children('ul').children('li:last-child').children('p').text();
 	menus.push(eval('({"data": [{"state": "open", "data": "' + name + '", "attr": {"id": "' + id + '", "rel": "root"}, "children": []}]})'));
 };
+
 $(document).ready(function() {
 
     tabledisplay();
@@ -264,6 +265,33 @@ $(document).ready(function() {
 			}
 		});	
 		return false;
+	});
+	
+	$('.item_photo').children('a').click(function() {
+		var path = $('#upload_photo_form').children('input[name=key]').val().split('/');
+		var root = path[0] + '/';
+		var client = path[1] + '/'
+		var name = $(this).attr('item_id');
+		var filename = root + client + name;
+		$('#upload_photo_form').children('input[name=key]').val(filename);
+	});
+	
+	$('#upload_photo_form').submit(function() {
+		var form = objetify_form($(this).serializeArray());
+		var item_id = form.key.split('/')[2];
+		$.ajax({
+			data: {
+				'csrfmiddlewaretoken': form.csrfmiddlewaretoken,
+				'item_id': item_id,
+				'set_item_photo': ''
+			},
+			type: $(this).attr('method'),
+			url: "",
+			success: function(response) {
+			
+			}
+		});
+		return true;
 	});
 	
 	$('#add_menu_form').submit(function() {

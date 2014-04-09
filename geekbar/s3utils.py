@@ -14,6 +14,7 @@ policy_document = '''
     ["starts-with", "$key", "media/"],
     {"acl": "public-read"},
     ["starts-with", "$Content-Type", ""],
+    ["starts-with", "$csrfmiddlewaretoken", ""],
     ["content-length-range", 0, 1048576]
   ]
 }

@@ -210,7 +210,11 @@ def manager_items(request):
                 name = request.POST['name']
                 price = float(request.POST['price'])
                 description = request.POST['description']
-                dao.update_item(item_id, name = name, price = price, description = description)               
+                dao.update_item(item_id, name = name, price = price, description = description)
+            elif 'set_item_photo' in request.POST:
+                #This case handles the upload item photo form
+                dao.set_item_photo(item_id)
+                
     return render(request, 'desktop_index.html',
                   {'items': items,
                    'item_form': item_form,

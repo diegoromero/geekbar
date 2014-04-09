@@ -35,14 +35,14 @@
 			</div>
 			<div class="modal-body">
 				<form action="https://geekbar_bucket.s3.amazonaws.com/" method="post" enctype="multipart/form-data" id="upload_photo_form">
-					<input type="hidden" name="key" value="media/{{ client }}/${filename}">
+					<input type="hidden" name="key" value="media/{{ client }}/">
 					<input type="hidden" name="AWSAccessKeyId" value={{ AWS_ACCESS_KEY_ID }}> 
 					<input type="hidden" name="acl" value="public-read"> 
 					<input type="hidden" name="policy" value={{ policy }}>
 					<input type="hidden" name="signature" value={{ signature }}>
 					<input type="hidden" name="Content-Type" value="image/jpeg">
 					<!-- Include any additional input fields here -->
-
+					{% csrf_token %}
 					<input name="file" type="file"> 
 					<br> 
 					<input type="submit" value="Upload" class="btn btn-primary"> 
@@ -67,9 +67,9 @@
 	{% for item in items %}
 		<tr class="menu_items ui-widget-content">
 			<td class="item_photo">
-				<a data-toggle="modal" href="#upload_photo_modal">
+				<a data-toggle="modal" href="#upload_photo_modal" item_id={{ item.id }}>
 					{% if item.photo %}
-						asd 
+						<img src="{{ MEDIA_URL }}/{{ client }}/{{ item.id }}" height="42" width="42"/>
 					{% else %}
 						<img src="{{ MEDIA_URL }}food-icon.png" height="42" width="42"/>
 					{% endif %}
