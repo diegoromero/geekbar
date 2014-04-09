@@ -193,6 +193,17 @@ function treemaker(){
 	menus.push(eval('({"data": [{"state": "open", "data": "' + name + '", "attr": {"id": "' + id + '", "rel": "root"}, "children": []}]})'));
 };
 
+function photo_upload_form_itemname() {
+	$('.item_photo').children('a').click(function() {
+		var path = $('#upload_photo_form').children('input[name=key]').val().split('/');
+		var root = path[0] + '/';
+		var client = path[1] + '/'
+		var name = $(this).attr('item_id');
+		var filename = root + client + name;
+		$('#upload_photo_form').children('input[name=key]').val(filename);
+	});
+};
+
 $(document).ready(function() {
 
     tabledisplay();
@@ -262,19 +273,13 @@ $(document).ready(function() {
 				if (button_pressed == "Create") {
 					$('#create_item_modal').modal('toggle');
 				}
+				photo_upload_form_itemname()
 			}
 		});	
 		return false;
 	});
 	
-	$('.item_photo').children('a').click(function() {
-		var path = $('#upload_photo_form').children('input[name=key]').val().split('/');
-		var root = path[0] + '/';
-		var client = path[1] + '/'
-		var name = $(this).attr('item_id');
-		var filename = root + client + name;
-		$('#upload_photo_form').children('input[name=key]').val(filename);
-	});
+	photo_upload_form_itemname();
 	
 	$('#upload_photo_form').submit(function() {
 		var form = objetify_form($(this).serializeArray());
