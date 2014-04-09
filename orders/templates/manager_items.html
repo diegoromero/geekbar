@@ -35,14 +35,14 @@
 			</div>
 			<div class="modal-body">
 				<form action="https://geekbar_bucket.s3.amazonaws.com/" method="post" enctype="multipart/form-data" id="upload_photo_form">
-					<input type="hidden" name="key" value="media/${filename}">
+					<input type="hidden" name="key" value="media/{{ client }}/${filename}">
 					<input type="hidden" name="AWSAccessKeyId" value={{ AWS_ACCESS_KEY_ID }}> 
 					<input type="hidden" name="acl" value="public-read"> 
 					<input type="hidden" name="policy" value={{ policy }}>
 					<input type="hidden" name="signature" value={{ signature }}>
+					<input type="hidden" name="Content-Type" value="image/jpeg">
 					<!-- Include any additional input fields here -->
 
-					Photo upload: 
 					<input name="file" type="file"> 
 					<br> 
 					<input type="submit" value="Upload" class="btn btn-primary"> 

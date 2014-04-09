@@ -218,7 +218,8 @@ def manager_items(request):
                    'title': 'Manager',
                    'AWS_ACCESS_KEY_ID': os.environ['AWS_ACCESS_KEY_ID'],
                    'policy': settings.POLICY,
-                   'signature': settings.SIGNATURE})
+                   'signature': settings.SIGNATURE,
+                   'client': client_id})
 
 def manager_menus(request):
     #TODO: some refactoring,

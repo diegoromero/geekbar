@@ -13,6 +13,7 @@ policy_document = '''
     {"bucket": "geekbar_bucket"}, 
     ["starts-with", "$key", "media/"],
     {"acl": "public-read"},
+    ["starts-with", "$Content-Type", ""],
     ["content-length-range", 0, 1048576]
   ]
 }
