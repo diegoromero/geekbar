@@ -197,7 +197,7 @@ function photo_upload_form_itemname() {
 	$('.item_photo').children('a').click(function() {
 		var path = $('#upload_photo_form').children('input[name=key]').val().split('/');
 		var root = path[0] + '/';
-		var client = path[1] + '/'
+		var client = path[1] + '/';
 		var name = $(this).attr('item_id');
 		var filename = root + client + name;
 		$('#upload_photo_form').children('input[name=key]').val(filename);
@@ -282,7 +282,7 @@ $(document).ready(function() {
 	});
 	
 	photo_upload_form_itemname();
-	
+
 	$('#upload_photo_form').submit(function() {
 		var form = objetify_form($(this).serializeArray());
 		var item_id = form.key.split('/')[2];
@@ -295,11 +295,15 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: "",
 			success: function(response) {
-			
+				$('#table_div').load(' #myTable', function(){
+					tabledisplay();
+					photo_upload_form_itemname();
+					$('#upload_photo_modal').modal('toggle');
+				});
 			}
 		});
-		return true;
-	});
+		return false;
+	})
 	
 	$('#add_menu_form').submit(function() {
 		var title = $(this).find('#tab_title').val()
@@ -380,5 +384,6 @@ $(document).ready(function() {
 		
 	tabsfunc();
 	treemaker();
-	item_insert_table()
+	item_insert_table();
+	
 });

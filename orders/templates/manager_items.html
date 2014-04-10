@@ -43,7 +43,7 @@
 					<input type="hidden" name="Content-Type" value="image/jpeg">
 					<!-- Include any additional input fields here -->
 					{% csrf_token %}
-					<input name="file" type="file"> 
+					<input name="file" type="file" accept="image/*"> 
 					<br> 
 					<input type="submit" value="Upload" class="btn btn-primary"> 
 				</form> 
@@ -69,7 +69,7 @@
 			<td class="item_photo">
 				<a data-toggle="modal" href="#upload_photo_modal" item_id={{ item.id }}>
 					{% if item.photo %}
-						<img src="{{ MEDIA_URL }}/{{ client }}/{{ item.id }}" height="42" width="42"/>
+						<img src="{{ MEDIA_URL }}{{ client }}/{{ item.id }}" height="42" width="42"/>
 					{% else %}
 						<img src="{{ MEDIA_URL }}food-icon.png" height="42" width="42"/>
 					{% endif %}

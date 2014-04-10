@@ -309,12 +309,7 @@ class MongoOrdersDAO(OrdersDAO):
 
     def set_item_photo(self, item_id):
         i_id = get_mongo_id(item_id)
-        if len(item_id) > 10:
-            #Mongo id
-            self.db.items.update({'_id': ObjectId(i_id)}, {'$set': {'photo': True}})
-        else:
-            #Bootstrapped id
-            self.db.items.update({'_id': i_id}, {'$set': {'photo': True}})
+        self.db.items.update({'_id': i_id}, {'$set': {'photo': True}})
 
 # Helper methods. The functions below are not part of the 'interface'
 # and need not be implemented by other OrdersDAO
