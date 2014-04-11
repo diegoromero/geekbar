@@ -282,6 +282,36 @@ $(document).ready(function() {
 	});
 	
 	photo_upload_form_itemname();
+	
+	$('#file_photo').change(function() {
+		var fileField = $('#file_photo').val();
+		if (fileField.indexOf('\\') > -1) {
+			fileField = fileField.substring(fileField.lastIndexOf('\\') + 1, fileField.length);
+		}
+		if (fileField.indexOf('/') > -1) {
+			fileField = fileField.substring(fileField.lastIndexOf('/') + 1, fileField.length);
+		}
+		var extension;
+		if (fileField.indexOf('.') > -1) {
+			extension = fileField.substring(fileField.lastIndexOf('.') + 1, fileField.length);
+		} else {
+			extension = "";
+		}
+		var contentType = "application/octet-stream";
+		if ( extension == "txt" ) {
+			contentType= "text/plain";
+		} else if ( extension == "htm" || extension == "html" ) {
+			contentType= "text/html";
+		} else if ( extension == "jpg" || extension == "jpeg" ) {
+			contentType = "image/jpeg";
+		} else if ( extension == "gif" ) {
+			contentType = "image/gif";
+		} else if ( extension == "png" ) {
+			contentType = "image/png";
+		}
+		
+		$('#form_content_type').val(contentType);
+	});
 
 	$('#upload_photo_form').submit(function() {
 		var form = objetify_form($(this).serializeArray());
