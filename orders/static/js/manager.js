@@ -339,7 +339,7 @@ $(document).ready(function() {
 	$('#upload_photo_form').submit(function(e) {
 		e.preventDefault();
 		$.ajax({
-			data: $(this).serialize(),
+			data: $(this).serializeArray(),
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
