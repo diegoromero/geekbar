@@ -312,7 +312,7 @@ $(document).ready(function() {
 		
 		$('#form_content_type').val(contentType);
 	});
-
+/*
 	$('#upload_photo_form').submit(function() {
 		var form = objetify_form($(this).serializeArray());
 		var item_id = form.key.split('/')[2];
@@ -334,6 +334,19 @@ $(document).ready(function() {
 		});
 		return false;
 	})
+	*/
+	
+	$('#upload_photo_form').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			data: $(this).serialize(),
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				console.log('upload good');
+			}
+		});
+	});
 	
 	$('#add_menu_form').submit(function() {
 		var title = $(this).find('#tab_title').val()
