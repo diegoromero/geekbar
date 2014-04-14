@@ -343,6 +343,7 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
+				console.log(response);
 				console.log('upload good');
 			}
 		});
