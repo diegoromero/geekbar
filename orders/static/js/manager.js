@@ -312,29 +312,7 @@ $(document).ready(function() {
 		
 		$('#form_content_type').val(contentType);
 	});
-/*
-	$('#upload_photo_form').submit(function() {
-		var form = objetify_form($(this).serializeArray());
-		var item_id = form.key.split('/')[2];
-		$.ajax({
-			data: {
-				'csrfmiddlewaretoken': form.csrfmiddlewaretoken,
-				'item_id': item_id,
-				'set_item_photo': ''
-			},
-			type: $(this).attr('method'),
-			url: "",
-			success: function(response) {
-				$('#table_div').load(' #myTable', function(){
-					tabledisplay();
-					photo_upload_form_itemname();
-					$('#upload_photo_modal').modal('toggle');
-				});
-			}
-		});
-		return false;
-	})
-*/
+
 	$('#upload_photo_form').fileupload({
 		maxNumberOfFiles: 1,
 		fileInput: $('#file_photo'),
@@ -357,10 +335,9 @@ $(document).ready(function() {
 			$('.bar').css('width', percent + '%');
 		},
 		fail: function(e, data) {
-			console.log('fail');
+			$('#error_upload_message').fadeIn();
 		},
 		success: function(data) {
-			console.log('success');
 			var form = $('#upload_photo_form');
 			form = objetify_form(form.serializeArray());
 			var item_id = form.key.split('/')[2];
@@ -384,7 +361,8 @@ $(document).ready(function() {
 		done: function (event, data) {
 			$('.progress').fadeOut(300, function() {
 				$('.bar').css('width', 0);
-			})
+			});
+			$('#error_upload_message').fadeOut();
 		}
 	});
 
