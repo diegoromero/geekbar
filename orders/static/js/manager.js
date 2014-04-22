@@ -334,20 +334,60 @@ $(document).ready(function() {
 		});
 		return false;
 	})
-	*/
-	
-	$('#upload_photo_form').submit(function(e) {
-		e.preventDefault();
-		$.ajax({
-			data: $(this).serializeArray(),
-			type: $(this).attr('method'),
-			url: $(this).attr('action'),
-			success: function(response) {
-				console.log(response);
-				console.log('upload good');
-			}
-		});
+*/
+	$('#upload_photo_form').fileupload({
+		maxNumberOfFiles: 1,
+		fileInput: $('#file_photo'),
+		replaceFileInput: false,
+		url: $(this).attr('action'),
+		type: $(this).attr('method'),
+		autoUpload: false,
+		dataType: 'xml',
+		add: function (event, data) {
+			$('#upload_but').off('click');
+			data.context = $("#upload_button").on('click', function (e) {
+				data.submit();
+			});
+		},
+		send: function(e, data) {
+			$('.progress').fadeIn();
+		},
+		progress: function(e, data){
+			var percent = Math.round((data.loaded / data.total) * 100);
+			$('.bar').css('width', percent + '%');
+		},
+		fail: function(e, data) {
+			console.log('fail');
+		},
+		success: function(data) {
+			console.log('success');
+			var form = $('#upload_photo_form');
+			form = objetify_form(form.serializeArray());
+			var item_id = form.key.split('/')[2];
+			$.ajax({
+				data: {
+					'csrfmiddlewaretoken': form.csrfmiddlewaretoken,
+					'item_id': item_id,
+					'set_item_photo': ''
+				},
+				type: 'POST',
+				url: "",
+				success: function(response) {
+					$('#table_div').load(' #myTable', function(){
+						tabledisplay();
+						photo_upload_form_itemname();
+						$('#upload_photo_modal').modal('toggle');
+					});
+				}
+			});
+		},
+		done: function (event, data) {
+			$('.progress').fadeOut(300, function() {
+				$('.bar').css('width', 0);
+			})
+		}
 	});
+
 	
 	$('#add_menu_form').submit(function() {
 		var title = $(this).find('#tab_title').val()
