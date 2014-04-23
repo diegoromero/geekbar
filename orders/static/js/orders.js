@@ -1,6 +1,5 @@
-$(document).on('pageload', function() {
+$(document).on('pageshow', function() {
 	$('.carousel').slick({
 		arrows: false
-
 	});
 });
