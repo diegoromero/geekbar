@@ -48,12 +48,14 @@ def render_tree_menu(request, menu={}, path=''):
     template_items = []
     if type(result) == list:
         # there's no more subsections; we pull items from the DB to display them.
+        items_list = True
         template_items = dao.get_items(result)
         for item in template_items:
             item['type'] = 'item'
         # insert a divider so it's clear for the user.
-        template_items.insert(0, {'type':'divider', 'name':sections[-1]})
+        #template_items.insert(0, {'type':'divider', 'name':sections[-1]})
     elif type(result) == dict:
+        items_list = False
         for divider in result:
             template_items.append({'type':'divider', 'name':divider})
             section = result[divider]
@@ -72,4 +74,5 @@ def render_tree_menu(request, menu={}, path=''):
                                            'path':'/'.join((path, divider, item))})
     logger.info('items: %s', template_items)
     return render(request, 'index.html', {'items':template_items, 'menu_id': menu['id'],
-                                          'template':'tree_menu.html', 'path':path})
+                                          'template':'tree_menu_w_photo.html', 'path':path,
+                                          'items_list': items_list})
