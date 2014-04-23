@@ -8,15 +8,13 @@
 		<ul data-role="listview" data-theme="a" data-divider-theme="a">
 			{% if items_list %}
 				<li data-role="list-divider">{{path}}</li>
-				<li>
-					<div class="carousel">
-						{% for item in items %}
-							<div>
-								{% include 'item_carousel.html' %}
-							</div>
-						{% endfor %}
-					</div>	
-				</li>
+				<div class="carousel">
+					{% for item in items %}
+						<div>
+							{% include 'item_carousel.html' %}
+						</div>
+					{% endfor %}
+				</div>	
 			{% else %}
 				{% for item in items %}
 					{% if item.type == 'divider' %}
