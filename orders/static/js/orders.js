@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on('pageload', function() {
 	$('.carousel').slick({
 
 	});
