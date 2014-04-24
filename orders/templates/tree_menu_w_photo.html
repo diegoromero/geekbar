@@ -12,13 +12,25 @@
 				<div class="carousel">
 					{% for item in items %}
 						{% if foorloop.first %}
-							<div style="background: black url('http://geekbar_bucket.s3.amazonaws.com/media/c0/4') no-repeat center center;">
+							{% if item.photo %}
+								<div style="background: url({{ MEDIA_URL }}{{ client }}/{{ item.id }}) no-repeat center center;">
+									{% include 'item_carousel.html' %}
+								</div>
+							{% else %}
+								<div>
+									{% include 'item_carousel.html' %}
+								</div>
+							{% endif %}
+						{% endif %}
+						{% if item.photo %}
+							<div class="rm_h" style="display: none; background: url({{ MEDIA_URL }}{{ client }}/{{ item.id }}) no-repeat center center;">
+								{% include 'item_carousel.html' %}
+							</div>
+						{% else %}
+							<div class="rm_h">
 								{% include 'item_carousel.html' %}
 							</div>
 						{% endif %}
-						<div class="rm_h" style="display: none; background: black url('http://geekbar_bucket.s3.amazonaws.com/media/c0/4') no-repeat center center;">
-							{% include 'item_carousel.html' %}
-						</div>
 					{% endfor %}
 				</div>	
 			{% else %}
