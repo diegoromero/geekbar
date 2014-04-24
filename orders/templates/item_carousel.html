@@ -1,4 +1,5 @@
-<h3>{{item.name}}</h3>
+<h3 style="display: inline-block;">{{item.name}}</h3>
+<p style="display: inline-block; float:right;">{{ forloop.counter }}/{{ items|length }}</p>
 <p>{{item.description}} - {{item.price}}</p>
 <label for="quantity">Order Quantity:</label>
 <form action="{% url 'order' item.id item.client_id %}" method="POST">
