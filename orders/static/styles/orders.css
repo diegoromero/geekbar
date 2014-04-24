@@ -20,7 +20,17 @@ div[data-role="content"] {
 	background-repeat: no-repeat no-repeat;
 }
 
-.car_slide h3 p  label{
+.car_slide h3{
+	color: white;
+	text-shadow: 0 0 5px #000;
+}
+
+.car_slide p{
+	color: white;
+	text-shadow: 0 0 5px #000;
+}
+
+.car_slide label{
 	color: white;
 	text-shadow: 0 0 5px #000;
 }
