@@ -1,5 +1,5 @@
 <div data-role="page">
-	<div data-role="header" data-theme="f" data-position="fixed" data-tap-toggle="false">
+	<div data-role="header" data-position="fixed" data-tap-toggle="false">
 		{% include 'menubtn.html' %}
 		<h1>Menu {{path}}</h1>
 		{% include 'myordersbtn.html' %}
@@ -9,47 +9,46 @@
 			</div>
 		{% endif %}
 	</div>
-
 		{% if items_list %}
-		<div data-role="content" style="padding: 0;">
-			<div class="carousel">
-				{% for item in items %}
-					{% if foorloop.first %}
+			<div data-role="content" style="padding: 0;">
+				<div class="carousel">
+					{% for item in items %}
+						{% if foorloop.first %}
+							{% if item.photo %}
+								<div class="car_slide" style="background-image: url({{ MEDIA_URL }}{{ client }}/{{ item.id }});">
+									{% include 'item_carousel.html' %}
+								</div>
+							{% else %}
+								<div>
+									{% include 'item_carousel.html' %}
+								</div>
+							{% endif %}
+						{% endif %}
 						{% if item.photo %}
-							<div class="car_slide" style="background-image: url({{ MEDIA_URL }}{{ client }}/{{ item.id }});">
+							<div class="rm_h car_slide" style="background-image: url({{ MEDIA_URL }}{{ client }}/{{ item.id }});">
 								{% include 'item_carousel.html' %}
 							</div>
 						{% else %}
-							<div>
+							<div class="rm_h">
 								{% include 'item_carousel.html' %}
 							</div>
 						{% endif %}
-					{% endif %}
-					{% if item.photo %}
-						<div class="rm_h car_slide" style="background-image: url({{ MEDIA_URL }}{{ client }}/{{ item.id }});">
-							{% include 'item_carousel.html' %}
-						</div>
-					{% else %}
-						<div class="rm_h">
-							{% include 'item_carousel.html' %}
-						</div>
-					{% endif %}
-				{% endfor %}
-			</div>	
-		</div>
+					{% endfor %}
+				</div>	
+			</div>
 		{% else %}
-		<div data-role="content">
-			<ul data-role="listview" data-theme="a" data-divider-theme="a">
-				{% for item in items %}						
-						{% if item.type == 'divider' %}
-							<li data-role="list-divider">{{item.name}}</li>
-						{% elif item.type == 'section' %}
-							<li><a href="{% url 'menu' menu_id item.path %}">{{item.name}}</a></li>
-						{% elif item.type == 'item' %}
-							<li><a href="{% url 'item' item.id %}">{{item.name}} - {{item.price}}</a></li>
-						{% endif %}
-				{% endfor %}
-			</ul>
-		</div>
+			<div data-role="content">
+				<ul data-role="listview">
+					{% for item in items %}						
+							{% if item.type == 'divider' %}
+								<li data-role="list-divider">{{item.name}}</li>
+							{% elif item.type == 'section' %}
+								<li><a href="{% url 'menu' menu_id item.path %}">{{item.name}}</a></li>
+							{% elif item.type == 'item' %}
+								<li><a href="{% url 'item' item.id %}">{{item.name}} - {{item.price}}</a></li>
+							{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
 		{% endif %}
 </div>
