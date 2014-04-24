@@ -20,6 +20,12 @@ div[data-role="content"] {
 	background-repeat: no-repeat no-repeat;
 }
 
+.car_slide h3 p  label{
+	color: white;
+	text-shadow: 0 0 5px #000;
+}
+
 .rm_h {
 	display: none;
 }
+
