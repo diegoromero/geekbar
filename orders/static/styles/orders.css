@@ -39,3 +39,7 @@ div[data-role="content"] {
 	display: none;
 }
 
+.controlgroup-textinput{
+	padding-top: .22em;
+	padding-bottom: .22em;
+}
