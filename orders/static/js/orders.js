@@ -1,6 +1,7 @@
 $(document).on('pageshow', function() {
-	$('.carousel').slick({
+	/*$('.carousel').slick({
 		arrows: false
-	});
+	});*/
+	$('.carousel').owlCarousel();
 	$('.rm_h').show();
 });
