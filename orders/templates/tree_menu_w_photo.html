@@ -11,7 +11,12 @@
 				</ul>
 				<div class="carousel">
 					{% for item in items %}
-						<div>
+						{% if foorloop.first %}
+							<div>
+								{% include 'item_carousel.html' %}
+							</div>
+						{% endif %}
+						<div class="rm_h" style="display: none;">
 							{% include 'item_carousel.html' %}
 						</div>
 					{% endfor %}
