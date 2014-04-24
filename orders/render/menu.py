@@ -29,7 +29,7 @@ def render_two_lvl_menu(request, menu={}, path=''):
         return render(request, 'index.html',
                       {'menu':menu, 'template':'twolvlmenu.html', 'title':'Menu'})
 
-def render_tree_menu(request, menu={}, path=''): 
+def render_tree_menu(request, menu={}, path='', client=''): 
     '''Renders the menu as a browsable tree. <path> indicates with
     section of <menu> to display items from. The resulting view will
     have at least one divider and the items within each divider. This
@@ -75,4 +75,5 @@ def render_tree_menu(request, menu={}, path=''):
     logger.info('items: %s', template_items)
     return render(request, 'index.html', {'items':template_items, 'menu_id': menu['id'],
                                           'template':'tree_menu_w_photo.html', 'path':path,
-                                          'items_list': items_list})
+                                          'items_list': items_list, 'client': client,
+                                          'name':sections[-1]})

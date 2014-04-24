@@ -140,7 +140,7 @@ def menu(request, menu_id, path = ''):
     client_id = request.session['client_id']
     m = dao.get_menu(menu_id)
     logger.info('with menu_id %s found: %s', menu_id, m)
-    return render_menu(request, m, path)
+    return render_menu(request, m, path, client_id)
 
 def back_to_menu(request):
     '''Shortcut view for users to "return" back to the top of the menu
