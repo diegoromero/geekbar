@@ -11,3 +11,15 @@ div[data-role="content"] {
 .delay {
     float: right;
 }
+
+.car_slide {
+	-moz-background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	background-size:100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat no-repeat;
+}
+
+.rm_h {
+	display: none;
+}

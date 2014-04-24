@@ -16,7 +16,7 @@
 				{% for item in items %}
 					{% if foorloop.first %}
 						{% if item.photo %}
-							<div style="background: url({{ MEDIA_URL }}{{ client }}/{{ item.id }}) no-repeat center center;">
+							<div class="car_slide" style="background-image: url({{ MEDIA_URL }}{{ client }}/{{ item.id }});">
 								{% include 'item_carousel.html' %}
 							</div>
 						{% else %}
@@ -26,11 +26,11 @@
 						{% endif %}
 					{% endif %}
 					{% if item.photo %}
-						<div class="rm_h" style="display: none; background: url({{ MEDIA_URL }}{{ client }}/{{ item.id }}) no-repeat center center;">
+						<div class="rm_h car_slide" style="background-image: url({{ MEDIA_URL }}{{ client }}/{{ item.id }});">
 							{% include 'item_carousel.html' %}
 						</div>
 					{% else %}
-						<div class="rm_h" style="display: none;">
+						<div class="rm_h">
 							{% include 'item_carousel.html' %}
 						</div>
 					{% endif %}
