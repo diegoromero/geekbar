@@ -9,45 +9,47 @@
 			</div>
 		{% endif %}
 	</div>
-	<div data-role="content">
-			{% if items_list %}
-				<div class="carousel">
-					{% for item in items %}
-						{% if foorloop.first %}
-							{% if item.photo %}
-								<div style="background: url({{ MEDIA_URL }}{{ client }}/{{ item.id }}) no-repeat center center;">
-									{% include 'item_carousel.html' %}
-								</div>
-							{% else %}
-								<div>
-									{% include 'item_carousel.html' %}
-								</div>
-							{% endif %}
-						{% endif %}
+
+		{% if items_list %}
+		<div data-role="content" style="padding: 0;">
+			<div class="carousel">
+				{% for item in items %}
+					{% if foorloop.first %}
 						{% if item.photo %}
-							<div class="rm_h" style="display: none; background: url({{ MEDIA_URL }}{{ client }}/{{ item.id }}) no-repeat center center;">
+							<div style="background: url({{ MEDIA_URL }}{{ client }}/{{ item.id }}) no-repeat center center;">
 								{% include 'item_carousel.html' %}
 							</div>
 						{% else %}
-							<div class="rm_h" style="display: none;">
+							<div>
 								{% include 'item_carousel.html' %}
 							</div>
 						{% endif %}
-					{% endfor %}
-				</div>	
-			{% else %}
-				<ul data-role="listview" data-theme="a" data-divider-theme="a">
-					{% for item in items %}						
-							{% if item.type == 'divider' %}
-								<li data-role="list-divider">{{item.name}}</li>
-							{% elif item.type == 'section' %}
-								<li><a href="{% url 'menu' menu_id item.path %}">{{item.name}}</a></li>
-							{% elif item.type == 'item' %}
-								<li><a href="{% url 'item' item.id %}">{{item.name}} - {{item.price}}</a></li>
-							{% endif %}
-					{% endfor %}
-				</ul>
-			{% endif %}
-		
-	</div>
+					{% endif %}
+					{% if item.photo %}
+						<div class="rm_h" style="display: none; background: url({{ MEDIA_URL }}{{ client }}/{{ item.id }}) no-repeat center center;">
+							{% include 'item_carousel.html' %}
+						</div>
+					{% else %}
+						<div class="rm_h" style="display: none;">
+							{% include 'item_carousel.html' %}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>	
+		</div>
+		{% else %}
+		<div data-role="content">
+			<ul data-role="listview" data-theme="a" data-divider-theme="a">
+				{% for item in items %}						
+						{% if item.type == 'divider' %}
+							<li data-role="list-divider">{{item.name}}</li>
+						{% elif item.type == 'section' %}
+							<li><a href="{% url 'menu' menu_id item.path %}">{{item.name}}</a></li>
+						{% elif item.type == 'item' %}
+							<li><a href="{% url 'item' item.id %}">{{item.name}} - {{item.price}}</a></li>
+						{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
 </div>
