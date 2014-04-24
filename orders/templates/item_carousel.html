@@ -1,12 +1,13 @@
 <h3 style="display: inline-block;">{{item.name}}</h3>
 <p>{{item.description}} - {{item.price}}</p>
 <label for="quantity">Order Quantity:</label>
+<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+    <button type="button" data-icon="minus" data-iconpos="notext" data-role="button" class="minus">Minus</button>
+	<button type="button" data-role="button" class="quantity">1</button>
+    <button type="button" data-icon="plus" data-iconpos="notext" data-role="button" class="plus">Plus</button>
+</div>
 <form action="{% url 'order' item.id item.client_id %}" method="POST">
 	{% csrf_token %}
-	<div data-role="controlgroup" data-type="horizontal">
-	    <input type="number" name="quantity" id="quantity" value="1" min="1" data-wrapper-class="controlgroup-textinput ui-btn">
-	    <button type="button" data-icon="minus" data-iconpos="notext" id="minus">Minus</button>
-	    <button type="button" data-icon="plus" data-iconpos="notext" id="plus">Plus</button>
-	</div>
+	<input type="hidden" name="quantity" id="quantity" value="1">
 	<input type="submit" value="Order" data-role="button"/>
 </form>
