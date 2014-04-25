@@ -416,7 +416,7 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$('#seats_quantity_form').submit(function() {
+	$('#seats_quantity_form').submit(function(event) {
 		$.ajax({
 			data: $(this).serialize() + "&set_seats_quantity",
 			type: $(this).attr('method'),

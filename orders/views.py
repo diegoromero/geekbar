@@ -289,8 +289,11 @@ def manager_seats(request):
         return redirect('orders.views.home')
     client_id = request.user.username
     if request.method == 'POST':
+        print 'server side request POST'
         if request.is_ajax():
+            print 'server side is ajax'
             if 'set_seats_quantity' in request.POST:
+                print 'server side in form'
                 dao.set_seats_quantity(client_id, request.POST['quantity'])
                 
     seats = dao.get_seats(client_id)
