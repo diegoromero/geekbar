@@ -86,7 +86,7 @@ class MongoOrdersDAO(OrdersDAO):
 
     def set_seats_quantity(self, client_id, quantity):
         mongo_id = get_mongo_id(client_id)
-        seats = ['s' + str(i) for i in xrange(quantity)]
+        seats = ['s' + str(i) for i in xrange(int(quantity))]
         self.db.clients.update({'_id': mongo_id}, {'$set': {'seats': seats}})
 
     def get_client(self, client_id):

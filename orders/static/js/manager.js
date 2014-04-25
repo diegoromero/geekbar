@@ -417,6 +417,7 @@ $(document).ready(function() {
 	});
 	
 	$('#seats_quantity_form').submit(function(event) {
+		event.preventDefault();
 		$.ajax({
 			data: $(this).serialize() + "&set_seats_quantity",
 			type: $(this).attr('method'),
@@ -425,7 +426,6 @@ $(document).ready(function() {
 				$('#seats_div_wrapper').load(' #seats_div');	
 			}
 		});
-		return false;
 	});
 	
 	$('#insert_item_button').click(function() {
