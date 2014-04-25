@@ -418,11 +418,11 @@ $(document).ready(function() {
 	
 	$('#seats_quantity_form').submit(function() {
 		$.ajax({
-			data: $(this).serialize(),
+			data: $(this).serialize() + "&set_seats_quantity",
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-			$('#seats_div_wrapper').load(' #seats_div');	
+				$('#seats_div_wrapper').load(' #seats_div');	
 			}
 		});
 		return false;

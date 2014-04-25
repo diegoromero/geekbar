@@ -291,7 +291,7 @@ def manager_seats(request):
     if request.method == 'POST':
         if request.is_ajax():
             if 'set_seats_quantity' in request.POST:
-                dao.set_seats_quantity(request.POST['quantity'])
+                dao.set_seats_quantity(client_id, request.POST['quantity'])
                 
     seats = dao.get_seats(client_id)
     return render(request, 'desktop_index.html',
