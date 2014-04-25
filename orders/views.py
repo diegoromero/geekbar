@@ -24,7 +24,7 @@ def home(request):
     if request.user.is_authenticated():
         '''If the user is already registered it goes
         to the manager view'''
-        return redirect('orders.views.manager_items')
+        return redirect('orders.views.manager')
     return render(request, 'home_index.html',
                   {'title': 'Welcome',
                    'template': 'home.html'})
@@ -34,7 +34,7 @@ def signin(request):
     if request.user.is_authenticated():
         '''If the user is already registered it goes
         to the manager screen'''
-        return redirect('orders.views.manager_items')
+        return redirect('orders.views.manager')
     if request.method == 'POST':
         username = request.POST['session[username]']
         password = request.POST['session[password]']
@@ -63,7 +63,7 @@ def signup(request):
     if request.user.is_authenticated():
         '''If the user is already registered it goes
         to the manager screen'''
-        return redirect('orders.views.manager_items')
+        return redirect('orders.views.manager')
     if request.method == 'POST':
         username = request.POST['user[name]']
         email = request.POST['user[email]']
@@ -178,6 +178,16 @@ def section(request, menu_id, *path):
 def menu_path(request, menu_id, path):
     '''This view receives a path that is not tokenized.'''
     pass
+
+def manager(request):
+    if not request.user.is_authenticated():
+        '''If the user is not logged in is redirected to the home view'''
+        return redirect('orders.views.home')
+    client_id = request.user.username
+
+    return render(request, 'desktop_index.html',
+                  {'template': 'manager.html',
+                   'client': client_id})
 
 def manager_items(request):
     #TODO: some refactoring,
