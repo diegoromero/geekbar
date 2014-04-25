@@ -283,6 +283,20 @@ def manager_menus(request):
                    'template': 'manager_menus.html',
                    'title': 'Manager'})
 
+def manager_seats(request):
+    if not request.user.is_authenticated():
+        '''If the user is not logged in is redirected to the home view'''
+        return redirect('orders.views.home')
+    client_id = request.user.username
+    if request.method == 'POST':
+        if request.is_ajax():
+            if 'set_seats_quantity' in request.POST:
+                dao.set_seats_quantity(request.POST['quantity'])
+                
+    seats = dao.get_seats(client_id)
+    return render(request, 'desktop_index.html',
+                  {'template': 'manager_seats.html',
+                   'seats': seats})
 
 def place_order(request, item_id, client_id):
     '''Places an order for qty units of item_id from client_id. This

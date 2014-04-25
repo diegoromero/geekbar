@@ -1,0 +1,13 @@
+<form action="" method="post" id="seats_quantity_form">
+	{% csrf_token %}
+	<input type="number" value={{ seats|length }} min=1 name='quantity'>
+	<input type="submit" value="Set" name="set_seats_quantity" class="btn btn-primary">
+</form>
+</br>
+<div id="seats_div_wrapper">
+	<div id="seats_div">
+		{% for seat in seats %}
+			<p>seat</p>
+		{% endfor %}
+	</div>
+</div>

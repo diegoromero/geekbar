@@ -416,6 +416,18 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$('#seats_quantity_form').submit(function() {
+		$.ajax({
+			data: $(this).serialize(),
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+			$('#seats_div_wrapper').load(' #seats_div');	
+			}
+		});
+		return false;
+	});
+	
 	$('#insert_item_button').click(function() {
 		$('.ui-selected').each(function(){
 			$('.jstree[aria-expanded="true"]').jstree(

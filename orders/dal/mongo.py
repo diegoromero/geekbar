@@ -79,6 +79,16 @@ class MongoOrdersDAO(OrdersDAO):
         logger.info('got %d items %s', len(res), res)
         return res
 
+    def get_seats(self, client_id):
+        '''Gets the list of seats of the client'''
+        mongo_id = get_mongo_id(client_id)
+        return self.db.clients.find_one({'_id': mongo_id})['seats']
+
+    def set_seats_quantity(self, client_id, quantity):
+        mongo_id = get_mongo_id(client_id)
+        seats = ['s' + str(i) for i in xrange(quantity)]
+        self.db.clients.update({'_id': mongo_id}, {'$set': {'seats': seats}})
+
     def get_client(self, client_id):
         '''Simply return the client that matches the specified id'''
         # TODO: should log an error if client id doens't exist.
