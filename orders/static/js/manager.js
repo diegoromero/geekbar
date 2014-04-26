@@ -14,6 +14,16 @@ function objetify_form(array) {
 	return obj;
 };
 
+function draw_qrcode(){
+	$('.qrcode').each(function() {
+		var root = location.origin;
+		var client = $(this).attr('client');
+		var seat = $(this).attr('seat');
+		var text = root + '/client/' + client + '/seat/' seat;
+		$(this).qrcode(text);
+	});
+};
+
 function tabsfunc() {
 	//This function sets the tabs with jQuery UI
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
@@ -423,7 +433,7 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				$('#seats_div_wrapper').load(' #seats_div');	
+				$('#seats_div_wrapper').load(' #seats_div', function(){draw_qrcode();});
 			}
 		});
 	});
@@ -459,5 +469,6 @@ $(document).ready(function() {
 	tabsfunc();
 	treemaker();
 	item_insert_table();
+	draw_qrcode();
 	
 });
