@@ -19,7 +19,7 @@ function draw_qrcode(){
 		var root = location.origin;
 		var client = $(this).attr('client');
 		var seat = $(this).attr('seat');
-		var text = root + '/client/' + client + '/seat/' seat;
+		var text = root + '/client/' + client + '/seat/' + seat;
 		$(this).qrcode(text);
 	});
 };
@@ -216,6 +216,7 @@ function photo_upload_form_itemname() {
 
 $(document).ready(function() {
 
+	draw_qrcode();
     tabledisplay();
 	
 	$('.delete_button').submit(function() {
@@ -469,6 +470,6 @@ $(document).ready(function() {
 	tabsfunc();
 	treemaker();
 	item_insert_table();
-	draw_qrcode();
+	
 	
 });
