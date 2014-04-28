@@ -47,13 +47,9 @@ class MongoOrdersDAO(OrdersDAO):
         menus_list = self.get_client_menus_list(client_id)
         menus = []
         for menu in menus_list:
-            if len(menu) > 10:
-                #Mongo id
-                menus.append(self.db.menus.find_one({'_id': ObjectId(menu)}))
-            else:
-                #Bootstrapped id
-                menus.append(self.db.menus.find_one({'_id': menu}))
-            menus[-1]['id'] = str(menus[-1]['_id'])
+            mongoid = get_mongo_id(menu)
+            menus.append(self.db.menus.find_one({'_id': mongoid}))
+            menus[-1]['id'] = str(mongoid)
         return menus
     
     def get_item(self, item_id):

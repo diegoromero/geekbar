@@ -14,18 +14,18 @@
 		</ul>
 		{% for room, content in seats.items %}
 			<div id="tabs-{{ forloop.counter }}">
-				<h4>Active menu: {{ content.menu }}</h4>
 				<form>
 					Menu:
 					<select>
 						{% for menu in menus %}
-							{% ifequal menu content.menu %}
-									<option value="{{ menu }}" selected>{{ menu }}</option>
+							{% ifequal menu.id content.menu %}
+									<option value="{{ menu.id }}" selected>{{ menu.title }}</option>
 							{% else %}
-									<option value="{{ menu }}">{{ menu }}</option>
+									<option value="{{ menu.id }}">{{ menu.title }}</option>
 							{% endifequal %}
 					{% endfor %}
-					</select>	
+					</select>
+					<input type="submit" value="Set" name="set_room_menu" class="btn btn-primary">
 				</form>
 				<ul>
 					{% for seat in content.seats %}
