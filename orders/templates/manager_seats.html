@@ -62,7 +62,10 @@
 				<form>
 				<ul>
 					{% for seat in content.seats %}
-						<li>{{ seat }}</li>
+						<li>
+							Seat: {{ seat }}
+							<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
+						</li>
 					{% endfor %}
 				</ul>
 				<form>
