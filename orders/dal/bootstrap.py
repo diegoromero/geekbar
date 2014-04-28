@@ -1,9 +1,17 @@
 clients = [
     {'_id':'c0',
-     'menu':'m0',
+     'name':'Foo',
      'menus': ['m0', 'm1'], 
-     'seats':['s0', 's1','s2','s3'],
-     'name':'Foo'
+     'seats': {
+        'main room': {
+            'menu': 'm0',
+            'seats': ['s0', 's1']
+             },
+        'patio': {
+            'menu': 'm1',
+            'seats': ['s2', 's3']
+            }
+        }
     }
 ]
 

@@ -114,21 +114,18 @@ def init_session(request, client_id, seat_id):
     user so it can be redirected to the right menu in the future. This
     takes the user to the top-level section of the client's active
     menu.'''
-    try:
-        lmenu = dao.get_active_menu_id(client_id)
-    except ValueError as e:
-        logger.error('invalid client id '+client_id, e)
-        raise Http404
     # validate seat
     if not dao.is_valid_seat(client_id, seat_id):
         # TODO: in this case we should let the user browse the menu
         # but not place orders. For now we just error.
         raise Http404
-    # TODO: enforce only one session per seat until all orders in it are paid
+    lmenu = dao.get_menu_of_seat(client_id, seat_id)
     if 'seat_id' not in request.session:
         request.session['seat_id'] = seat_id
     if 'client_id' not in request.session:
         request.session['client_id'] = client_id
+    if 'menu_id' not in request.session:
+        request.session['menu_id'] = lmenu
 
     return menu(request, lmenu)
 
@@ -183,11 +180,12 @@ def manager(request):
     if not request.user.is_authenticated():
         '''If the user is not logged in is redirected to the home view'''
         return redirect('orders.views.home')
-    client_id = request.user.username
+    client_name = dao.get_client_name(request.user.username)
 
     return render(request, 'desktop_index.html',
                   {'template': 'manager.html',
-                   'client': client_id})
+                   'title': 'Manager',
+                   'client': client_name})
 
 def manager_items(request):
     #TODO: some refactoring,

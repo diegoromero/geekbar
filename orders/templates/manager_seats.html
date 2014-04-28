@@ -4,10 +4,13 @@
 	<input type="submit" value="Set" name="set_seats_quantity" class="btn btn-primary">
 </form>
 </br>
+<!--
 <div id="seats_div_wrapper">
 	<div id="seats_div">
 		{% for seat in seats %}
 			<p>Seat {{ forloop.counter }}:</p><div class="qrcode" client={{ client }} seat={{ seat }}></div>
 		{% endfor %}
 	</div>
-</div>
+</div>-->
+
+{{ seats }}

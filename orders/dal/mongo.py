@@ -100,6 +100,11 @@ class MongoOrdersDAO(OrdersDAO):
         cid = self.db.orders.find_one(ObjectId(order_id))['client_id']
         return cid
 
+    def get_client_name(self, client_id):
+        '''Get the client name'''
+        mongo_id = get_mongo_id(client_id)
+        return self.db.clients.find_one({'_id': mongo_id})['name']
+
     def get_active_menu_id(self, client_id):
         '''gets the id of the active menu of the client'''
         mongoid = get_mongo_id(client_id)
@@ -114,6 +119,15 @@ class MongoOrdersDAO(OrdersDAO):
         menu['id'] = str(menu['_id'])
         logger.info('menu:%s',menu)
         return menu
+
+    def get_menu_of_seat(self, client_id, seat_id):
+        '''Gets the menu of the room the seat is in'''
+        mongoid = get_mongo_id(client_id)
+        seats = self.get_client(mongoid)['seats']
+        for room in seats:
+            valid = seat_id in seats[room]['seats']
+            if valid:
+                return seats[room]['menu']
 
     def get_client_name(self, client_id):
         return self.db.clients.find_one(client_id)['name']
@@ -287,7 +301,11 @@ class MongoOrdersDAO(OrdersDAO):
         except Exception as e:
             logger.exception('Error validating seat',e)
             return False
-        return seat_id in seats
+        for room in seats:
+            valid = seat_id in seats[room]['seats']
+            if valid:
+                return valid
+        return False
 
     def update_menu_structure(self, menu_id, structure):
         'Updates de structure of the menu'
