@@ -14,7 +14,8 @@
 					<div class="ajaxwrapper">
 						{% csrf_token %}
 						Room name:
-						<input type="text" name="room_name">
+						<input type="text" name="room_name" required>
+						</br>
 						Menu:
 						<select>
 							{% for menu in menus %}
@@ -39,6 +40,7 @@
 		{% for room, content in seats.items %}
 			<div id="tabs-{{ forloop.counter }}">
 				<form>
+					{% csrf_token %}
 					Menu:
 					<select>
 						{% for menu in menus %}
@@ -51,11 +53,23 @@
 					</select>
 					<input type="submit" value="Set" name="set_room_menu" class="btn btn-primary">
 				</form>
+				<form>
+					{% csrf_token %}
+					<input type="hidden" value="{{ room }}" name="room">
+					New seat:
+					<input type="text" name="new_seat_name">
+					<input type="submit" value="Create" name="create_seat" class="btn btn-primary">
+				<form>
 				<ul>
 					{% for seat in content.seats %}
 						<li>{{ seat }}</li>
 					{% endfor %}
 				</ul>
+				<form>
+					{% csrf_token %}
+					<input type="hidden" value="{{ room }}" name="room">
+					<input type="submit" value="Delete Room" name="delete_room" class="btn btn-primary">
+				</form>
 			</div>
 		{% endfor %}
 	</div>
