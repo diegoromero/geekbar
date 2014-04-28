@@ -27,10 +27,12 @@
 		</ul>
 		{% for room, content in seats.items %}
 			<div id="tabs-{{ forloop.counter }}">
-				<h4>{{ content.menu }}</h4>
-				{% for seat in content.seats %}
-					<p>{{ seat }}</p>
-				{% endfor %}
+				<h4>Active menu: {{ content.menu }}</h4>
+				<ul>
+					{% for seat in content.seats %}
+						<li>{{ seat }}</li>
+					{% endfor %}
+				</ul>
 			</div>
 		{% endfor %}
 	</div>
