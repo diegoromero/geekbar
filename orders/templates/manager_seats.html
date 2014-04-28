@@ -14,3 +14,20 @@
 </div>-->
 
 {{ seats }}
+<div id="rooms_container">
+	<div id="rooms">
+		<ul>
+			{% for room, content in seats %}
+				<li><a href="#tabs-{{ forloop.counter }}">{{ room }}</a></li>
+			{% endfor %}
+		</ul>
+		{% for room, content in seats %}
+			<div id="tabs-{{ forloop.counter }}">
+				<h4>{{ content.menu }}</h4>
+				{% for seat in content.seats %}
+					<p>{{ seat }}</p>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+</div>

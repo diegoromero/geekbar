@@ -43,7 +43,7 @@ def signin(request):
             manager view'''
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('orders.views.manager_items')
+            return redirect('orders.views.manager')
         except AttributeError:
             '''If it cant log in it gives a error message'''
             error = True
