@@ -65,12 +65,13 @@
 							<h3>{{ seat }}</h3>
 							<div>
 								<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
-							<form>
-								{% csrf_token %}
-								<input type="hidden" value="{{ room }}" name="room">
-								<input type="hidden" value="{{ seat }}" name="seat">
-								<input type="submit" value="Delete" name="delete_seat" class="btn btn-primary">
-							</form>
+								</br>
+								<form>
+									{% csrf_token %}
+									<input type="hidden" value="{{ room }}" name="room">
+									<input type="hidden" value="{{ seat }}" name="seat">
+									<input type="submit" value="Delete" name="delete_seat" class="btn btn-primary">
+								</form>
 							</div>
 					{% endfor %}
 				</div>
