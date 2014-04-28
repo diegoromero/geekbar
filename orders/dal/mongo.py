@@ -39,7 +39,7 @@ class MongoOrdersDAO(OrdersDAO):
 
     def get_client_menus_list(self, client_id):
         '''Gets the list of menus from the client'''
-        mongoid = get_mongo_id(menu_id)
+        mongoid = get_mongo_id(client_id)
         return self.db.clients.find_one({'_id': mongoid})['menus']
 
     def get_client_menus(self, client_id):
