@@ -5,11 +5,6 @@
 </form>
 </br>
 
-<p>{{ seats }}</p>
-{% for room, content in seats.items %}
-	<p>room: {{ room }}</p>
-	<p>content: {{ content }}</p>
-{% endfor %}
 <div id="rooms_container">
 	<div id="rooms">
 		<ul>
@@ -22,17 +17,15 @@
 				<h4>Active menu: {{ content.menu }}</h4>
 				<form>
 					Menu:
-					{% for menu in menus %}
-						{% ifequal menu content.menu %}
-							<select>
-								<option value="{{ menu }}" selected>{{ menu }}</option>
-							</select>
-						{% else %}
-							<select>
-								<option value="{{ menu }}">{{ menu }}</option>
-							</select>						
-						{% endifequal %}
+					<select>
+						{% for menu in menus %}
+							{% ifequal menu content.menu %}
+									<option value="{{ menu }}" selected>{{ menu }}</option>
+							{% else %}
+									<option value="{{ menu }}">{{ menu }}</option>
+							{% endifequal %}
 					{% endfor %}
+					</select>	
 				</form>
 				<ul>
 					{% for seat in content.seats %}
