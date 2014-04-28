@@ -1,9 +1,33 @@
-<form action="" method="post" id="seats_quantity_form">
-	{% csrf_token %}
-	Number of seats:<input type="number" value={{ seats|length }} min=1 name='quantity'>
-	<input type="submit" value="Set" name="set_seats_quantity" class="btn btn-primary">
-</form>
-</br>
+<!-- Buttons trigger modals -->
+<a data-toggle="modal" href="#create_room_modal" class="hidden" id="create_room_modal_button">Create Room</a>
+
+<!-- Create Room Modal -->
+<div class="modal fade" id="create_room_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Create Room</h4>
+			</div>
+			<div class="modal-body">
+				<form action="" method="post" id="create_room_form">
+					<div class="ajaxwrapper">
+						{% csrf_token %}
+						Room name:
+						<input type="text" name="room_name">
+						Menu:
+						<select>
+							{% for menu in menus %}
+								<option value="{{ menu.id }}">{{ menu.title }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<input type="submit" value="Create" name="create_room" class="btn btn-primary">
+				</form>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div id="rooms_container">
 	<div id="rooms">
