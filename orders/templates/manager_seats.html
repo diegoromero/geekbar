@@ -4,14 +4,6 @@
 	<input type="submit" value="Set" name="set_seats_quantity" class="btn btn-primary">
 </form>
 </br>
-<!--
-<div id="seats_div_wrapper">
-	<div id="seats_div">
-		{% for seat in seats %}
-			<p>Seat {{ forloop.counter }}:</p><div class="qrcode" client={{ client }} seat={{ seat }}></div>
-		{% endfor %}
-	</div>
-</div>-->
 
 <p>{{ seats }}</p>
 {% for room, content in seats.items %}
@@ -28,6 +20,20 @@
 		{% for room, content in seats.items %}
 			<div id="tabs-{{ forloop.counter }}">
 				<h4>Active menu: {{ content.menu }}</h4>
+				<form>
+					Menu:
+					{% for menu in menus %}
+						{% ifequal menu content.menu %}
+							<select>
+								<option value="{{ menu }}" selected>{{ menu }}</option>
+							</select>
+						{% else %}
+							<select>
+								<option value="{{ menu }}">{{ menu }}</option>
+							</select>						
+						{% endifequal %}
+					{% endfor %}
+				</form>
 				<ul>
 					{% for seat in content.seats %}
 						<li>{{ seat }}</li>

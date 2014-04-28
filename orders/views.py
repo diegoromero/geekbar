@@ -292,9 +292,11 @@ def manager_seats(request):
                 dao.set_seats_quantity(client_id, request.POST['quantity'])
                 
     seats = dao.get_seats(client_id)
+    menus_list = dao.get_client_menus_list(client_id)
     return render(request, 'desktop_index.html',
                   {'template': 'manager_seats.html',
-                   'seats': seats, 'client': client_id})
+                   'seats': seats, 'client': client_id,
+                   'menus': menus_list})
 
 def place_order(request, item_id, client_id):
     '''Places an order for qty units of item_id from client_id. This

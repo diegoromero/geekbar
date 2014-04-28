@@ -39,7 +39,8 @@ class MongoOrdersDAO(OrdersDAO):
 
     def get_client_menus_list(self, client_id):
         '''Gets the list of menus from the client'''
-        return self.db.clients.find_one({'_id': client_id})['menus']
+        mongoid = get_mongo_id(menu_id)
+        return self.db.clients.find_one({'_id': mongoid})['menus']
 
     def get_client_menus(self, client_id):
         '''Gets all the content of all the menus of the client'''

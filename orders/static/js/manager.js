@@ -29,6 +29,12 @@ function tabsfunc() {
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
   };
+  
+function seats_tabs() {
+	//This function sets the tabs of the seats by rooms with jQuery UI
+	$( "#rooms" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+    $( "#rooms li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+};
 
 function customMenu(node) {
 	//This is the context menu of the jstree
@@ -218,6 +224,7 @@ $(document).ready(function() {
 
 	draw_qrcode();
     tabledisplay();
+	seats_tabs();
 	
 	$('.delete_button').submit(function() {
 		$.ajax({
