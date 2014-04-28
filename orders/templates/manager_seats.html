@@ -16,6 +16,9 @@
 <p>{{ seats }}</p>
 {% for room in seats %}
 	<p>room: {{ room }}</p>
+	{% for c in room %}
+		<p>c: {{ c }}</p>
+	{% endfor %}
 {% endfor %}
 <div id="rooms_container">
 	<div id="rooms">
