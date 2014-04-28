@@ -21,11 +21,11 @@
 <div id="rooms_container">
 	<div id="rooms">
 		<ul>
-			{% for room, content in seats %}
+			{% for room in seats %}
 				<li><a href="#tabs-{{ forloop.counter }}">{{ room }}</a></li>
 			{% endfor %}
 		</ul>
-		{% for room, content in seats %}
+		{% for room, content in seats.items %}
 			<div id="tabs-{{ forloop.counter }}">
 				<h4>{{ content.menu }}</h4>
 				{% for seat in content.seats %}
