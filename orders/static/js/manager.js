@@ -36,6 +36,10 @@ function seats_tabs() {
     $( "#rooms li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 };
 
+function seats_accordion() {
+	$( ".seats_accordion" ).accordion();
+};
+
 function customMenu(node) {
 	//This is the context menu of the jstree
 
@@ -222,6 +226,7 @@ function photo_upload_form_itemname() {
 
 $(document).ready(function() {
 
+	seats_accordion();
 	draw_qrcode();
     tabledisplay();
 	seats_tabs();

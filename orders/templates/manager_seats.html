@@ -60,14 +60,12 @@
 					<input type="text" name="new_seat_name">
 					<input type="submit" value="Create" name="create_seat" class="btn btn-primary">
 				<form>
-				<ul>
+				<div class="seats_accordion">
 					{% for seat in content.seats %}
-						<li>
-							Seat: {{ seat }}
+							<h3>{{ seat }}</h3>
 							<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
-						</li>
 					{% endfor %}
-				</ul>
+				</div>
 				<form>
 					{% csrf_token %}
 					<input type="hidden" value="{{ room }}" name="room">
