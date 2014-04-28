@@ -226,8 +226,9 @@ function photo_upload_form_itemname() {
 
 $(document).ready(function() {
 
-	seats_accordion();
+	
 	draw_qrcode();
+	seats_accordion();
     tabledisplay();
 	seats_tabs();
 	

@@ -63,7 +63,15 @@
 				<div class="seats_accordion">
 					{% for seat in content.seats %}
 							<h3>{{ seat }}</h3>
-							<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
+							<div>
+								<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
+							<form>
+								{% csrf_token %}
+								<input type="hidden" value="{{ room }}" name="room">
+								<input type="hidden" value="{{ seat }}" name="seat">
+								<input type="submit" value="Delete" name="delete_seat" class="btn btn-primary">
+							</form>
+							</div>
 					{% endfor %}
 				</div>
 				<form>
