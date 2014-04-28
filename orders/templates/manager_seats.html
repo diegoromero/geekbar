@@ -14,9 +14,8 @@
 </div>-->
 
 <p>{{ seats }}</p>
-{% for room, content in seats %}
+{% for room in seats %}
 	<p>room: {{ room }}</p>
-	<p>content: {{ content }}</p>
 {% endfor %}
 <div id="rooms_container">
 	<div id="rooms">
