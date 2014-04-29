@@ -355,7 +355,7 @@ class MongoOrdersDAO(OrdersDAO):
         seats[room_name]['menu'] = menuid
         self.db.clients.update({'_id': clientid}, {'$set': {'seats': seats}})
 
-    def add_seat(self, client_id, room_name, seat_name)
+    def add_seat(self, client_id, room_name, seat_name):
         'Adds a new seat to a room'
         clientid = get_mongo_id(client_id)
         seats = self.db.clients.find_one({'_id': clientid})['seats']
