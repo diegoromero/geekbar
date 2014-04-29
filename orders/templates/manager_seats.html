@@ -63,19 +63,17 @@
 				</form>
 				<div class="seats_accordion">
 					{% for seat in content.seats %}
-							<div class="accourdion_tab_container">
-								<h3>{{ seat }}</h3>
-								<div>
-									<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
-									</br>
-									<form action="" method="post" class="delete_seat_form">
-										{% csrf_token %}
-										<input type="hidden" value="{{ room }}" name="room">
-										<input type="hidden" value="{{ seat }}" name="seat">
-										<input type="submit" value="Delete" name="delete_seat" class="btn btn-primary">
-									</form>
-								</div>
-							</div>
+						<h3>{{ seat }}</h3>
+						<div>
+							<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
+							</br>
+							<form action="" method="post" class="delete_seat_form">
+								{% csrf_token %}
+								<input type="hidden" value="{{ room }}" name="room">
+								<input type="hidden" value="{{ seat }}" name="seat">
+								<input type="submit" value="Delete" name="delete_seat" class="btn btn-primary">
+							</form>
+						</div>
 					{% endfor %}
 				</div>
 				<form action="" method="post" class="delete_room_form">
