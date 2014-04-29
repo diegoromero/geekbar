@@ -39,10 +39,10 @@
 		</ul>
 		{% for room, content in seats.items %}
 			<div id="tabs-{{ forloop.counter }}">
-				<form action="" method="post" id="set_room_menu_form">
+				<form action="" method="post" class="set_room_menu_form">
 					{% csrf_token %}
 					Menu:
-					<select>
+					<select name="menu">
 						{% for menu in menus %}
 							{% ifequal menu.id content.menu %}
 									<option value="{{ menu.id }}" selected>{{ menu.title }}</option>
@@ -51,6 +51,7 @@
 							{% endifequal %}
 					{% endfor %}
 					</select>
+					<input type="hidden" value="{{ room }}" name="room">
 					<input type="submit" value="Set" name="set_room_menu" class="btn btn-primary">
 				</form>
 				<form action="" method="post" id="create_seat_form">

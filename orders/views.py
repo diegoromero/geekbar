@@ -293,6 +293,11 @@ def manager_seats(request):
                 'Deletes a room'
                 room_name = request.POST['room']
                 dao.del_room(client_id, room_name)
+            elif 'set_room_menu' in request.POST:
+                'Sets the menu of a room'
+                room_name = request.POST['room']
+                menu_id = request.POST['menu']
+                dao.set_room_menu(client_id, menu_id, room_name)
                 
                 
     seats = dao.get_seats(client_id)

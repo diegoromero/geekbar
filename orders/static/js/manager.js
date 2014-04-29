@@ -459,6 +459,7 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
+				//TODO: new rooms created dont have the ajax functions attach to them
 				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	seats_accordion(); seats_tabs(); });	
 			}
 		});
@@ -472,6 +473,18 @@ $(document).ready(function() {
 			url: $(this).attr('action'),
 			success: function(response) {
 				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	seats_accordion(); seats_tabs(); });
+			}
+		});
+	});
+	
+	$('.set_room_menu_form').submit(function(event) {
+		event.preventDefault();
+		$.ajax({
+			data: $(this).serialize() + "&set_room_menu",
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				//new menu set
 			}
 		});
 	});
