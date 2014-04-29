@@ -39,7 +39,7 @@
 		</ul>
 		{% for room, content in seats.items %}
 			<div id="tabs-{{ forloop.counter }}">
-				<form>
+				<form action="" method="post" id="set_room_menu_form">
 					{% csrf_token %}
 					Menu:
 					<select>
@@ -53,7 +53,7 @@
 					</select>
 					<input type="submit" value="Set" name="set_room_menu" class="btn btn-primary">
 				</form>
-				<form>
+				<form action="" method="post" id="create_seat_form">
 					{% csrf_token %}
 					<input type="hidden" value="{{ room }}" name="room">
 					New seat:
@@ -66,7 +66,7 @@
 							<div>
 								<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
 								</br>
-								<form>
+								<form action="" method="post" id="delete_seat_form">
 									{% csrf_token %}
 									<input type="hidden" value="{{ room }}" name="room">
 									<input type="hidden" value="{{ seat }}" name="seat">
@@ -75,7 +75,7 @@
 							</div>
 					{% endfor %}
 				</div>
-				<form>
+				<form action="" method="post" id="delete_room_form">
 					{% csrf_token %}
 					<input type="hidden" value="{{ room }}" name="room">
 					<input type="submit" value="Delete Room" name="delete_room" class="btn btn-primary">

@@ -285,10 +285,14 @@ def manager_seats(request):
     if request.method == 'POST':
         if request.is_ajax():
             if 'create_room' in request.POST:
-                #create room
+                'Creates a new room'
                 menu_id = request.POST['menu']
                 room_name = request.POST['room_name']
                 dao.add_room(client_id, menu_id, room_name)
+            elif 'delete_room' in request.POST:
+                'Deletes a room'
+                room_name = request.POST['room']
+                dao.del_room(client_id, room_name)
                 
                 
     seats = dao.get_seats(client_id)

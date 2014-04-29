@@ -459,8 +459,19 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				console.log('room created');
-				console.log($(this).serialize());
+				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	seats_accordion(); seats_tabs(); });	
+			}
+		});
+	});
+	
+	$('#delete_room_form').submit(function(event) {
+		event.preventDefault();
+		$.ajax({
+			data: $(this).serialize() + "&delete_room",
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	seats_accordion(); seats_tabs(); });
 			}
 		});
 	});

@@ -333,12 +333,19 @@ class MongoOrdersDAO(OrdersDAO):
         self.db.items.update({'_id': i_id}, {'$set': {'photo': True}})
 
     def add_room(self, client_id, menu_id, room_name):
+        'Add a new room to the client'
         clientid = get_mongo_id(client_id)
         menuid = get_mongo_id(menu_id)
         seats = self.db.clients.find_one({'_id': clientid})['seats']
         seats[room_name] = {'menu': menuid, 'seats': []}
         self.db.clients.update({'_id': clientid}, {'$set': {'seats': seats}})
-        
+
+    def del_room(self, client_id, room_name):
+        'Removes a room from the client'
+        clientid = get_mongo_id(client_id)
+        seats = self.db.clients.find_one({'_id': clientid})['seats']
+        del seats[room_name]
+        self.db.clients.update({'_id': clientid}, {'$set': {'seats': seats}})
 
 # Helper methods. The functions below are not part of the 'interface'
 # and need not be implemented by other OrdersDAO
