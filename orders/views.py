@@ -298,6 +298,11 @@ def manager_seats(request):
                 room_name = request.POST['room']
                 menu_id = request.POST['menu']
                 dao.set_room_menu(client_id, menu_id, room_name)
+            elif 'create_seat' in request.POST:
+                'Creates a new seat inside the room'
+                room_name = request.POST['room']
+                seat_name = request.POST['seat']
+                dao.add_seat(client_id, room_name, seat_name)
                 
                 
     seats = dao.get_seats(client_id)

@@ -54,11 +54,11 @@
 					<input type="hidden" value="{{ room }}" name="room">
 					<input type="submit" value="Set" name="set_room_menu" class="btn btn-primary">
 				</form>
-				<form action="" method="post" id="create_seat_form">
+				<form action="" method="post" class="create_seat_form">
 					{% csrf_token %}
 					<input type="hidden" value="{{ room }}" name="room">
 					New seat:
-					<input type="text" name="new_seat_name">
+					<input type="text" name="seat">
 					<input type="submit" value="Create" name="create_seat" class="btn btn-primary">
 				</form>
 				<div class="seats_accordion">
