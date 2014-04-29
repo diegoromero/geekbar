@@ -464,7 +464,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('#delete_room_form').submit(function(event) {
+	$('.delete_room_form').submit(function(event) {
 		event.preventDefault();
 		$.ajax({
 			data: $(this).serialize() + "&delete_room",

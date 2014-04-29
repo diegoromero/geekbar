@@ -75,7 +75,7 @@
 							</div>
 					{% endfor %}
 				</div>
-				<form action="" method="post" id="delete_room_form">
+				<form action="" method="post" class="delete_room_form">
 					{% csrf_token %}
 					<input type="hidden" value="{{ room }}" name="room">
 					<input type="submit" value="Delete Room" name="delete_room" class="btn btn-primary">
