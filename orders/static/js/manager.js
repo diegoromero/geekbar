@@ -501,6 +501,18 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('.delete_seat_form').submit(function(event) {
+		event.preventDefault();
+		$.ajax({
+			data: $(this).serialize() + "&delete_seat",
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				//make the seat disappear in the accordion
+			}
+		});
+	});
+	
 	$('#insert_item_button').click(function() {
 		$('.ui-selected').each(function(){
 			$('.jstree[aria-expanded="true"]').jstree(

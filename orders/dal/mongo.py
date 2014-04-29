@@ -362,7 +362,12 @@ class MongoOrdersDAO(OrdersDAO):
         seats[room_name]['seats'].append(seat_name)
         self.db.clients.update({'_id': clientid}, {'$set': {'seats': seats}})
 
-
+    def del_seat(self, client_id, room_name, seat_name):
+        'Deletes a seat from a room'
+        clientid = get_mongo_id(client_id)
+        seats = self.db.clients.find_one({'_id': clientid})['seats']
+        seats[room_name]['seats'].remove(seat_name)
+        self.db.clients.update({'_id': clientid}, {'$set': {'seats': seats}})
         
 # Helper methods. The functions below are not part of the 'interface'
 # and need not be implemented by other OrdersDAO

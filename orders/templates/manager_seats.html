@@ -67,7 +67,7 @@
 							<div>
 								<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
 								</br>
-								<form action="" method="post" id="delete_seat_form">
+								<form action="" method="post" class="delete_seat_form">
 									{% csrf_token %}
 									<input type="hidden" value="{{ room }}" name="room">
 									<input type="hidden" value="{{ seat }}" name="seat">

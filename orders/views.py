@@ -303,6 +303,11 @@ def manager_seats(request):
                 room_name = request.POST['room']
                 seat_name = request.POST['seat']
                 dao.add_seat(client_id, room_name, seat_name)
+            elif 'delete_seat' in request.POST:
+                'Deletes a seat from a room'
+                room_name = request.POST['room']
+                seat_name = request.POST['seat']
+                dao.del_seat(client_id, room_name, seat_name)
                 
                 
     seats = dao.get_seats(client_id)
