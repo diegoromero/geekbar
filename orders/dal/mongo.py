@@ -306,12 +306,8 @@ class MongoOrdersDAO(OrdersDAO):
 
     def update_menu_structure(self, menu_id, structure):
         'Updates de structure of the menu'
-        if len(menu_id) >10:
-            #Mongo id
-            self.db.menus.update({'_id': ObjectId(menu_id)}, {'$set': {'structure': structure}})
-        else:
-            #Bootstrapped id
-            self.db.menus.update({'_id': menu_id}, {'$set': {'structure': structure}})
+        mongoid = get_mongo_id(menu_id)
+        self.db.menus.update({'_id': mongoid}, {'$set': {'structure': structure}})
 
     def update_menu_title(self, menu_id, title):
         'Updates de title of the menu'
@@ -335,6 +331,14 @@ class MongoOrdersDAO(OrdersDAO):
     def set_item_photo(self, item_id):
         i_id = get_mongo_id(item_id)
         self.db.items.update({'_id': i_id}, {'$set': {'photo': True}})
+
+    def add_room(self, client_id, menu_id, room_name):
+        clientid = get_mongo_id(client_id)
+        menuid = get_mongo_id(menu_id)
+        seats = self.db.clients.find_one({'_id': clientid})['seats']
+        seats[room_name] = {'menu': menuid, 'seats': []}
+        self.db.clients.update({'_id': clientid}, {'$set': {'seats': seats}})
+        
 
 # Helper methods. The functions below are not part of the 'interface'
 # and need not be implemented by other OrdersDAO

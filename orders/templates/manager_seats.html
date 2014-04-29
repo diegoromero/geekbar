@@ -17,7 +17,7 @@
 						<input type="text" name="room_name" required>
 						</br>
 						Menu:
-						<select>
+						<select name="menu">
 							{% for menu in menus %}
 								<option value="{{ menu.id }}">{{ menu.title }}</option>
 							{% endfor %}

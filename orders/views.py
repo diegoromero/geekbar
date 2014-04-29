@@ -258,10 +258,6 @@ def manager_menus(request):
                 menu = jstree2mongo(request.POST)
                 dao.update_menu_title(menu['id'], menu['title'])
                 dao.update_menu_structure(menu['id'], menu['structure'])
-            elif 'active_menu' in request.POST:
-                "Sets the selected menu as active"
-                menu_id = jstree2mongo(request.POST)['id']
-                dao.update_active_menu(client_id, menu_id)
             elif 'item_form' in request.POST:
                 item_form = ItemForm(request.POST)
                 if item_form.is_valid():
@@ -288,8 +284,12 @@ def manager_seats(request):
     client_id = request.user.username
     if request.method == 'POST':
         if request.is_ajax():
-            if 'set_seats_quantity' in request.POST:
-                dao.set_seats_quantity(client_id, request.POST['quantity'])
+            if 'create_room' in request.POST:
+                #create room
+                menu_id = request.POST['menu']
+                room_name = request.POST['room_name']
+                dao.add_room(client_id, menu_id, room_name)
+                
                 
     seats = dao.get_seats(client_id)
     menus = dao.get_client_menus(client_id)

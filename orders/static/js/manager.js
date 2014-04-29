@@ -452,6 +452,19 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('#create_room_form').submit(function(event) {
+		event.preventDefault();
+		$.ajax({
+			data: $(this).serialize() + "&create_room",
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				console.log('room created');
+				console.log($(this).serialize());
+			}
+		});
+	});
+	
 	$('#insert_item_button').click(function() {
 		$('.ui-selected').each(function(){
 			$('.jstree[aria-expanded="true"]').jstree(
