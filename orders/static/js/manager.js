@@ -496,19 +496,21 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				//make the new seat appear in the accordion
+				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	seats_accordion(); seats_tabs(); });
 			}
 		});
 	});
 	
 	$('.delete_seat_form').submit(function(event) {
 		event.preventDefault();
+		var form = $(this);
 		$.ajax({
 			data: $(this).serialize() + "&delete_seat",
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				//make the seat disappear in the accordion
+				form.parent().hide();
+				form.parent().prev().hide();
 			}
 		});
 	});
