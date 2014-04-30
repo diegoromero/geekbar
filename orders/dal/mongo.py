@@ -28,6 +28,14 @@ class MongoOrdersDAO(OrdersDAO):
             self.db.clients.remove()
             self.db.clients.insert(clients)
 
+    def get_bills(self, client_id):
+        mongoid = get_mongo_id(client_id)
+        return self.db.clients.find_one({'_id': mongoid})['bills']
+
+    def new_bill(self, client_id):
+        mongoid = get_mongo_id(client_id)
+        self.db.clients.update({'_id': mongoid}, {'$inc': {'bills': 1}})
+
     def get_menu(self, menu_id):
         '''Gets the menu that matches the specified menu ID'''
         logger.debug('menu_id: %s', menu_id)

@@ -11,7 +11,8 @@ clients = [
             'menu': 'm1',
             'seats': ['s2', 's3']
             }
-        }
+        },
+     'bills': 0
     }
 ]
 

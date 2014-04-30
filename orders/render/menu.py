@@ -76,4 +76,5 @@ def render_tree_menu(request, menu={}, path='', client=''):
     return render(request, 'index.html', {'items':template_items, 'menu_id': menu['id'],
                                           'template':'tree_menu_w_photo.html', 'path':path,
                                           'items_list': items_list, 'client': client,
-                                          'name':path.split('/')[-1]})
+                                          'name':path.split('/')[-1],
+                                          'bill_n': request.session['bill_n']})

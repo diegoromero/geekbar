@@ -126,6 +126,11 @@ def init_session(request, client_id, seat_id):
         request.session['client_id'] = client_id
     if 'menu_id' not in request.session:
         request.session['menu_id'] = lmenu
+    if 'bill_n' not in request.session:
+        dao.new_bill(client_id)
+        bills = dao.get_bills(client_id)
+        bills %= 10000
+        request.session['bill_n'] = bills
 
     return menu(request, lmenu)
 
