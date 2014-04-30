@@ -130,6 +130,7 @@ def init_session(request, client_id, seat_id):
         dao.new_bill(client_id)
         bills = dao.get_bills(client_id)
         bills %= 10000
+        bills = "%04d" % bills
         request.session['bill_n'] = bills
 
     return menu(request, lmenu)
