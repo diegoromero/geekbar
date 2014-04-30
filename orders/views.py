@@ -355,8 +355,9 @@ def customer_orders(request, statii = (dao.ORDER_PLACED, dao.ORDER_PREPARING,
     to get a different set.'''
     seat_id = request.session['seat_id']
     client_id = request.session['client_id']
+    bill_n = request.session['bill_n']
     logger.info({'seat':seat_id, 'client':client_id})
-    orders = dao.list_orders(client_id, query={'seat_id':seat_id, 'status':statii})
+    orders = dao.list_orders(client_id, query={'seat_id':seat_id, 'bill_number':bill_n, 'status':statii})
     return orders
 
 def bill(request):
