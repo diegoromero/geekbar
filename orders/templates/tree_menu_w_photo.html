@@ -52,6 +52,7 @@
 		</div>
 	{% endif %}
 	<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+		{% load custom_tags %}
 		<h4>Bill #: {{ bill_n|four_digits }}</h4>
 	</div>
 </div>
