@@ -394,6 +394,7 @@ def filter_orders(request):
         return HttpResponseBadRequest('Invalid session. Please scan QR code or login again.')
     # process filter and render orders
     if request.GET:
+        print request.GET
         statii = []
         for status in dao.ORDER_STATII:
             if status in request.GET:
@@ -409,7 +410,7 @@ def filter_orders(request):
         st['name'] = status.replace('_','').capitalize()
         statii.append(st)
     seats = dao.get_seats_ids(client_id)
-    menus = dao.get_client_menus_list(client_id)
+    menus = dao.get_client_menus(client_id)
     logger.info({'statii':statii})
     return render(request, 'index.html', {'template':'filter_orders.html', 'client_id':client_id,
                                           'statii':statii, 'seats': seats, 'menus': menus})

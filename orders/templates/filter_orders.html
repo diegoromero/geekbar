@@ -20,7 +20,7 @@
 			<select multiple="multiple" data-native-menu="false" name="menus" id="menus" data-mini="true">
 				<option value="">Menu:</option>
 				{% for menu in menus %}
-					<option value="{{ forloop.counter }}">{{ menu }}</option>
+					<option value="{{ menu.id }}">{{ menu.title }}</option>
 				{% endfor %}
 			</select>
 			
