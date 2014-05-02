@@ -15,6 +15,26 @@
 					<label for="{{status.id}}">{{status.name}}</label>
 				{% endfor %}
 			</fieldset>
+			
+			<label for="menus">Filter by Menu</label>
+			<select multiple="multiple" data-native-menu="false" name="menus" id="menus" data-mini="true">
+				<option value="">Menu:</option>
+				{% for menu in menus %}
+					<option value="{{ menu }}">{{ menu }}<option>
+				{% endfor %}
+			</select>
+			
+			<label for="seats">Filter by Seats</label>
+			<select multiple="multiple" data-native-menu="false" name="seats" id="seats" data-mini="true">
+				<option value="">Seats:</option>
+				{% for seat in seats %}
+					<option value="{{ seat }}">{{ seat }}<option>
+				{% endfor %}
+			</select>
+			
+			<label for="bill_number">Filter by Bill #</label>
+			<input type="number" name="bill_number" id="bill_number" value="">
+			
 			<button type="submit" data-theme="b">Show Orders</button>
 		</form>
 		</div>

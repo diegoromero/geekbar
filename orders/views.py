@@ -408,9 +408,11 @@ def filter_orders(request):
         st['id'] = status
         st['name'] = status.replace('_','').capitalize()
         statii.append(st)
+    seats = dao.get_seats_ids(client_id)
+    menus = dao.get_client_menus_list(client_id)
     logger.info({'statii':statii})
     return render(request, 'index.html', {'template':'filter_orders.html', 'client_id':client_id,
-                                          'statii':statii})
+                                          'statii':statii, 'seats': seats, 'menus': menus})
 
 def order(request, order_id): 
     '''Displays order details and allows a server to update the status

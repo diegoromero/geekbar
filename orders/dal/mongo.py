@@ -85,9 +85,19 @@ class MongoOrdersDAO(OrdersDAO):
         return res
 
     def get_seats(self, client_id):
-        '''Gets the list of seats of the client'''
+        '''Gets the seat property of the client'''
         mongo_id = get_mongo_id(client_id)
         return self.db.clients.find_one({'_id': mongo_id})['seats']
+
+    def get_seats_ids(self, client_id):
+        '''Gets the list of seats of the client'''
+        mongo_id = get_mongo_id(client_id)
+        seats = self.db.clients.find_one({'_id': mongo_id})['seats']
+        seats_ids = []
+        for i, j in seats.items():
+            for k in j['seats']:
+                seats_ids.append(k)
+        return seats_ids
 
     def set_seats_quantity(self, client_id, quantity):
         mongo_id = get_mongo_id(client_id)
