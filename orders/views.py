@@ -408,6 +408,8 @@ def filter_orders(request):
             print request.POST['seats']
             print "THIS IS query['seat_id'] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
             print query['seat_id']
+            print "THIS IS request.POST.getlist('seats') !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+            print request.POST.getlist('seats')
         if 'menus' in request.POST:
             query['menu_id'] = request.POST['menus']
         if request.POST['bill_number'] <> '':
