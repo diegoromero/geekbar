@@ -395,8 +395,6 @@ def filter_orders(request):
     # process filter and render orders
     if request.POST:
         query = {}
-        print 'THIS IS THE REQUEST POST!!!!!!!!!!!!!'
-        print request.POST
         statii = []
         for status in dao.ORDER_STATII:
             if status in request.POST:

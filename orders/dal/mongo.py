@@ -264,8 +264,6 @@ class MongoOrdersDAO(OrdersDAO):
             query['seat_id'] = {'$in':query['seat_id']}
         if 'menu_id' in query and type(query['menu_id']) in (tuple, list):
             query['menu_id'] = {'$in':query['menu_id']}
-        print 'HERE COMES THE QUERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-        print query
         orders = self.db.orders.find(query)
         res = []
         names = {}
