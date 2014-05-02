@@ -404,6 +404,10 @@ def filter_orders(request):
                 query['status'] = statii
         if 'seats' in request.POST:
             query['seat_id'] = request.POST['seats']
+            print 'THIS IS request.POST["seats"] !!!!!!!!!!!!!!!!!!!!!!!!!!!'
+            print request.POST['seats']
+            print "THIS IS query['seat_id'] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+            print query['seat_id']
         if 'menus' in request.POST:
             query['menu_id'] = request.POST['menus']
         if request.POST['bill_number'] <> '':
