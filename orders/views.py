@@ -393,15 +393,22 @@ def filter_orders(request):
         logger.error('Cannot filter orders with no client_id in the session')
         return HttpResponseBadRequest('Invalid session. Please scan QR code or login again.')
     # process filter and render orders
-    if request.GET:
-        print request.GET
+    if request.POST:
+        query = {}
+        print request.POST
         statii = []
         for status in dao.ORDER_STATII:
-            if status in request.GET:
+            if status in request.POST:
                 statii.append(status)
-        logger.debug({'filter for statii':statii})
-        if statii:
-            return list_orders(request, client_id, query={'status':statii})
+                query['status'] = statii
+        if 'seats' in request.POST:
+            query['seat_id'] = request.POST['seats']
+        if 'menus' in request.POST:
+            query['menu_id'] = request.POST['menus']
+        if request.POST['bill_number'] <> '':
+            query['bill_number'] = request.POST['bill_number']
+        if len(query) > 0:
+            return list_orders(request, client_id, query=query)
     # Render form instead if there's no filter
     statii = []
     for status in dao.ORDER_STATII:

@@ -6,7 +6,8 @@
 	</div>
 	<div data-role="content">
 		<form id="filter_orders" action="{% url 'filter_orders' %}"
-		method="get">
+		method="post">
+			{% csrf_token %}
 			<fieldset data-role="controlgroup" data-type="horizontal" data-theme="a">
 				<legend>Filter by status</legend>
 				{% for status in statii %}
