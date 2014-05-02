@@ -406,7 +406,7 @@ def filter_orders(request):
         if 'menus' in request.POST:
             query['menu_id'] = request.POST['menus']
         if request.POST['bill_number'] <> '':
-            query['bill_number'] = request.POST['bill_number']
+            query['bill_number'] = int(request.POST['bill_number'])
         if len(query) > 0:
             return list_orders(request, client_id, query=query)
     # Render form instead if there's no filter
