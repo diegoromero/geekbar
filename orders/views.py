@@ -403,15 +403,9 @@ def filter_orders(request):
                 statii.append(status)
                 query['status'] = statii
         if 'seats' in request.POST:
-            query['seat_id'] = request.POST['seats']
-            print 'THIS IS request.POST["seats"] !!!!!!!!!!!!!!!!!!!!!!!!!!!'
-            print request.POST['seats']
-            print "THIS IS query['seat_id'] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            print query['seat_id']
-            print "THIS IS request.POST.getlist('seats') !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            print request.POST.getlist('seats')
+            query['seat_id'] = [str(i) for i in request.POST.getlist('seats')]
         if 'menus' in request.POST:
-            query['menu_id'] = request.POST['menus']
+            query['menu_id'] = [str(i) for i in request.POST.getlist('menus')]
         if request.POST['bill_number'] <> '':
             query['bill_number'] = int(request.POST['bill_number'])
         if len(query) > 0:
