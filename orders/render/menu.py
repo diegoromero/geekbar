@@ -73,6 +73,7 @@ def render_tree_menu(request, menu={}, path='', client=''):
                     template_items.append({'type':'section','name':item,
                                            'path':'/'.join((path, divider, item))})
     logger.info('items: %s', template_items)
+    request.session['path'] = path
     return render(request, 'index.html', {'items':template_items, 'menu_id': menu['id'],
                                           'template':'tree_menu_w_photo.html', 'path':path,
                                           'items_list': items_list, 'client': client,

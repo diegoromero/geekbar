@@ -231,13 +231,13 @@ class MongoOrdersDAO(OrdersDAO):
         menu_id = self.get_menu_id(client_id)
         self.db.menus.update({'_id': menu_id}, {'$pull': { "structure." + str(section): item_id}})
 
-    def add_order(self, item_id, quantity, client_id, seat_id, bill_n):
+    def add_order(self, item_id, quantity, client_id, seat_id, menu_id, path, bill_n):
         # TODO: Orders will need to have an array of events. Each
         # event will have a server_id, a timestamp and an action so
         # the order history can be traced and troubleshooted easily.
         logger.info({'item':item_id, 'qty':quantity, 'client':client_id, 'seat':seat_id})
         order = {'client_id':client_id, 'seat_id':seat_id, 'item_id':item_id, 'quantity':quantity,
-                 'status':self.ORDER_PLACED, 'bill_number': bill_n}
+                 'status':self.ORDER_PLACED, 'menu_id': menu_id, 'path': path, 'bill_number': bill_n}
         return self.db.orders.insert(order)
 
     def list_orders(self, client_id, query={}):

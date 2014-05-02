@@ -331,8 +331,10 @@ def place_order(request, item_id, client_id):
     quantity = request.POST['quantity']
     seat_id = request.session['seat_id']
     bill_n = request.session['bill_n']
+    menu_id = request.session['menu_id']
+    path = request.session['path']
     logger.info('item_id:%s, client_id:%s, quantity:%s', item_id, client_id, quantity)
-    dao.add_order(item_id, quantity, client_id, seat_id, bill_n)
+    dao.add_order(item_id, quantity, client_id, seat_id, menu_id, path, bill_n)
     item_name = dao.get_item(item_id)['name']
     message = '{} {} coming!. Seat back and relax.'.format(quantity, item_name)
     return render(request, 'index.html',
