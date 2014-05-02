@@ -260,10 +260,10 @@ class MongoOrdersDAO(OrdersDAO):
         query['client_id'] = get_mongo_id(client_id)
         if 'status' in query and type(query['status']) in (tuple, list):
             query['status'] = {'$in':query['status']}
-        if 'seats' in query and type(query['seats']) in (tuple, list):
-            query['seats'] = {'$in':query['seats']}
-        if 'menus' in query and type(query['menus']) in (tuple, list):
-            query['menus'] = {'$in':query['menus']}
+        if 'seat_id' in query and type(query['seat_id']) in (tuple, list):
+            query['seat_id'] = {'$in':query['seat_id']}
+        if 'menu_id' in query and type(query['menu_id']) in (tuple, list):
+            query['menu_id'] = {'$in':query['menu_id']}
         print 'HERE COMES THE QUERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
         print query
         orders = self.db.orders.find(query)
