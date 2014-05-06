@@ -377,6 +377,8 @@ def list_orders(request, client_id, query={}):
     the pending orders. TODO: provide a way for the server or manager
     to filter by any combination of date, status and seat'''
     logger.debug({'client_id':client_id, 'query':query})
+    if 'client_id' not in request.session:
+        request.session['client_id'] = client_id
     # default to ORDER_PLACED for now
     if 'status' not in query:
         query['status'] = dao.ORDER_PLACED
