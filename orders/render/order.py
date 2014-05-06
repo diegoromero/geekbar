@@ -65,7 +65,7 @@ def bill_orders_modifier(items):
     return {'bottom_template':'bill_btn.html'}, items
 
 # RENDERER
-def render_orders(request, orders, modifiers=[]):
+def render_orders(request, client_id, orders, modifiers=[]):
     '''Generic and flexible function that renders a list of orders
     according to the given set of modifiers using a strategy pattern
     (see http://en.wikipedia.org/wiki/Strategy_pattern). Each modifier
@@ -83,7 +83,6 @@ def render_orders(request, orders, modifiers=[]):
     more flexible myorders.html to replace orders.html'''
     template_params = DEFAULT_TEMPLATES.copy()
     template_params['template'] = 'orders.html'
-    client_id = request.session['client_id']
     client_name = dao.get_client_name(client_id)
     template_params['client_name'] = client_name
     template_orders = orders

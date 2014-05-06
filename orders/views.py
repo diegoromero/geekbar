@@ -382,7 +382,7 @@ def list_orders(request, client_id, query={}):
         query['status'] = dao.ORDER_PLACED
     orders = dao.list_orders(client_id, query)
     logger.info({'orders': orders,'modifiers':server_mods})
-    return render_orders(request, orders, server_mods)
+    return render_orders(request, client_id, orders, server_mods)
 
 def filter_orders(request):
     '''Allows the user to specify filters on the list of orders they want to see.'''
