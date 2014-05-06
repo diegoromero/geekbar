@@ -23,4 +23,5 @@ urlpatterns = patterns('',
     url(r'^order/(\w+)/update$', views.update_order, name='update_order'),
     url(r'^orders/filter$', views.filter_orders, name='filter_orders'),
     url(r'^orders/(\w+)$', views.list_orders, name='orders'),
+    url(r'^screen_refresh/$', views.screen_refresh),
 )

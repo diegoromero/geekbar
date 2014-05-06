@@ -19,7 +19,7 @@
 		<script type='text/javascript'>
 			(function poll(){
 			setTimeout(function(){
-				$.ajax({ url: "stream/", success: function(data){
+				$.ajax({ url: "screen_refresh/", success: function(data){
 					console.log(data);
 					//Setup the next poll recursively
 					poll();

@@ -386,7 +386,7 @@ def list_orders(request, client_id, query={}):
     orders = dao.list_orders(client_id, query)
     logger.info({'orders': orders,'modifiers':server_mods})
     request.session['query'] = query
-    return render_orders(request, client_id, orders, server_mods)
+    return render_orders(request, client_id, orders, server_mods, is_screen=True)
 
 def screen_refresh(request):
     client_id = request.session['client_id'] 
