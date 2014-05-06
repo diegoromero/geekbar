@@ -16,3 +16,8 @@
 		{% endif %}
 	</div>
 </div>
+{% if is_screen %}
+	<script type='text/javascript'>
+		var query = {{ query }};
+	</script>
+{% endif %}

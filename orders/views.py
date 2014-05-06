@@ -345,7 +345,8 @@ def myorders(request):
     session's seat_id and client_it. It will display orders that are
     in placed, prepared or served status.'''
     orders = customer_orders(request)
-    return render_orders(request, orders, customer_mods)
+    client_id = request.session['client_id']
+    return render_orders(request, client_id, orders, customer_mods)
 
 def customer_orders(request, statii = (dao.ORDER_PLACED, dao.ORDER_PREPARING,
                                        dao.ORDER_PREPARED, dao.ORDER_SERVED, dao.BILL_REQUESTED)):
@@ -384,7 +385,7 @@ def list_orders(request, client_id, query={}):
         query['status'] = dao.ORDER_PLACED
     orders = dao.list_orders(client_id, query)
     logger.info({'orders': orders,'modifiers':server_mods})
-    return render_orders(request, client_id, orders, server_mods)
+    return render_orders(request, client_id, orders, server_mods, query=query is_screen=True)
 
 def filter_orders(request):
     '''Allows the user to specify filters on the list of orders they want to see.'''
