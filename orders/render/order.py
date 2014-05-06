@@ -85,7 +85,7 @@ def render_orders(request, client_id, orders, modifiers=[], query={}, is_screen=
     template_params['template'] = 'orders.html'
     client_name = dao.get_client_name(client_id)
     template_params['client_name'] = client_name
-    template_params['query'] = query
+    template_params['query_dj'] = query
     template_params['is_screen'] = is_screen
     template_orders = orders
     for mod in modifiers:
