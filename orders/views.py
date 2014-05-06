@@ -5,7 +5,7 @@ from mongoengine import NotUniqueError, ValidationError
 from orders.models import User
 from django.contrib.auth import login, logout, authenticate
 
-from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import simplejson
 from django.conf import settings
@@ -392,7 +392,7 @@ def screen_refresh(request):
     client_id = request.session['client_id'] 
     query = request.session['query']
     orders = dao.list_orders(client_id, query)
-    return HttpResponse(simplejson.dumps(orders), content_type="application/json")
+    return JsonResponse(orders)
     
 def filter_orders(request):
     '''Allows the user to specify filters on the list of orders they want to see.'''
