@@ -8,7 +8,6 @@ import logging
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
-from django.utils import simplejson
 
 from orders.settings import dao
 
@@ -66,7 +65,7 @@ def bill_orders_modifier(items):
     return {'bottom_template':'bill_btn.html'}, items
 
 # RENDERER
-def render_orders(request, client_id, orders, modifiers=[], query={}, is_screen=False):
+def render_orders(request, client_id, orders, modifiers=[], is_screen=False):
     '''Generic and flexible function that renders a list of orders
     according to the given set of modifiers using a strategy pattern
     (see http://en.wikipedia.org/wiki/Strategy_pattern). Each modifier
@@ -86,7 +85,6 @@ def render_orders(request, client_id, orders, modifiers=[], query={}, is_screen=
     template_params['template'] = 'orders.html'
     client_name = dao.get_client_name(client_id)
     template_params['client_name'] = client_name
-    template_params['query'] = simplejson.dumps(query)
     template_orders = orders
     if is_screen:
         index_template = 'index_screen.html'
