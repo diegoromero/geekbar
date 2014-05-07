@@ -25,5 +25,5 @@ customer_mods = [
 server_mods = [
     order.searchable_list_modifier,
     order.list_filter_decorator,
-    order.verbose_item_decorator
+    order.verbose_item_decorator_screen
 ]

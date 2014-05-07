@@ -40,6 +40,15 @@ def verbose_item_decorator(orders):
             item['delay'] = 'as of ' + item['delay']
     return {'item_template':'verbose_order.html'}, orders
 
+def verbose_item_decorator_screen(orders):
+    for item in orders:
+        if item['status'] == dao.ORDER_PLACED:
+            item['cancelable'] = True
+        item['status'] = item['status'].replace('_','').capitalize()
+        if item['status'][-1] == 'g':
+            item['delay'] = 'as of ' + item['delay']
+    return {'item_template':'verbose_screen.html'}, orders
+
 def list_filter_decorator(orders):
     '''Displays a gear button on the right side of the header to allow
     the user to apply filters to the list of orders shown. Ideal for

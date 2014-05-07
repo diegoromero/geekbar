@@ -1,0 +1,14 @@
+<li>
+	<a href="{% url 'order_details' order.id %}">
+		<h3>{{order.item_name}}</h3>
+		<div class="ui-li-count">{{order.quantity}}</div>
+		<span class="order_id" style="display: none;">{{order.id}}</span>
+		<p class="ui-li-desc">Bill #:{{order.bill_number}}</p>
+		<p class="ui-li-desc">Seat: {{order.seat_id}}</p>
+		<p class="ui-li-desc">{{order.status}} {{order.delay}}</p>
+	</a>
+	{% if order.cancelable %}
+		<a href="{% url 'cancel_order' order.id %}" data-icon="delete"
+		data-theme="d"></a>
+	{% endif %}
+</li>

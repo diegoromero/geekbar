@@ -39,7 +39,7 @@
 					var order_id = this_order.id;
 					var signal = $.inArray(order_id, array_of_orders_id);
 					if ( signal == -1 ) {
-						$('ul').append('<li class="ui-li-has-alt ui-li-has-count ui-last-child"><a href="/order/'+ this_order.id +'" class="ui-btn"><h3>'+ this_order.item_name +'</h3><div class="ui-li-count ui-body-a">'+ this_order.quantity +'</div><span class="order_id" style="display: none;">'+ this_order.id +'</span><p class="ui-li-desc">Bill #: '+ this_order.bill_number +'</p><p class="ui-li-desc">Seat: '+ this_order.seat_id +'</p><p class="ui-li-desc">Placed '+ this_order.delay +'</p></a><a href="/order/'+ this_order.id +'/cancel" data-icon="delete" data-theme="d" class="ui-btn ui-btn-icon-notext ui-icon-delete ui-btn-d" title=""></a></li>')
+						$('ul').append('<li class="ui-li-has-alt ui-li-has-count ui-last-child"><a href="/order/'+ this_order.id +'" class="ui-btn"><h3>'+ this_order.item_name +'</h3><div class="ui-li-count ui-body-a">'+ this_order.quantity +'</div><span class="order_id" style="display: none;">'+ this_order.id +'</span><p class="ui-li-desc">Bill #: '+ this_order.bill_number +'</p><p class="ui-li-desc">Seat: '+ this_order.seat_id +'</p><p class="ui-li-desc">Placed '+ this_order.delay +'</p></a>')
 					};
 				};
 			};
