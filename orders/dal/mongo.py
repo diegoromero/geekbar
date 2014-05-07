@@ -3,6 +3,8 @@ import os
 import pymongo
 import datetime
 
+import json
+from bson import json_util
 from django.conf import settings
 from bson.objectid import ObjectId
 from bootstrap import menus, items, clients
@@ -278,6 +280,13 @@ class MongoOrdersDAO(OrdersDAO):
             res.append(order)
         logger.info('orders: %s',res)
         return res
+
+    def list_orders_json(self, client_id, query={}):
+        orders = self.list_orders(client_id, query=query)
+        json_list = []
+        for order in orders:
+            json_list.append(json.dumps(order, default=json_util.default))
+        return json_list
 
     def get_item_name(self, item_id):
         'Simply get the item name for the given item ID'
