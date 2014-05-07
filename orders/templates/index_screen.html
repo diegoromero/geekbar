@@ -13,15 +13,12 @@
 	<body>
 		{% include template %}
 		<script type='text/javascript'>
-			var test;
 			(function poll(){
 				setTimeout(function(){
 					$.ajax({ 
 						dataType: "json",
 						url: "screen_refresh/", 
 						success: function(data){
-							console.log(data);
-							test = data;
 							//Setup the next poll recursively
 							if ( $('li').length != data.orders.length ){
 								add_order(data);
