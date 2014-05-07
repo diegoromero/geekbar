@@ -284,7 +284,7 @@ class MongoOrdersDAO(OrdersDAO):
     def list_orders_json(self, client_id, query={}):
         orders = self.list_orders(client_id, query=query)
         json_list = {}
-        json_list['orders']
+        json_list['orders'] = []
         for order in orders:
             json_list['orders'].append(json.dumps(order, default=json_util.default))
         return json_list
