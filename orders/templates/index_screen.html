@@ -15,11 +15,15 @@
 		<script type='text/javascript'>
 			(function poll(){
 			setTimeout(function(){
-				$.ajax({ url: "screen_refresh/", success: function(data){
-					console.log(data);
-					//Setup the next poll recursively
-					poll();
-				}});
+				$.ajax({ 
+					dataType: "json",
+					url: "screen_refresh/", 
+					success: function(data){
+						console.log(data);
+						//Setup the next poll recursively
+						poll();
+					}
+				});
 			}, 10000);
 		})();
 		</script>
