@@ -287,6 +287,8 @@ class MongoOrdersDAO(OrdersDAO):
         json_list['orders'] = []
         for order in orders:
             json_list['orders'].append(json.dumps(order, default=json_util.default))
+        print 'JSON LIST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+        print json_list
         return json_list
 
     def get_item_name(self, item_id):
