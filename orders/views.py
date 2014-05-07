@@ -392,7 +392,7 @@ def screen_refresh(request):
     client_id = request.session['client_id'] 
     query = request.session['query']
     orders = dao.list_orders_json(client_id, query=query)
-    return HttpResponse(orders)
+    return HttpResponse(orders, content_type = "application/json")
     
 def filter_orders(request):
     '''Allows the user to specify filters on the list of orders they want to see.'''
