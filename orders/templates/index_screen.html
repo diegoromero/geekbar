@@ -14,26 +14,18 @@
 		{% include template %}
 		<script type='text/javascript'>
 			(function poll(){
-			setTimeout(function(){
-				$.ajax({ 
-					dataType: "json",
-					url: "screen_refresh/", 
-					success: function(data){
-						console.log(data);
-						//Setup the next poll recursively
-						poll();
-					},
-					error: function(data) {
-						console.log('error');
-						console.log(data);
-					},
-					complete: function(data) {
-						console.log('complete');
-						console.log(data);
-					}
-				});
-			}, 10000);
-		})();
+				setTimeout(function(){
+					$.ajax({ 
+						dataType: "json",
+						url: "screen_refresh/", 
+						success: function(data){
+							console.log(data);
+							//Setup the next poll recursively
+							poll();
+						}
+					});
+				}, 10000);
+			})();
 		</script>
 	</body>
 </html>
