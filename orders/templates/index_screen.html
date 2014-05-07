@@ -24,7 +24,7 @@
 							test = data;
 							//Setup the next poll recursively
 							if ( $('li').length != data.orders.length ){
-								add_order();
+								add_order(data);
 							};
 							
 							poll();
@@ -32,12 +32,19 @@
 					});
 				}, 10000);
 			})();
-			function add_order() {
+			function add_order(data) {
 				var array_of_orders_id = [];
 				$('li .order_id').each(function(){
 					array_of_orders_id.push($(this).text());
 				});
-				$('ul').append('<li class="ui-li-has-alt ui-li-has-count ui-last-child"><a href="" class="ui-btn"><h3>Ultimate double chocolate cake</h3><div class="ui-li-count ui-body-a">1</div><p class="ui-li-desc">Bill #:9</p><p class="ui-li-desc">Seat: s2</p><p class="ui-li-desc">Placed 3 days ago</p></a><a href="" data-icon="delete" data-theme="d" class="ui-btn ui-btn-icon-notext ui-icon-delete ui-btn-d" title=""></a></li>')
+				for ( var i in data.orders){
+					var this_order = $.parseJSON(data.orders[i]);
+					var order_id = this_order.id;
+					var signal = $.inArray(order_id, array_of_orders_id);
+					if ( signal == -1 ) {
+						$('ul').append('<li class="ui-li-has-alt ui-li-has-count ui-last-child"><a href="/order/'+ this_order.id +'" class="ui-btn"><h3>'+ this_order.item_name +'</h3><div class="ui-li-count ui-body-a">'+ this_order.quantity +'</div><p class="ui-li-desc">Bill #: '+ this_order.bill_number +'</p><p class="ui-li-desc">Seat: '+ this_order.seat_id +'</p><p class="ui-li-desc">Placed '+ this_order.delay +'</p></a><a href="/order/'+ this_order.id +'/cancel" data-icon="delete" data-theme="d" class="ui-btn ui-btn-icon-notext ui-icon-delete ui-btn-d" title=""></a></li>')
+					};
+				};
 			};
 		</script>
 	</body>
