@@ -289,7 +289,7 @@ class MongoOrdersDAO(OrdersDAO):
             json_list['orders'].append(json.dumps(order, default=json_util.default))
         print 'JSON LIST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
         print json_list
-        return json_list
+        return json.dumps(json_list)
 
     def get_item_name(self, item_id):
         'Simply get the item name for the given item ID'
