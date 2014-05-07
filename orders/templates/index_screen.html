@@ -21,6 +21,10 @@
 						success: function(data){
 							console.log(data);
 							//Setup the next poll recursively
+							if ( $('li').length == data.orders.length ){
+								console.log('same length test');
+							};
+							
 							poll();
 						}
 					});
