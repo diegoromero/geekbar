@@ -13,6 +13,7 @@
 	<body>
 		{% include template %}
 		<script type='text/javascript'>
+			var test;
 			(function poll(){
 				setTimeout(function(){
 					$.ajax({ 
@@ -20,9 +21,10 @@
 						url: "screen_refresh/", 
 						success: function(data){
 							console.log(data);
+							test = data;
 							//Setup the next poll recursively
-							if ( $('li').length == data.orders.length ){
-								console.log('same length test');
+							if ( $('li').length != data.orders.length ){
+								add_order();
 							};
 							
 							poll();
@@ -30,6 +32,13 @@
 					});
 				}, 10000);
 			})();
+			function add_order() {
+				var array_of_orders_id = [];
+				$('li .order_id').each(function(){
+					array_of_orders_id.push($(this).text());
+				});
+				$('ul').append('<li class="ui-li-has-alt ui-li-has-count ui-last-child"><a href="" class="ui-btn"><h3>Ultimate double chocolate cake</h3><div class="ui-li-count ui-body-a">1</div><p class="ui-li-desc">Bill #:9</p><p class="ui-li-desc">Seat: s2</p><p class="ui-li-desc">Placed 3 days ago</p></a><a href="" data-icon="delete" data-theme="d" class="ui-btn ui-btn-icon-notext ui-icon-delete ui-btn-d" title=""></a></li>')
+			};
 		</script>
 	</body>
 </html>
