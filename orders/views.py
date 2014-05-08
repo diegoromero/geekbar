@@ -273,7 +273,7 @@ def manager_menus(request):
 
 @login_required
 def manager_seats(request):
-    client_id = request.user.client_id
+    client_id = request.user.get_profile().client_id
     if request.method == 'POST':
         if request.is_ajax():
             if 'create_room' in request.POST:
