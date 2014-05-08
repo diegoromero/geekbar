@@ -183,13 +183,7 @@ def menu_path(request, menu_id, path):
 
 @login_required
 def manager(request):
-    print 'USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    print request.user
-    '''
-    if not request.user.is_authenticated():
-        ''If the user is not logged in is redirected to the home view''
-        return redirect('orders.views.home')
-    '''
+
     client_name = dao.get_client_name(request.user.username)
     
     return render(request, 'desktop_index.html',
@@ -197,13 +191,9 @@ def manager(request):
                    'title': 'Manager',
                    'client': client_name})
 
+@login_required
 def manager_items(request):
-    #TODO: some refactoring,
-    #      make the form validations work with the javascript part
-    if not request.user.is_authenticated():
-        '''If the user is not logged in is redirected to the home view'''
-        return redirect('orders.views.home')
-    client_id = request.user.username
+    client_id = request.user.client_id
     items = dao.get_client_items(client_id)
     item_form = ItemForm()
     if request.method == 'POST':
@@ -243,15 +233,9 @@ def manager_items(request):
                    'signature': settings.SIGNATURE,
                    'client': client_id})
 
+@login_required
 def manager_menus(request):
-    #TODO: some refactoring,
-    #      make the form validations work with the javascript part,
-    #      make a clean decoupled design and python view code that is independent of
-    #      the DB or JS code.
-    if not request.user.is_authenticated():
-        '''If the user is not logged in is redirected to the home view'''
-        return redirect('orders.views.home')
-    client_id = request.user.username
+    client_id = request.user.client_id
     try:
         menus = dao.get_client_menus(client_id)
     except TypeError:
@@ -287,11 +271,9 @@ def manager_menus(request):
                    'template': 'manager_menus.html',
                    'title': 'Manager'})
 
+@login_required
 def manager_seats(request):
-    if not request.user.is_authenticated():
-        '''If the user is not logged in is redirected to the home view'''
-        return redirect('orders.views.home')
-    client_id = request.user.username
+    client_id = request.user.client_id
     if request.method == 'POST':
         if request.is_ajax():
             if 'create_room' in request.POST:
@@ -328,11 +310,10 @@ def manager_seats(request):
                    'seats': seats, 'client': client_id,
                    'menus': menus})
 
+@login_required
 def manager_profile(request):
-    if not request.user.is_authenticated():
-        '''If the user is not logged in is redirected to the home view'''
-        return redirect('orders.views.home')
-    client_id = request.user.username
+
+    client_id = request.user.client_id
 
     return render(request, 'desktop_index.html',
                   {'template': 'manager_profile.html',
