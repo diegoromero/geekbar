@@ -332,7 +332,7 @@ def manager_profile(request):
     client_id = request.user.username
 
     return render(request, 'desktop_index.html',
-                  {'template', 'manager_profile.html',
+                  {'template': 'manager_profile.html',
                    'title': 'Manager'})
     
 
