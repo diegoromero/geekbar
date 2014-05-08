@@ -181,7 +181,7 @@ def menu_path(request, menu_id, path):
     '''This view receives a path that is not tokenized.'''
     pass
 
-@login_required(redirect_field_name='orders.views.home')
+@login_required
 def manager(request):
     print 'USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     print request.user
