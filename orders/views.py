@@ -181,6 +181,9 @@ def menu_path(request, menu_id, path):
     pass
 
 def manager(request):
+    print 'USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    print request.user
+    print request.user._id
     if not request.user.is_authenticated():
         '''If the user is not logged in is redirected to the home view'''
         return redirect('orders.views.home')
@@ -321,6 +324,17 @@ def manager_seats(request):
                    'title': 'Manager',
                    'seats': seats, 'client': client_id,
                    'menus': menus})
+
+def manager_profile(request):
+    if not request.user.is_authenticated():
+        '''If the user is not logged in is redirected to the home view'''
+        return redirect('orders.views.home')
+    client_id = request.user.username
+
+    return render(request, 'desktop_index.html',
+                  {'template', 'manager_profile.html',
+                   'title': 'Manager'})
+    
 
 def place_order(request, item_id, client_id):
     '''Places an order for qty units of item_id from client_id. This
