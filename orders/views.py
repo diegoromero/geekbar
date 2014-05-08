@@ -417,7 +417,7 @@ def filter_orders(request):
         if request.POST['bill_number'] <> '':
             query['bill_number'] = int(request.POST['bill_number'])
         if len(query) > 0:
-            return list_orders(request, client_id, query=query)
+            return redirect('orders.views.list_orders', client_id, query=query)
     # Render form instead if there's no filter
     statii = []
     for status in dao.ORDER_STATII:
