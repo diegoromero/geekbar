@@ -183,7 +183,7 @@ def menu_path(request, menu_id, path):
 def manager(request):
     print 'USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     print request.user
-    print request.user._id
+
     if not request.user.is_authenticated():
         '''If the user is not logged in is redirected to the home view'''
         return redirect('orders.views.home')
