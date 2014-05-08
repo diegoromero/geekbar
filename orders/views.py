@@ -193,7 +193,7 @@ def manager(request):
 
 @login_required
 def manager_items(request):
-    client_id = request.user.client_id
+    client_id = dao.get_client_id_from_username(request.user.username)
     items = dao.get_client_items(client_id)
     item_form = ItemForm()
     if request.method == 'POST':
@@ -235,7 +235,7 @@ def manager_items(request):
 
 @login_required
 def manager_menus(request):
-    client_id = request.user.client_id
+    client_id = dao.get_client_id_from_username(request.user.username)
     try:
         menus = dao.get_client_menus(client_id)
     except TypeError:
@@ -313,7 +313,7 @@ def manager_seats(request):
 @login_required
 def manager_profile(request):
 
-    client_id = request.user.client_id
+    client_id = dao.get_client_id_from_username(request.user.username)
 
     return render(request, 'desktop_index.html',
                   {'template': 'manager_profile.html',
