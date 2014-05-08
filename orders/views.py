@@ -273,7 +273,7 @@ def manager_menus(request):
 
 @login_required
 def manager_seats(request):
-    client_id = request.user.get_profile().client_id
+    client_id = dao.get_client_id_from_username(request.user)
     if request.method == 'POST':
         if request.is_ajax():
             if 'create_room' in request.POST:

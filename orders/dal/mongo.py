@@ -30,6 +30,9 @@ class MongoOrdersDAO(OrdersDAO):
             self.db.clients.remove()
             self.db.clients.insert(clients)
 
+    def get_client_id_from_username(self, username):
+        return self.db.user.find_one({'username': username})['client_id']
+
     def get_bills(self, client_id):
         mongoid = get_mongo_id(client_id)
         return self.db.clients.find_one({'_id': mongoid})['bills']
