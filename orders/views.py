@@ -187,10 +187,11 @@ def manager(request):
     print request.user
     '''
     if not request.user.is_authenticated():
-        '''If the user is not logged in is redirected to the home view'''
+        ''If the user is not logged in is redirected to the home view''
         return redirect('orders.views.home')
-    client_name = dao.get_client_name(request.user.username)
     '''
+    client_name = dao.get_client_name(request.user.username)
+    
     return render(request, 'desktop_index.html',
                   {'template': 'manager.html',
                    'title': 'Manager',
