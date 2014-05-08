@@ -4,6 +4,7 @@ import os
 from mongoengine import NotUniqueError, ValidationError
 from orders.models import User
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -180,15 +181,16 @@ def menu_path(request, menu_id, path):
     '''This view receives a path that is not tokenized.'''
     pass
 
+@login_required(redirect_field_name='orders.views.home')
 def manager(request):
     print 'USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     print request.user
-
+    '''
     if not request.user.is_authenticated():
         '''If the user is not logged in is redirected to the home view'''
         return redirect('orders.views.home')
     client_name = dao.get_client_name(request.user.username)
-
+    '''
     return render(request, 'desktop_index.html',
                   {'template': 'manager.html',
                    'title': 'Manager',
