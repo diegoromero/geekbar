@@ -11,7 +11,7 @@ from dal import mongo, test
 # constructor. See dal/mongo.py to see the data being loaded. NOTE:
 # only enable this in a dev/test environment - never in production
 # dao = test.TestOrdersDAO()
-dao = mongo.MongoOrdersDAO()
+dao = mongo.MongoOrdersDAO(bootstrao=True)
 
 # Rendering
 from render import menu, order
