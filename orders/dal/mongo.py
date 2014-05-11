@@ -272,6 +272,7 @@ class MongoOrdersDAO(OrdersDAO):
         orders = self.db.orders.find(query)
         res = []
         names = {}
+        prices = {}
         for order in orders:
             order['id'] = str(order['_id'])
             iid = order['item_id']
@@ -279,6 +280,10 @@ class MongoOrdersDAO(OrdersDAO):
                 order['item_name'] = names[iid]
             else:
                 order['item_name'] = names[iid] = self.get_item_name(iid)
+            if idd in prices:
+                order['price'] = prices[iid]
+            else:
+                order['price'] = prices[iid] = self.get_item_price(iid)
             order['delay'] = compute_delay(order)
             res.append(order)
         logger.info('orders: %s',res)
@@ -286,12 +291,8 @@ class MongoOrdersDAO(OrdersDAO):
 
     def orders_sub_total(self, orders):
         sub_total = 0
-        prices = {}
         for order in orders:
-            iid = order['item_id']
-            if iid not in prices:
-                prices[iid] = self.get_item_price(iid)
-            sub_total += (int(order['quantity']) * float(prices[iid]))
+            sub_total += (int(order['quantity']) * float(order['price']))
         return sub_total         
             
     def list_orders_json(self, client_id, query={}):
