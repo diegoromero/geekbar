@@ -5,9 +5,7 @@
 		<span class="order_id" style="display: none;">{{order.id}}</span>
 		<p class="ui-li-desc">Bill #:{{order.bill_number}}</p>
 		<p class="ui-li-desc">Seat: {{order.seat_id}}</p>
-		{% if order.comment != '' %}
-			<p class="ui-li-desc">Comment: {{order.comment}}</p>
-		{% endif %}
+		<p class="ui-li-desc">Comment: {{order.comment}}</p>
 		<p class="ui-li-desc">{{order.status}} {{order.delay}}</p>
 	</a>
 	{% if order.cancelable %}
