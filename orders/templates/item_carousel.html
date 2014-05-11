@@ -9,5 +9,6 @@
 <form action="{% url 'order' item.id item.client_id %}" method="POST">
 	{% csrf_token %}
 	<input type="hidden" name="quantity" id="quantity" value="1">
+	<textarea name="comment" placeholder="Comment"></textarea>
 	<input type="submit" value="Order" data-role="button"/>
 </form>
