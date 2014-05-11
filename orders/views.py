@@ -343,8 +343,9 @@ def myorders(request):
     session's seat_id and client_it. It will display orders that are
     in placed, prepared or served status.'''
     orders = customer_orders(request)
+    sub_total = dao.orders_sub_total(orders)
     client_id = request.session['client_id']
-    return render_orders(request, client_id, orders, customer_mods)
+    return render_orders(request, client_id, orders, customer_mods, sub_total=sub_total)
 
 def customer_orders(request, statii = (dao.ORDER_PLACED, dao.ORDER_PREPARING,
                                        dao.ORDER_PREPARED, dao.ORDER_SERVED, dao.BILL_REQUESTED)):

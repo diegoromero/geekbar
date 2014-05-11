@@ -284,6 +284,16 @@ class MongoOrdersDAO(OrdersDAO):
         logger.info('orders: %s',res)
         return res
 
+    def orders_sub_total(self, orders):
+        sub_total = 0
+        prices = {}
+        for order in orders:
+            iid = order['item_id']
+            if iid not in prices:
+                prices[iid] = self.get_item_price(iid)
+            sub_total += (int(order['quantity']) * float(prices[iid]))
+        return sub_total         
+            
     def list_orders_json(self, client_id, query={}):
         orders = self.list_orders(client_id, query=query)
         json_list = {}
@@ -298,6 +308,10 @@ class MongoOrdersDAO(OrdersDAO):
         ans = self.db.items.find_one(item_id)['name']
         logger.info('name: %s', ans)
         return ans
+
+    def get_item_price(self, item_id):
+        price = self.db.items.find_one(item_id)['price']
+        return price
 
     def get_order(self, order_id): 
         '''Returns the order object that matches the given id. Adds

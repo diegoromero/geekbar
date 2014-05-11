@@ -74,7 +74,7 @@ def bill_orders_modifier(items):
     return {'bottom_template':'bill_btn.html'}, items
 
 # RENDERER
-def render_orders(request, client_id, orders, modifiers=[], is_screen=False):
+def render_orders(request, client_id, orders, modifiers=[], is_screen=False, sub_total=0):
     '''Generic and flexible function that renders a list of orders
     according to the given set of modifiers using a strategy pattern
     (see http://en.wikipedia.org/wiki/Strategy_pattern). Each modifier
@@ -103,5 +103,6 @@ def render_orders(request, client_id, orders, modifiers=[], is_screen=False):
         params, template_orders = mod(template_orders)
         template_params.update(params)
     template_params['orders'] = template_orders
+    template_params['sub_total'] = sub_total
     logger.info({'template parameters':template_params})
     return render(request, index_template, template_params)
