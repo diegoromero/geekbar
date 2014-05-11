@@ -280,7 +280,7 @@ class MongoOrdersDAO(OrdersDAO):
                 order['item_name'] = names[iid]
             else:
                 order['item_name'] = names[iid] = self.get_item_name(iid)
-            if idd in prices:
+            if iid in prices:
                 order['price'] = prices[iid]
             else:
                 order['price'] = prices[iid] = self.get_item_price(iid)
