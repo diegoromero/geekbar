@@ -29,6 +29,8 @@ class MongoOrdersDAO(OrdersDAO):
             self.db.items.insert(items)
             self.db.clients.remove()
             self.db.clients.insert(clients)
+            self.db.orders.remove()
+            self.db.django_session.remove()
 
     def get_client_id_from_username(self, username):
         return self.db.user.find_one({'username': username})['client_id']
