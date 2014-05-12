@@ -35,6 +35,14 @@ class MongoOrdersDAO(OrdersDAO):
     def get_client_id_from_username(self, username):
         return self.db.user.find_one({'username': username})['client_id']
 
+    def is_manager(self, username):
+        'Checks if request.user has attr manager:True'
+        return self.db.user.find_one({'username': username})['manager']
+
+    def is_screen(self, username):
+        'Checks if request.user has attr screen:True'
+        return self.db.user.find_one({'username': username})['screen']
+
     def get_bills(self, client_id):
         mongoid = get_mongo_id(client_id)
         return self.db.clients.find_one({'_id': mongoid})['bills']

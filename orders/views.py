@@ -22,10 +22,7 @@ logger = logging.getLogger('orders.views')
 # client_name.
 def home(request):
     '''Home view with a signin and singup form'''
-    if request.user.is_authenticated():
-        '''If the user is already registered it goes
-        to the manager view'''
-        return redirect('orders.views.manager')
+
     return render(request, 'home_index.html',
                   {'title': 'Welcome',
                    'template': 'home.html'})
@@ -72,7 +69,7 @@ def signup(request):
         try:
             '''Tries to create a new client, if succeeds it logs in
             and redirects to the manager view'''
-            User.create_user(username=username, email=email, password=password)
+            User.create_user(username=username, email=email, password=password, manager=True)
             #dao.create_client(username)
             user = authenticate(username=username, password=password)
             login(request, user)
@@ -185,8 +182,8 @@ def menu_path(request, menu_id, path):
 def manager(request):
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
-    print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    print request.user.manager
+    if not is_manager(request.user.username):
+        return redirect('orders.views.home')
     
     return render(request, 'desktop_index.html',
                   {'template': 'manager.html',
