@@ -185,7 +185,8 @@ def menu_path(request, menu_id, path):
 def manager(request):
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
-    request.user.user_permissions.add(manager)
+    print 'PERMISION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    print request.user.has_perm('manager')
     
     return render(request, 'desktop_index.html',
                   {'template': 'manager.html',
