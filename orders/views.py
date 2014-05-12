@@ -185,6 +185,7 @@ def menu_path(request, menu_id, path):
 def manager(request):
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
+    request.user.user_permissions.add(manager)
     
     return render(request, 'desktop_index.html',
                   {'template': 'manager.html',
@@ -321,7 +322,7 @@ def manager_profile(request):
                 dao.set_client_name(client_id, new_name)
             elif 'change_password_form' in request.POST:
                 new_pass = request.POST['password']
-                user = request.user.set_password(new_pass)                     
+                request.user.set_password(new_pass)                     
 
     return render(request, 'desktop_index.html',
                   {'template': 'manager_profile.html',
