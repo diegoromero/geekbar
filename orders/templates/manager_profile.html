@@ -1,12 +1,14 @@
 <h4>Change name:</h4>
 <form action="" method="post" id="change_name_form">
 	Name:
+	{% csrf_token %}
 	<input type="text" value="{{ client_name }}" name="name">
 	<input type="submit" value="Change" name="change_name_form" class="btn btn-primary">
 </form>
 </br>
 
 <form action="" method="post" id="change_password_form">
+	{% csrf_token %}
 	<h4>Change Password:</h4>
 	<table>
 		<tr>
@@ -71,6 +73,7 @@
 			</div>
 			<div class="modal-body">
 				<form action="" method="post" id="create_screen_user_form">
+					{% csrf_token %}
 					<table>
 						<tr>
 							<td>
