@@ -332,8 +332,8 @@ def manager_profile(request):
             elif 'create_screen_user_form' in request.POST:
                 username = request.POST['username']
                 password = request.POST['password']
-                User.create_user(username=username, password=password, screen=True)
-                    
+                screen_user = User.create_user(username=username, password=password)
+                dao.add_client_id_to_use(screen_user, client_id)
                 
 
     return render(request, 'desktop_index.html',

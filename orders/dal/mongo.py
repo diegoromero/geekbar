@@ -32,6 +32,26 @@ class MongoOrdersDAO(OrdersDAO):
             self.db.orders.remove()
             self.db.django_session.remove()
 
+    def create_new_client(self, name):
+        self.db.clients.insert({
+            'name': name,
+            'menus': ['m0', 'm1'], 
+            'seats': {
+                'main room': {
+                    'menu': 'm0',
+                    'seats': ['s0', 's1']
+                },
+                'patio': {
+                    'menu': 'm1',
+                    'seats': ['s2', 's3']
+                }
+            },
+            'bills': 0
+        })
+
+    def add_client_id_to_user(self, username, client_id):
+        self.db.user.update({'username': username}, {'$set': {'client_id': client_id}})
+
     def get_client_id_from_username(self, username):
         return self.db.user.find_one({'username': username})['client_id']
 
