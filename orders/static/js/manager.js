@@ -551,11 +551,11 @@ $(document).ready(function() {
 		$('#insert_item_modal').modal('toggle');
 	});
 	
-	$('.change_name_form').submit(function(event) {
+	$('#change_name_form').submit(function(event) {
 		event.preventDefault();
 		var form = $(this);
 		$.ajax({
-			data: $(this).serialize(),
+			data: $(this).serialize() + "&change_name_form",
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
@@ -564,11 +564,11 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('.change_password_form').submit(function(event) {
+	$('#change_password_form').submit(function(event) {
 		event.preventDefault();
 		var form = $(this);
 		$.ajax({
-			data: $(this).serialize(),
+			data: $(this).serialize() + "&change_password_form",
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
