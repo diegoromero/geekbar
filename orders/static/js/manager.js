@@ -224,8 +224,21 @@ function photo_upload_form_itemname() {
 	});
 };
 
+function validate_password() {
+	var pass_1 = $('#new_pass_1').val();
+	var pass_2 = $('#new_pass_2').val();
+
+	if (pass_1 != pass_2) {
+		$("#validate-status").text('Passwords dont match');
+	} else {
+		$("#validate-status").text('');
+	};
+};
+
 $(document).ready(function() {
 
+	$('#new_pass_1').keyup(validate_password);
+	$('#new_pass_2').keyup(validate_password);
 	
 	draw_qrcode();
 	seats_accordion();

@@ -1,0 +1,89 @@
+<h4>Change name:</h4>
+<form action="" method="post" id="change_name_form">
+	Name:
+	<input type="text" value="Foo" name="name">
+	<input type="submit" value="Change" class="btn btn-primary">
+</form>
+</br>
+
+<form action="" method="post" id="change_password_form">
+	<h4>Change Password:</h4>
+	<table>
+		<tr>
+			<td>
+				New Password:
+			</td>
+			<td>
+				<input type="password" id="new_pass_1">
+			</td>
+		</tr>
+	</br>
+		<tr>
+			<td>
+				Repeat new password:
+			</td>
+			<td>
+				<input type="password" id="new_pass_2" name="password">
+			</td>
+		</tr>
+	</table>
+	<b><p id="validate-status"></p></b>
+	<input type="submit" value="Save" class="btn btn-primary">
+</form>
+</br>
+
+<div id="users-contain" class="ui-widget">
+	<h4>Screen Credentials:</h4>
+	<table id="users" class="tablesorter">
+		<thead>
+			<tr class="ui-widget-header ">
+				<th>Username</th>
+				<th>Password</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>John Doe</td>
+				<td>johndoe1</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<!-- Button trigger modal -->
+<a data-toggle="modal" href="#create_screen_user_modal" class="btn btn-primary">Create new user</a>
+
+<!-- Modal -->
+<div class="modal fade" id="create_screen_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Create Screen User</h4>
+			</div>
+			<div class="modal-body">
+				<form action="" method="post" id="create_screen_user_form">
+					<table>
+						<tr>
+							<td>
+								Username:
+							</td>
+							<td>
+								<input type="text" name="username">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Password:
+							</td>
+							<td>
+								<input type="text" name="password">
+							</td>
+						</tr>
+					</table>
+					<input type="submit" value="Create" name="add_item" class="btn btn-primary">
+				</form>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -312,7 +312,6 @@ def manager_seats(request):
 
 @login_required
 def manager_profile(request):
-
     client_id = dao.get_client_id_from_username(request.user.username)
 
     return render(request, 'desktop_index.html',
