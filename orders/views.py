@@ -178,12 +178,16 @@ def menu_path(request, menu_id, path):
     '''This view receives a path that is not tokenized.'''
     pass
 
+def manager_check():
+    'Validates if the user is a manager'
+    if not dao.is_manager(request.user.username):
+        return redirect('orders.views.home')
+
 @login_required
 def manager(request):
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
-    if not is_manager(request.user.username):
-        return redirect('orders.views.home')
+    manager_check()
     
     return render(request, 'desktop_index.html',
                   {'template': 'manager.html',
