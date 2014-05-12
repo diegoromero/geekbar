@@ -567,14 +567,21 @@ $(document).ready(function() {
 	$('#change_password_form').submit(function(event) {
 		event.preventDefault();
 		var form = $(this);
-		$.ajax({
-			data: $(this).serialize() + "&change_password_form",
-			type: $(this).attr('method'),
-			url: $(this).attr('action'),
-			success: function(response) {
-				alert('Password changed');
-			}
-		});
+		var pass_1 = $('#new_pass_1').val();
+		var pass_2 = $('#new_pass_2').val();
+
+		if (pass_1 != pass_2) {
+			alert('Passwords DONT match!');
+		} else {
+			$.ajax({
+				data: $(this).serialize() + "&change_password_form",
+				type: $(this).attr('method'),
+				url: $(this).attr('action'),
+				success: function(response) {
+					alert('Password changed');
+				}
+			});
+		};
 	});
 	
 	var parts = location.pathname.split("/");
