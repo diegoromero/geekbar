@@ -551,6 +551,32 @@ $(document).ready(function() {
 		$('#insert_item_modal').modal('toggle');
 	});
 	
+	$('.change_name_form').submit(function(event) {
+		event.preventDefault();
+		var form = $(this);
+		$.ajax({
+			data: $(this).serialize(),
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				alert('Name changed');
+			}
+		});
+	});
+	
+	$('.change_password_form').submit(function(event) {
+		event.preventDefault();
+		var form = $(this);
+		$.ajax({
+			data: $(this).serialize(),
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				alert('Password changed');
+			}
+		});
+	});
+	
 	var parts = location.pathname.split("/");
 	var url = parts[parts.length - 1];
     // Will only work if string in href matches with location

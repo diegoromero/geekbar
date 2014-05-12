@@ -1,8 +1,8 @@
 <h4>Change name:</h4>
 <form action="" method="post" id="change_name_form">
 	Name:
-	<input type="text" value="Foo" name="name">
-	<input type="submit" value="Change" class="btn btn-primary">
+	<input type="text" value="{{ client_name }}" name="name">
+	<input type="submit" value="Change" name="change_name_form" class="btn btn-primary">
 </form>
 </br>
 
@@ -14,7 +14,7 @@
 				New Password:
 			</td>
 			<td>
-				<input type="password" id="new_pass_1">
+				<input type="password" id="new_pass_1" name="pass">
 			</td>
 		</tr>
 	</br>
@@ -28,7 +28,7 @@
 		</tr>
 	</table>
 	<b><p id="validate-status"></p></b>
-	<input type="submit" value="Save" class="btn btn-primary">
+	<input type="submit" value="Save" class="btn btn-primary" name="change_password_form">
 </form>
 </br>
 

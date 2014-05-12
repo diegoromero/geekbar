@@ -183,8 +183,8 @@ def menu_path(request, menu_id, path):
 
 @login_required
 def manager(request):
-
-    client_name = dao.get_client_name(request.user.username)
+    client_id = dao.get_client_id_from_username(request.user.username)
+    client_name = dao.get_client_name(client_id)
     
     return render(request, 'desktop_index.html',
                   {'template': 'manager.html',
@@ -313,10 +313,23 @@ def manager_seats(request):
 @login_required
 def manager_profile(request):
     client_id = dao.get_client_id_from_username(request.user.username)
+    client_name = dao.get_client_name(client_id)
+    if request.method == 'POST':
+        if request.is_ajax():
+            if 'change_name_form' in request.POST:
+                new_name = request.POST['name']
+                dao.set_client_name(client_id, new_name)
+            elif 'change_password_form' in request.POST:
+                new_pass = request.POST['password']
+                user = User.objects.get(username=request.user)
+                user.set_password(new_pass)
+                user.save()
+                
+        
 
     return render(request, 'desktop_index.html',
                   {'template': 'manager_profile.html',
-                   'title': 'Manager'})
+                   'title': 'Manager', 'client_name': client_name})
     
 
 def place_order(request, item_id, client_id):

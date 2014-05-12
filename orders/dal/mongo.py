@@ -127,6 +127,10 @@ class MongoOrdersDAO(OrdersDAO):
         mongo_id = get_mongo_id(client_id)
         return self.db.clients.find_one({'_id': mongo_id})['name']
 
+    def set_client_name(self, client_id, name):
+        mongo_id = get_mongo_id(client_id)
+        self.db.clients.update({'_id': mongo_id}, {'$set': {'name': name}})
+
     def get_active_menu_id(self, client_id):
         '''gets the id of the active menu of the client'''
         mongoid = get_mongo_id(client_id)
