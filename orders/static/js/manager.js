@@ -584,6 +584,22 @@ $(document).ready(function() {
 		};
 	});
 	
+	$('#create_screen_user_form').submit(function(event) {
+		event.preventDefault();
+		var form = $(this);
+		$.ajax({
+			data: $(this).serialize() + "&create_screen_user_form",
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				alert('Screen Created');
+			},
+			error: function(response) {
+				$('#create_screen_error').text('Username already registered. Try Another one');
+			}
+		});
+	});
+	
 	var parts = location.pathname.split("/");
 	var url = parts[parts.length - 1];
     // Will only work if string in href matches with location

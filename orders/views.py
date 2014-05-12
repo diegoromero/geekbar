@@ -73,7 +73,7 @@ def signup(request):
             #dao.create_client(username)
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('orders.views.manager_items')
+            return redirect('orders.views.manager')
         except NotUniqueError, Argument:
             if 'username' in str(Argument):
                 '''If the username is already registered it gives a
@@ -185,9 +185,9 @@ def manager_check(username):
 
 @login_required
 def manager(request):
+    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
-    manager_check(request.user.username)
     
     return render(request, 'desktop_index.html',
                   {'template': 'manager.html',
@@ -196,6 +196,7 @@ def manager(request):
 
 @login_required
 def manager_items(request):
+    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     items = dao.get_client_items(client_id)
     item_form = ItemForm()
@@ -238,6 +239,7 @@ def manager_items(request):
 
 @login_required
 def manager_menus(request):
+    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     try:
         menus = dao.get_client_menus(client_id)
@@ -276,6 +278,7 @@ def manager_menus(request):
 
 @login_required
 def manager_seats(request):
+    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     if request.method == 'POST':
         if request.is_ajax():
@@ -315,6 +318,7 @@ def manager_seats(request):
 
 @login_required
 def manager_profile(request):
+    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
     if request.method == 'POST':
@@ -324,11 +328,19 @@ def manager_profile(request):
                 dao.set_client_name(client_id, new_name)
             elif 'change_password_form' in request.POST:
                 new_pass = request.POST['password']
-                request.user.set_password(new_pass)                     
+                request.user.set_password(new_pass)
+            elif 'create_screen_user_form' in request.POST:
+                username = request.POST['username']
+                password = request.POST['password']
+                try:
+                    User.create_user(username=username, password=password, screen=True)
+                    
+                
 
     return render(request, 'desktop_index.html',
                   {'template': 'manager_profile.html',
                    'title': 'Manager', 'client_name': client_name})
+
     
 
 def place_order(request, item_id, client_id):
