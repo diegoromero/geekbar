@@ -332,8 +332,7 @@ def manager_profile(request):
             elif 'create_screen_user_form' in request.POST:
                 username = request.POST['username']
                 password = request.POST['password']
-                try:
-                    User.create_user(username=username, password=password, screen=True)
+                User.create_user(username=username, password=password, screen=True)
                     
                 
 
