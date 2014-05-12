@@ -321,7 +321,7 @@ def manager_profile(request):
                 dao.set_client_name(client_id, new_name)
             elif 'change_password_form' in request.POST:
                 new_pass = request.POST['password']
-                user = User.get_user(username=request.user)
+                user = request.user.set_password(new_pass)
                 user.set_password(new_pass)
                 user.save()
                 
