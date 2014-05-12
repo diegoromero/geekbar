@@ -8,4 +8,6 @@ class User(MongoEngineUser):
     #custom fields
     email = EmailField(verbose_name=_('e-mail address'),
                        unique=True)
+    manager = BooleanField(default=False)
+    screen = BooleanField(default=False)
 
