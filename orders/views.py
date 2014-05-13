@@ -30,11 +30,6 @@ def home(request):
 
 def signin(request):
     '''Sign In view'''
-    if request.user.is_authenticated():
-        '''If the user is already registered it goes
-        to the manager screen'''
-        manager_check(request.user.username)
-        return redirect('orders.views.manager')
     if request.method == 'POST':
         username = request.POST['session[username]']
         password = request.POST['session[password]']
@@ -61,11 +56,6 @@ def signin(request):
 
 def screen_signin(request):
     '''Sign In view'''
-    if request.user.is_authenticated():
-        '''If the user is already registered it goes
-        to the manager screen'''
-        screen_check(request.user.username)
-        return redirect('orders.views.list_orders')
     if request.method == 'POST':
         username = request.POST['session[username]']
         password = request.POST['session[password]']
