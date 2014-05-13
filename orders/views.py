@@ -217,6 +217,7 @@ def manager_check(username):
     print type(dao.is_manager(username)), dao.is_manager(username)
     print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     if not dao.is_manager(username):
+        print '------------------------------ENTERED THE IF STATEMENT-----------------------------------------------------'
         return redirect('orders.views.home')
 
 def screen_check(username):
@@ -225,6 +226,7 @@ def screen_check(username):
     print type(dao.is_screen(username)), dao.is_screen(username)
     print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     if not dao.is_screen(username):
+        print '------------------------------ENTERED THE IF STATEMENT-----------------------------------------------------'
         return redirect('orders.views.home')
 
 @login_required
