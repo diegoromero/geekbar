@@ -215,6 +215,7 @@ def manager_check(username):
     'Validates if the user is a manager'
     print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     print dao.is_screen(username)
+    print type(dao.is_screen(username))
     if not dao.is_manager(username):
         return redirect('orders.views.home')
 
@@ -222,6 +223,7 @@ def screen_check(username):
     'Validates if the user is a screen'
     print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     print dao.is_screen(username)
+    print type(dao.is_screen(username))
     if not dao.is_screen(username):
         return redirect('orders.views.home')
 
