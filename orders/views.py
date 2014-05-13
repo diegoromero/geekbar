@@ -65,7 +65,7 @@ def screen_signin(request):
         '''If the user is already registered it goes
         to the manager screen'''
         screen_check(request.user.username)
-        return redirect('orders.views.orders')
+        return redirect('orders.views.list_orders')
     if request.method == 'POST':
         username = request.POST['session[username]']
         password = request.POST['session[password]']
