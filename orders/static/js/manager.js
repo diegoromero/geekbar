@@ -618,8 +618,8 @@ $(document).ready(function() {
 	});
 	
 	$('#change_screen_user_password_button').click(function (event) {
-		console.log(this);
-		console.log($(this));
+		var username = $(this).parent().siblings('.screen_username').text();
+		$('#change_screen_user_password_username').val(username);
 	});
 	
 	var parts = location.pathname.split("/");

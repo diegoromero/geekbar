@@ -54,7 +54,7 @@
 			{% for user in screen_users %}
 				<tr>
 					<td class="screen_username">{{ user.username }}</td>
-					<td><a data-toggle="modal" href="#change_screen_user_password_modal" class="btn btn-primary" id="change_screen_user_password_button">Change Password</a></td>
+					<td><a data-toggle="modal" href="#change_screen_user_password_modal"><button type="button" class="btn btn-primary" id="change_screen_user_password_button">Change Password</button></a></td>
 					<td><button type="button" class="btn btn-primary">Delete User</button></td>
 				</tr>
 			{% endfor %}
