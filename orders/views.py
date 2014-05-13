@@ -214,14 +214,14 @@ def menu_path(request, menu_id, path):
 def manager_check(user):
     'Validates if the user is a manager'
     if user.is_authenticated():
-        return dao.is_manager(user.username):
+        return dao.is_manager(user.username)
     else:
         return False
 
 def screen_check(user):
     'Validates if the user is a screen'
     if user.is_authenticated():
-        return dao.is_screen(user.username):
+        return dao.is_screen(user.username)
     else:
         return False
 
