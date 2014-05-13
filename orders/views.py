@@ -334,9 +334,9 @@ def manager_profile(request):
                 password = request.POST['password']
                 email = username + '@geekbar.com'
                 screen_user = User.create_user(username=username, email=email, password=password)
-                dao.add_client_id_to_user(screen_user, client_id)
-                dao.set_manager(screen_user, False)
-                dao.set_screen(screen_user, True)
+                dao.add_client_id_to_user(screen_user.username, client_id)
+                dao.set_manager(screen_user.username, False)
+                dao.set_screen(screen_user.username, True)
                 
 
     return render(request, 'desktop_index.html',
