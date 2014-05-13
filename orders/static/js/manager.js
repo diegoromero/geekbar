@@ -235,10 +235,23 @@ function validate_password() {
 	};
 };
 
+function validate_screen_password() {
+	var pass_1 = $('#screen_new_pass_1').val();
+	var pass_2 = $('#screen_new_pass_2').val();
+
+	if (pass_1 != pass_2) {
+		$("#validate-screen-status").text('Passwords dont match');
+	} else {
+		$("#validate-screen-status").text('');
+	};
+};
+
 $(document).ready(function() {
 
 	$('#new_pass_1').keyup(validate_password);
 	$('#new_pass_2').keyup(validate_password);
+	$('#screen_new_pass_1').keyup(validate_screen_password);
+	$('#screen_new_pass_2').keyup(validate_screen_password);
 	
 	draw_qrcode();
 	seats_accordion();
@@ -596,11 +609,17 @@ $(document).ready(function() {
 			url: $(this).attr('action'),
 			success: function(response) {
 				alert('Screen Created');
+				$('#create_screen_error').text('');
 			},
 			error: function(response) {
 				$('#create_screen_error').text('Username already registered. Try Another one');
 			}
 		});
+	});
+	
+	$('#change_screen_user_password_button').click(function (event) {
+		console.log(this);
+		console.log($(this));
 	});
 	
 	var parts = location.pathname.split("/");

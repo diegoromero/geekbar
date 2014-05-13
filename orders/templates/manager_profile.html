@@ -53,9 +53,9 @@
 		<tbody>
 			{% for user in screen_users %}
 				<tr>
-					<td>{{ user.username }}</td>
-					<td><button type="button">Change Password</button></td>
-					<td><button type="button">Delete User</button></td>
+					<td class="screen_username">{{ user.username }}</td>
+					<td><a data-toggle="modal" href="#change_screen_user_password_modal" class="btn btn-primary" id="change_screen_user_password_button">Change Password</a></td>
+					<td><button type="button" class="btn btn-primary">Delete User</button></td>
 				</tr>
 			{% endfor %}
 		</tbody>
@@ -90,12 +90,50 @@
 								Password:
 							</td>
 							<td>
-								<input type="text" name="password">
+								<input type="password" name="password">
 							</td>
 						</tr>
 					</table>
 					<p id="create_screen_error"></p>
 					<input type="submit" value="Create" name="add_item" class="btn btn-primary">
+				</form>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="change_screen_user_password_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Change Screen User Password</h4>
+			</div>
+			<div class="modal-body">
+				<form action="" method="post" id="change_screen_user_password_form">
+					{% csrf_token %}
+					<input type="hidden" value="" name="username" id="change_screen_user_password_username">
+					<table>
+						<tr>
+							<td>
+								New Password:
+							</td>
+							<td>
+								<input type="text" id="screen_new_pass_1" name="pass">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Repeat new password:
+							</td>
+							<td>
+								<input type="text" id="screen_new_pass_2" name="password">
+							</td>
+						</tr>
+					</table>
+					<b><p id="validate-screen-status"></p></b>
+					<input type="submit" value="Create" name="change_item" class="btn btn-primary">
 				</form>
 			</div>
 		</div><!-- /.modal-content -->
