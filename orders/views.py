@@ -343,6 +343,11 @@ def manager_profile(request):
                 dao.add_client_id_to_user(screen_user.username, client_id)
                 dao.set_manager(screen_user.username, False)
                 dao.set_screen(screen_user.username, True)
+            elif 'change_screen_user_password_form' in request.POST:
+                new_pass = request.POST['password']
+                username = request.POST['username']
+                n_pass = make_password(new_pass)
+                dao.change_user_password(username, n_pass)
                 
 
     return render(request, 'desktop_index.html',

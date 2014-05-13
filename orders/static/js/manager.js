@@ -622,6 +622,26 @@ $(document).ready(function() {
 		$('#change_screen_user_password_username').val(username);
 	});
 	
+	$('#change_screen_user_password_form').submit(function(event) {
+		event.preventDefault();
+		var form = $(this);
+		var pass_1 = $('#screen_new_pass_1').val();
+		var pass_2 = $('#screen_new_pass_2').val();
+
+		if (pass_1 != pass_2) {
+			alert('Passwords DONT match!');
+		} else {
+			$.ajax({
+				data: $(this).serialize() + "&change_screen_user_password_form",
+				type: $(this).attr('method'),
+				url: $(this).attr('action'),
+				success: function(response) {
+					alert('Password changed');
+				},
+			});
+		};
+	});
+	
 	var parts = location.pathname.split("/");
 	var url = parts[parts.length - 1];
     // Will only work if string in href matches with location
