@@ -44,18 +44,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>John Doe</td>
-				<td>johndoe1</td>
-			</tr>
-			<tr>
-				<td>John Doe 2</td>
-				<td>johndoe2</td>
-			</tr>
-			<tr>
-				<td>John Doe 3</td>
-				<td>johndoe3</td>
-			</tr>
+			{% for user in screen_users %}
+				<tr>
+					<td>{{ user.username }}</td>
+					<td>{{ user.password }}</td>
+				</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 </div>

@@ -321,6 +321,7 @@ def manager_profile(request):
     manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
+    screen_users = dao.get_screen_users(client_id)
     if request.method == 'POST':
         if request.is_ajax():
             if 'change_name_form' in request.POST:
@@ -341,7 +342,8 @@ def manager_profile(request):
 
     return render(request, 'desktop_index.html',
                   {'template': 'manager_profile.html',
-                   'title': 'Manager', 'client_name': client_name})
+                   'title': 'Manager', 'client_name': client_name,
+                   'screen_users': screen_users})
 
     
 
