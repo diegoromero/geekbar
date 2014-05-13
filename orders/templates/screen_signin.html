@@ -1,6 +1,6 @@
 <div class="form-sign">
 	<form action="/screen_signin/"" method="post">
-		<h3 class="form-sign-heading">Manager Sign In</h2>
+		<h3 class="form-sign-heading">Screen Sign In</h2>
 		{% csrf_token %}
 		<input type="text" class="form-control" autocomplete="off" name="session[username]" maxlength="20" placeholder="Username" required value={{ username }} > 
 		<input type="password" class="form-control" name="session[password]" placeholder="Password" required>
