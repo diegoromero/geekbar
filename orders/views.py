@@ -450,7 +450,7 @@ def bill(request):
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
-@user_passes_test(screen_check)
+@user_passes_test(screen_check, login_url='/screen_signin/')
 def list_orders(request, query={}):
     '''Lists orders in the specified client's queue. It defaults to
     the pending orders. TODO: provide a way for the server or manager
@@ -464,14 +464,14 @@ def list_orders(request, query={}):
     request.session['query'] = query
     return render_orders(request, client_id, orders, server_mods, is_screen=True)
 
-@user_passes_test(screen_check)
+@user_passes_test(screen_check, login_url='/screen_signin/')
 def screen_refresh(request):
     client_id = request.session['client_id'] 
     query = request.session['query']
     orders = dao.list_orders_json(client_id, query=query)
     return HttpResponse(orders, content_type = "application/json")
 
-@user_passes_test(screen_check)   
+@user_passes_test(screen_check, login_url='/screen_signin/')   
 def filter_orders(request):
     '''Allows the user to specify filters on the list of orders they want to see.'''
     logger.debug({'GET':request.GET})
