@@ -643,8 +643,14 @@ $(document).ready(function() {
 	});
 	
 	$('.delete_screen_user').click(function (event) {
-		var username = $(this).siblings('.screen_username').text();
-		console.log(username);
+		var username = $(this).parent().siblings('.screen_username').text();
+		$.ajax({
+			data: 'username=' + username + '&delete_screen_user',
+			url: '',
+			success: function(response) {
+				$(this).parent().parent().hide();
+			}
+		});
 	});
 	
 	var parts = location.pathname.split("/");

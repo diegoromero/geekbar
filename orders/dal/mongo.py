@@ -49,6 +49,9 @@ class MongoOrdersDAO(OrdersDAO):
             'bills': 0
         })
 
+    def delete_user(self, username):
+        self.db.user.remove({'username': username})
+
     def add_client_id_to_user(self, username, client_id):
         self.db.user.update({'username': username}, {'$set': {'client_id': client_id}})
 
