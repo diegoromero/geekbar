@@ -57,7 +57,7 @@ class MongoOrdersDAO(OrdersDAO):
 
     def get_screen_users(self, client_id):
         mongoid = get_mongo_id(client_id)
-        return self.db.user.find({'client_id': mongoid})
+        return self.db.user.find({'client_id': mongoid, 'screen': True})
 
     def set_manager(self, username, value):
         self.db.user.update({'username': username}, {'$set': {'manager': value}})
