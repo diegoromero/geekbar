@@ -55,6 +55,9 @@ class MongoOrdersDAO(OrdersDAO):
     def get_client_id_from_username(self, username):
         return self.db.user.find_one({'username': username})['client_id']
 
+    def get_client_from_username(self, username):
+        return self.db.user.find_one({'username': username})
+
     def get_screen_users(self, client_id):
         mongoid = get_mongo_id(client_id)
         return self.db.user.find({'client_id': mongoid, 'screen': True})

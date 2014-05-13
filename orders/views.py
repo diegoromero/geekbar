@@ -4,6 +4,7 @@ import os
 from mongoengine import NotUniqueError, ValidationError
 from orders.models import User
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect
@@ -328,7 +329,11 @@ def manager_profile(request):
                 new_name = request.POST['name']
                 dao.set_client_name(client_id, new_name)
             elif 'change_password_form' in request.POST:
+                user = dao.get_client_from_username(request.user.username)
+                curr_pass = request.POST['curr_pass']
                 new_pass = request.POST['password']
+                if not check_password(curr_pass, user['password']):
+                    raise Http404
                 request.user.set_password(new_pass)
             elif 'create_screen_user_form' in request.POST:
                 username = request.POST['username']
