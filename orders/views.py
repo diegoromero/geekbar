@@ -463,8 +463,7 @@ def list_orders(request, query={}):
     the pending orders. TODO: provide a way for the server or manager
     to filter by any combination of date, status and seat'''
     screen_check(request.user.username)
-    if 'client_id' not in request.session:
-        request.session['client_id'] = client_id = dao.get_client_id_from_username(request.user.username)
+    request.session['client_id'] = client_id = dao.get_client_id_from_username(request.user.username)
     # default to ORDER_PLACED for now
     if 'status' not in query:
         query['status'] = dao.ORDER_PLACED
