@@ -74,7 +74,7 @@ def screen_signin(request):
             manager view'''
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('orders.views.orders/c0')
+            return redirect('orders.views.list_orders')
         except AttributeError:
             '''If it cant log in it gives a error message'''
             error = True
