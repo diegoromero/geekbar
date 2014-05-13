@@ -579,6 +579,9 @@ $(document).ready(function() {
 				url: $(this).attr('action'),
 				success: function(response) {
 					alert('Password changed');
+				},
+				error: function(response) {
+					alert('Current password didnt match');
 				}
 			});
 		};
