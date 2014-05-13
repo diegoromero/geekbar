@@ -55,6 +55,12 @@ class MongoOrdersDAO(OrdersDAO):
     def get_client_id_from_username(self, username):
         return self.db.user.find_one({'username': username})['client_id']
 
+    def set_manager(self, username, value):
+        self.db.user.update({'username': username}, {'$set': {'manager': value}})
+
+    def set_screen(self, username, value):
+        self.db.user.update({'username': username}, {'$set': {'screen': value}})
+
     def is_manager(self, username):
         'Checks if request.user has attr manager:True'
         return self.db.user.find_one({'username': username})['manager']
