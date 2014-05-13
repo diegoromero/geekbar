@@ -42,24 +42,26 @@
 </form>
 </br>
 
-<div id="users-contain" class="ui-widget">
-	<h4>Screen Credentials:</h4>
-	<table id="users" class="ui-widget ui-widget-content">
-		<thead>
-			<tr class="ui-widget-header ">
-				<th>Username</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for user in screen_users %}
-				<tr>
-					<td class="screen_username">{{ user.username }}</td>
-					<td><a data-toggle="modal" href="#change_screen_user_password_modal" id="change_screen_user_password_button"><button type="button" class="btn btn-primary">Change Password</button></a></td>
-					<td><button type="button" class="btn btn-primary">Delete User</button></td>
+<div id="users-contain-wrapper">
+	<div id="users-contain" class="ui-widget">
+		<h4>Screen Credentials:</h4>
+		<table id="users" class="ui-widget ui-widget-content">
+			<thead>
+				<tr class="ui-widget-header ">
+					<th>Username</th>
 				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{% for user in screen_users %}
+					<tr>
+						<td class="screen_username">{{ user.username }}</td>
+						<td><a data-toggle="modal" href="#change_screen_user_password_modal" class="change_screen_user_password_button"><button type="button" class="btn btn-primary">Change Password</button></a></td>
+						<td><button type="button" class="btn btn-primary" class="delete_screen_user">Delete User</button></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <!-- Button trigger modal -->
@@ -120,7 +122,7 @@
 								New Password:
 							</td>
 							<td>
-								<input type="text" id="screen_new_pass_1" name="pass">
+								<input type="password" id="screen_new_pass_1" name="pass">
 							</td>
 						</tr>
 						<tr>
@@ -128,12 +130,12 @@
 								Repeat new password:
 							</td>
 							<td>
-								<input type="text" id="screen_new_pass_2" name="password">
+								<input type="password" id="screen_new_pass_2" name="password">
 							</td>
 						</tr>
 					</table>
 					<b><p id="validate-screen-status"></p></b>
-					<input type="submit" value="Create" name="change_item" class="btn btn-primary">
+					<input type="submit" value="Save" name="change_item" class="btn btn-primary">
 				</form>
 			</div>
 		</div><!-- /.modal-content -->

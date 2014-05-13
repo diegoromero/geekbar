@@ -608,7 +608,7 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				alert('Screen Created');
+				$('#users-contain-wrapper').load(' #users-contain');
 				$('#create_screen_error').text('');
 			},
 			error: function(response) {
@@ -617,7 +617,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('#change_screen_user_password_button').click(function (event) {
+	$('.change_screen_user_password_button').click(function (event) {
 		var username = $(this).parent().siblings('.screen_username').text();
 		$('#change_screen_user_password_username').val(username);
 	});
@@ -640,6 +640,11 @@ $(document).ready(function() {
 				},
 			});
 		};
+	});
+	
+	$('.delete_screen_user').click(function (event) {
+		var username = $(this).siblings('.screen_username').text();
+		console.log(username);
 	});
 	
 	var parts = location.pathname.split("/");
