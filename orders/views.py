@@ -5,7 +5,7 @@ from mongoengine import NotUniqueError, ValidationError
 from orders.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.hashers import check_password, make_password
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -211,25 +211,21 @@ def menu_path(request, menu_id, path):
     '''This view receives a path that is not tokenized.'''
     pass
 
-def manager_check(username):
+def manager_check(user):
     'Validates if the user is a manager'
-    print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    print type(dao.is_manager(username)), dao.is_manager(username)
-    print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    if not dao.is_manager(username):
-        print '------------------------------ENTERED THE IF STATEMENT-----------------------------------------------------'
-        return redirect('orders.views.home')
+    if user.is_authenticated():
+        return dao.is_manager(user.username):
+    else:
+        return False
 
-def screen_check(username):
+def screen_check(user):
     'Validates if the user is a screen'
-    print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    print type(dao.is_screen(username)), dao.is_screen(username)
-    print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    if not dao.is_screen(username):
-        print '------------------------------ENTERED THE IF STATEMENT-----------------------------------------------------'
-        return redirect('orders.views.home')
+    if user.is_authenticated():
+        return dao.is_screen(user.username):
+    else:
+        return False
 
-@login_required
+@user_passes_test(manager_check)
 def manager(request):
     manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
@@ -240,7 +236,7 @@ def manager(request):
                    'title': 'Manager',
                    'client': client_name})
 
-@login_required
+@user_passes_test(manager_check)
 def manager_items(request):
     manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
@@ -283,7 +279,7 @@ def manager_items(request):
                    'signature': settings.SIGNATURE,
                    'client': client_id})
 
-@login_required
+@user_passes_test(manager_check)
 def manager_menus(request):
     manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
@@ -322,7 +318,7 @@ def manager_menus(request):
                    'template': 'manager_menus.html',
                    'title': 'Manager'})
 
-@login_required
+@user_passes_test(manager_check)
 def manager_seats(request):
     manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
@@ -362,7 +358,7 @@ def manager_seats(request):
                    'seats': seats, 'client': client_id,
                    'menus': menus})
 
-@login_required
+@user_passes_test(manager_check)
 def manager_profile(request):
     manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
@@ -459,7 +455,7 @@ def bill(request):
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
-@login_required
+@user_passes_test(screen_check)
 def list_orders(request, query={}):
     '''Lists orders in the specified client's queue. It defaults to
     the pending orders. TODO: provide a way for the server or manager
@@ -474,18 +470,16 @@ def list_orders(request, query={}):
     request.session['query'] = query
     return render_orders(request, client_id, orders, server_mods, is_screen=True)
 
-@login_required
+@user_passes_test(screen_check)
 def screen_refresh(request):
-    screen_check(request.user.username)
     client_id = request.session['client_id'] 
     query = request.session['query']
     orders = dao.list_orders_json(client_id, query=query)
     return HttpResponse(orders, content_type = "application/json")
 
-@login_required    
+@user_passes_test(screen_check)   
 def filter_orders(request):
     '''Allows the user to specify filters on the list of orders they want to see.'''
-    screen_check(request.user.username)
     logger.debug({'GET':request.GET})
     try:
         client_id = request.session['client_id']
