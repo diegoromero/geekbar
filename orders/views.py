@@ -227,7 +227,6 @@ def screen_check(user):
 
 @user_passes_test(manager_check)
 def manager(request):
-    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
     
@@ -238,7 +237,6 @@ def manager(request):
 
 @user_passes_test(manager_check)
 def manager_items(request):
-    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     items = dao.get_client_items(client_id)
     item_form = ItemForm()
@@ -281,7 +279,6 @@ def manager_items(request):
 
 @user_passes_test(manager_check)
 def manager_menus(request):
-    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     try:
         menus = dao.get_client_menus(client_id)
@@ -320,7 +317,6 @@ def manager_menus(request):
 
 @user_passes_test(manager_check)
 def manager_seats(request):
-    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     if request.method == 'POST':
         if request.is_ajax():
@@ -360,7 +356,6 @@ def manager_seats(request):
 
 @user_passes_test(manager_check)
 def manager_profile(request):
-    manager_check(request.user.username)
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
     if request.method == 'POST':
@@ -460,7 +455,6 @@ def list_orders(request, query={}):
     '''Lists orders in the specified client's queue. It defaults to
     the pending orders. TODO: provide a way for the server or manager
     to filter by any combination of date, status and seat'''
-    screen_check(request.user.username)
     request.session['client_id'] = client_id = dao.get_client_id_from_username(request.user.username)
     # default to ORDER_PLACED for now
     if 'status' not in query:
