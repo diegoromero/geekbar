@@ -214,16 +214,16 @@ def menu_path(request, menu_id, path):
 def manager_check(username):
     'Validates if the user is a manager'
     print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    print dao.is_screen(username)
-    print type(dao.is_screen(username))
+    print type(dao.is_manager(username)), dao.is_manager(username)
+    print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     if not dao.is_manager(username):
         return redirect('orders.views.home')
 
 def screen_check(username):
     'Validates if the user is a screen'
     print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    print dao.is_screen(username)
-    print type(dao.is_screen(username))
+    print type(dao.is_screen(username)), dao.is_screen(username)
+    print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     if not dao.is_screen(username):
         return redirect('orders.views.home')
 
