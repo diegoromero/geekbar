@@ -648,7 +648,7 @@ $(document).ready(function() {
 			data: 'username=' + username + '&delete_screen_user',
 			url: '',
 			success: function(response) {
-				$(this).parent().parent().hide();
+				$('#users-contain-wrapper').load(' #users-contain');
 			}
 		});
 	});

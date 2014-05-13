@@ -33,6 +33,7 @@ def signin(request):
     if request.user.is_authenticated():
         '''If the user is already registered it goes
         to the manager screen'''
+        manager_check(request.user.username)
         return redirect('orders.views.manager')
     if request.method == 'POST':
         username = request.POST['session[username]']
@@ -53,7 +54,38 @@ def signin(request):
         username = ''
     return render(request, 'home_index.html',
                   {'title': 'Sign In',
-                   'template': 'signin.html',
+                   'template': 'manager_signin.html',
+                   'username': username,
+                   'error': error,
+                   'error_value': error_value})
+
+def screen_signin(request):
+    '''Sign In view'''
+    if request.user.is_authenticated():
+        '''If the user is already registered it goes
+        to the manager screen'''
+        screen_check(request.user.username)
+        return redirect('orders.views.orders')
+    if request.method == 'POST':
+        username = request.POST['session[username]']
+        password = request.POST['session[password]']
+        try:
+            '''Tries to log in, if succeds it redirects to the
+            manager view'''
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('orders.views.orders/c0')
+        except AttributeError:
+            '''If it cant log in it gives a error message'''
+            error = True
+            error_value = 'Wrong username or password'
+    else:
+        error = False
+        error_value = ''
+        username = ''
+    return render(request, 'home_index.html',
+                  {'title': 'Sign In',
+                   'template': 'screen_signin.html',
                    'username': username,
                    'error': error,
                    'error_value': error_value})
@@ -182,6 +214,11 @@ def menu_path(request, menu_id, path):
 def manager_check(username):
     'Validates if the user is a manager'
     if not dao.is_manager(username):
+        return redirect('orders.views.home')
+
+def screen_check(username):
+    'Validates if the user is a screen'
+    if not dao.is_screen(username):
         return redirect('orders.views.home')
 
 @login_required
@@ -414,13 +451,15 @@ def bill(request):
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
-def list_orders(request, client_id, query={}):
+@login_required
+def list_orders(request, query={}):
     '''Lists orders in the specified client's queue. It defaults to
     the pending orders. TODO: provide a way for the server or manager
     to filter by any combination of date, status and seat'''
+    screen_check(request.user.username)
     logger.debug({'client_id':client_id, 'query':query})
     if 'client_id' not in request.session:
-        request.session['client_id'] = client_id
+        request.session['client_id'] = dao.get_client_id_from_username(request.user.username)
     # default to ORDER_PLACED for now
     if 'status' not in query:
         query['status'] = dao.ORDER_PLACED
@@ -429,14 +468,18 @@ def list_orders(request, client_id, query={}):
     request.session['query'] = query
     return render_orders(request, client_id, orders, server_mods, is_screen=True)
 
+@login_required
 def screen_refresh(request):
+    screen_check(request.user.username)
     client_id = request.session['client_id'] 
     query = request.session['query']
     orders = dao.list_orders_json(client_id, query=query)
     return HttpResponse(orders, content_type = "application/json")
-    
+
+@login_required    
 def filter_orders(request):
     '''Allows the user to specify filters on the list of orders they want to see.'''
+    screen_check(request.user.username)
     logger.debug({'GET':request.GET})
     try:
         client_id = request.session['client_id']
@@ -458,7 +501,7 @@ def filter_orders(request):
         if request.POST['bill_number'] <> '':
             query['bill_number'] = int(request.POST['bill_number'])
         if len(query) > 0:
-            return list_orders(request, client_id, query=query)
+            return list_orders(request, query=query)
     # Render form instead if there's no filter
     statii = []
     for status in dao.ORDER_STATII:
