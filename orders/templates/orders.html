@@ -5,9 +5,11 @@
 	<div data-role="content">
 		<ul data-role="listview" data-theme="a" data-count-theme="a"
 			data-filter="{{searchable}}">
-			{% for order in orders %}
-				{% include item_template %}
-			{% endfor %}
+			<div id="refresh_container">
+				{% for order in orders %}
+					{% include item_template %}
+				{% endfor %}
+			</div>
 		</ul>
 	</div>
 	<div data-role="footer" data-theme="f" data-position="fixed" data-tap-toggle="false">
