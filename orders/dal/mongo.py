@@ -491,7 +491,7 @@ def compute_delay(mongo_obj):
         delta = now - datetime.datetime.utcfromtimestamp(timestamp)
         secs = int(delta.total_seconds())
     else:
-        secs = time.time() - mongo_obj['update']
+        secs = int(time.time() - mongo_obj['update'])
     units = ((24*60*60,' day'),(60*60,' hr'),(60,' min'),(1,' sec'))
     idx = 0
     while secs < units[idx][0]:
