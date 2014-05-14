@@ -446,6 +446,21 @@ def list_orders(request, query={}):
     the pending orders. TODO: provide a way for the server or manager
     to filter by any combination of date, status and seat'''
     request.session['client_id'] = client_id = dao.get_client_id_from_username(request.user.username)
+    
+    if request.POST:
+        query = {}
+        statti = []
+        for status in dao.ORDER_STATII:
+            if status in request.POST:
+                statii.append(status)
+                query['status'] = statii
+        if 'seats' in request.POST:
+            query['seat_id'] = [str(i) for i in request.POST.getlist('seats')]
+        if 'menus' in request.POST:
+            query['menu_id'] = [str(i) for i in request.POST.getlist('menus')]
+        if request.POST['bill_number'] <> '':
+            query['bill_number'] = int(request.POST['bill_number'])
+            
     # default to ORDER_PLACED for now
     if 'status' not in query:
         query['status'] = dao.ORDER_PLACED
@@ -470,22 +485,6 @@ def filter_orders(request):
     except KeyError as e:
         logger.error('Cannot filter orders with no client_id in the session')
         return HttpResponseBadRequest('Invalid session. Please scan QR code or login again.')
-    # process filter and render orders
-    if request.POST:
-        query = {}
-        statii = []
-        for status in dao.ORDER_STATII:
-            if status in request.POST:
-                statii.append(status)
-                query['status'] = statii
-        if 'seats' in request.POST:
-            query['seat_id'] = [str(i) for i in request.POST.getlist('seats')]
-        if 'menus' in request.POST:
-            query['menu_id'] = [str(i) for i in request.POST.getlist('menus')]
-        if request.POST['bill_number'] <> '':
-            query['bill_number'] = int(request.POST['bill_number'])
-        if len(query) > 0:
-            return list_orders(request, query=query)
     # Render form instead if there's no filter
     statii = []
     for status in dao.ORDER_STATII:

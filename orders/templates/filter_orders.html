@@ -5,7 +5,7 @@
 		<h1>Filter Orders</h1>
 	</div>
 	<div data-role="content">
-		<form id="filter_orders" action="{% url 'filter_orders' %}"
+		<form id="filter_orders" action="{% url 'orders' %}"
 		method="post">
 			{% csrf_token %}
 			<fieldset data-role="controlgroup" data-type="horizontal" data-theme="a">
