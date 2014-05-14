@@ -3,14 +3,14 @@
 		{% include top_template %}
 	</div>
 	<div data-role="content">
-		<ul data-role="listview" data-theme="a" data-count-theme="a"
-			data-filter="{{searchable}}">
-			<div id="refresh_container">
+		<div id="refresh_container">
+			<ul data-role="listview" data-theme="a" data-count-theme="a"
+				data-filter="{{searchable}}">
 				{% for order in orders %}
 					{% include item_template %}
 				{% endfor %}
-			</div>
-		</ul>
+			</ul>
+		</div>
 	</div>
 	<div data-role="footer" data-theme="f" data-position="fixed" data-tap-toggle="false">
 		{% if bottom_template %}
