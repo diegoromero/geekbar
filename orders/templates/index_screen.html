@@ -27,19 +27,30 @@
 							poll();
 						}
 					});
-				}, 10000);
+				}, 7830);
 			})();
 			function add_order(data) {
 				var array_of_orders_id = [];
+				var data_ids = [];
 				$('li .order_id').each(function(){
 					array_of_orders_id.push($(this).text());
 				});
 				for ( var i in data.orders){
 					var this_order = $.parseJSON(data.orders[i]);
 					var order_id = this_order.id;
+					data_ids.push(order_id);
 					var signal = $.inArray(order_id, array_of_orders_id);
 					if ( signal == -1 ) {
 						$('ul').append('<li class="ui-li-has-alt ui-li-has-count ui-last-child"><a href="/order/'+ this_order.id +'" class="ui-btn"><h3>'+ this_order.item_name +'</h3><div class="ui-li-count ui-body-a">'+ this_order.quantity +'</div><span class="order_id" style="display: none;">'+ this_order.id +'</span><p class="ui-li-desc">Bill #: '+ this_order.bill_number +'</p><p class="ui-li-desc">Seat: '+ this_order.seat_id +'</p><p class="ui-li-desc">Placed '+ this_order.delay +'</p></a>')
+					};
+				};
+				remove_order(array_of_orders_id, data_ids);
+			};
+			function remove_order(posted, data) {
+				for ( var i in posted) {
+					var signal = $.inArray(posted[i], data)
+					if ( signal == -1 ) {
+						$('#'+ posted[i]).remove();
 					};
 				};
 			};
