@@ -11,19 +11,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
-		{% include template %}
+		<div id="refresh_container">
+			{% include template %}
+		</div>
 		<script type='text/javascript'>
 			(function poll(){
 				setTimeout(function(){
 					$.ajax({ 
-						dataType: "json",
+						//dataType: "json",
 						url: "screen_refresh/", 
 						success: function(data){
 							//Setup the next poll recursively
+							/*
 							if ( $('li').length != data.orders.length ){
 								add_order(data);
-							};
-							
+							};*/
+							$('#refres_container').load(data);
 							poll();
 						}
 					});
