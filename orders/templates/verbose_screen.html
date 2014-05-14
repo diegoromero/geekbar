@@ -8,8 +8,4 @@
 		<p class="ui-li-desc">Comment: {{order.comment}}</p>
 		<p class="ui-li-desc">{{order.status}} {{order.delay}}</p>
 	</a>
-	{% if order.cancelable %}
-		<a href="{% url 'cancel_order' order.id %}" data-icon="delete"
-		data-theme="d"></a>
-	{% endif %}
 </li>

@@ -7,7 +7,3 @@
 	<p class="ui-li-desc">Comment: {{order.comment}}</p>
 	<p class="ui-li-desc">{{order.status}} {{order.delay}}</p>
 </a>
-{% if order.cancelable %}
-	<a href="{% url 'cancel_order' order.id %}" data-icon="delete"
-	data-theme="d" class="ui-btn ui-btn-icon-notext ui-icon-delete ui-btn-d"></a>
-{% endif %}
