@@ -485,7 +485,7 @@ def compute_delay(mongo_obj):
     ago the object was created. Returns a simple human readable
     string that shows how long ago in seconds, minutes, hours or
     days ago the object was created'''
-    if str(mongo_obj['status'] == '_placed_':
+    if str(mongo_obj['status']) == '_placed_':
         timestamp = int(str(mongo_obj['_id'])[:8],16)
         now = datetime.datetime.utcnow()
         delta = now - datetime.datetime.utcfromtimestamp(timestamp)
