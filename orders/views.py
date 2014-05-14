@@ -474,8 +474,8 @@ def screen_refresh(request):
     client_id = request.session['client_id'] 
     query = request.session['query']
     orders = dao.list_orders(client_id, query=query)
-    #orders = dao.list_orders_json(client_id, query=query)
-    #return HttpResponse(orders, content_type = "application/json")
+    for item in orders:
+        item['status'] = item['status'].replace('_','').capitalize()
     return render(request, 'screen_refresh.html',
                   {'orders': orders})
 
