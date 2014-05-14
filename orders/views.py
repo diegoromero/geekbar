@@ -543,7 +543,8 @@ def cancel_order(request, order_id):
         logger.error('sessions does not contain a seat ID - not canceling order %s'. order_id)
         return HttpResponseForbidden
     orders = customer_orders(request)
-    return render_orders(request, client_id, orders, customer_mods)
+    sub_total = dao.orders_sub_total(orders)
+    return render_orders(request, client_id, orders, customer_mods, sub_total=sub_total)
 
 ####################
 # Helper functions #
