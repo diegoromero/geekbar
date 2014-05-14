@@ -529,6 +529,7 @@ def cancel_order(request, order_id):
     update_order instead? if so, the html would need to contain a form
     per item in the list, which might not be a good idea.'''
     logger.debug({'order':order_id})
+    client_id request.session['client_id']
     try: 
         order = dao.get_order(order_id)
         sid = request.session['seat_id']
@@ -542,7 +543,7 @@ def cancel_order(request, order_id):
         logger.error('sessions does not contain a seat ID - not canceling order %s'. order_id)
         return HttpResponseForbidden
     orders = customer_orders(request)
-    return render_orders(request, orders, customer_mods)
+    return render_orders(request, client_id, orders, customer_mods)
 
 ####################
 # Helper functions #
