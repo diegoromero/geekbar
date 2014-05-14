@@ -2,6 +2,7 @@ import logging
 import os
 import pymongo
 import datetime
+import time
 
 import json
 from bson import json_util
@@ -381,7 +382,7 @@ class MongoOrdersDAO(OrdersDAO):
 
     def update_order(self, order_id, status):
         'Updates the status of the specified order. Returns the new status of the order.'
-        res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set':{'status':status}}, new=True)
+        res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set':{'status':status, 'update':time.time()}}, new=True)
         return res['status']
 
     def update_orders(self, ids, **attributes):
@@ -484,10 +485,13 @@ def compute_delay(mongo_obj):
     ago the object was created. Returns a simple human readable
     string that shows how long ago in seconds, minutes, hours or
     days ago the object was created'''
-    timestamp = int(str(mongo_obj['_id'])[:8],16)
-    now = datetime.datetime.utcnow()
-    delta = now - datetime.datetime.utcfromtimestamp(timestamp)
-    secs = int(delta.total_seconds())
+    if str(mongo_obj['status'] == '_placed_':
+        timestamp = int(str(mongo_obj['_id'])[:8],16)
+        now = datetime.datetime.utcnow()
+        delta = now - datetime.datetime.utcfromtimestamp(timestamp)
+        secs = int(delta.total_seconds())
+    else:
+        secs = time.time() - mongo_obj['update']
     units = ((24*60*60,' day'),(60*60,' hr'),(60,' min'),(1,' sec'))
     idx = 0
     while secs < units[idx][0]:
