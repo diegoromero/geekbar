@@ -17,19 +17,20 @@
 		<script type='text/javascript'>
 			(function poll(){
 				setTimeout(function(){
-					$.ajax({ 
+					$('#refresh_container').load('screen_refresh/', function() {poll();});
+					/*$.ajax({ 
 						//dataType: "json",
 						url: "screen_refresh/", 
 						success: function(data){
 							//Setup the next poll recursively
-							/*
+							
 							if ( $('li').length != data.orders.length ){
 								add_order(data);
-							};*/
+							};
 							$('#refres_container').load(data);
 							poll();
 						}
-					});
+					});*/
 				}, 7830);
 			})();
 			function add_order(data) {
