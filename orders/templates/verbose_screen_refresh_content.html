@@ -1,4 +1,4 @@
-<a href="{% url 'order_details' order.id %}" class="ui-btn">
+<a href="{% url 'order_details' order.id %}" class="ui-btn ui-btn-icon-right ui-icon-carat-r">
 	<h3>{{order.item_name}}</h3>
 	<div class="ui-li-count ui-body-a">{{order.quantity}}</div>
 	<span class="order_id" style="display: none;">{{order.id}}</span>
@@ -6,5 +6,4 @@
 	<p class="ui-li-desc">Seat: {{order.seat_id}}</p>
 	<p class="ui-li-desc">Comment: {{order.comment}}</p>
 	<p class="ui-li-desc">{{order.status}} {{order.delay}}</p>
-	::after
 </a>
