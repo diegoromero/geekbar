@@ -449,7 +449,7 @@ def list_orders(request, query={}):
     
     if request.POST:
         query = {}
-        statti = []
+        statii = []
         for status in dao.ORDER_STATII:
             if status in request.POST:
                 statii.append(status)
