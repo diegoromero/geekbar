@@ -529,7 +529,7 @@ def cancel_order(request, order_id):
     update_order instead? if so, the html would need to contain a form
     per item in the list, which might not be a good idea.'''
     logger.debug({'order':order_id})
-    client_id request.session['client_id']
+    client_id = request.session['client_id']
     try: 
         order = dao.get_order(order_id)
         sid = request.session['seat_id']
