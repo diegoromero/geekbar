@@ -1,13 +1,13 @@
 {% if forloop.first %}
-<li class="ui-li-has-alt ui-li-has-count ui-first-child">
-	{% include 'verbose_screen_refresh_content.html' %}
-</li>
-{% endif %}
-<li class="ui-li-has-alt ui-li-has-count">
-	{% include 'verbose_screen_refresh_content.html' %}
-</li>
-{% if forloop.last %}
-<li class="ui-li-has-alt ui-li-has-count ui-last-child">
-	{% include 'verbose_screen_refresh_content.html' %}
-</li>
+	<li class="ui-li-has-alt ui-li-has-count ui-first-child">
+		{% include 'verbose_screen_refresh_content.html' %}
+	</li>
+{% elif forloop.last %}
+	<li class="ui-li-has-alt ui-li-has-count ui-last-child">
+		{% include 'verbose_screen_refresh_content.html' %}
+	</li>
+{% else }
+	<li class="ui-li-has-alt ui-li-has-count">
+		{% include 'verbose_screen_refresh_content.html' %}
+	</li>
 {% endif %}
