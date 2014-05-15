@@ -430,7 +430,7 @@ def customer_orders(request, statii = (dao.ORDER_PLACED, dao.ORDER_PREPARING,
     client_id = request.session['client_id']
     bill_n = request.session['bill_n']
     logger.info({'seat':seat_id, 'client':client_id})
-    orders = dao.list_orders(client_id, query={'seat_id':seat_id, 'bill_number':bill_n, 'status':statii})
+    orders = dao.list_orders(client_id, query={'bill_number':bill_n, 'status':statii})
     return orders
 
 def bill(request):
@@ -439,7 +439,7 @@ def bill(request):
     message = 'bill coming!'
     orders = customer_orders(request)
     ids = [order['id'] for order in orders]
-    dao.update_orders(ids, status=dao.BILL_REQUESTED)
+    dao.update_orders(ids, dao.BILL_REQUESTED)
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 

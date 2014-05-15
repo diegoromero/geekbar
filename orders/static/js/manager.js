@@ -374,7 +374,7 @@ $(document).ready(function() {
 		autoUpload: false,
 		dataType: 'xml',
 		add: function (event, data) {
-			$('#upload_but').off('click');
+			$('#upload_button').off('click');
 			data.context = $("#upload_button").on('click', function (e) {
 				console.log(data);
 				data.submit();

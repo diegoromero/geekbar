@@ -391,12 +391,11 @@ class MongoOrdersDAO(OrdersDAO):
         res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set':{'status':status, 'update':time.time()}}, new=True)
         return res['status']
 
-    def update_orders(self, ids, **attributes):
+    def update_orders(self, ids, status):
         '''Updates multiple orders by updating their attributes as specified in the input dictionary.
         Returns the IDs of the orders that failed to be updated if any.'''
-        logger.debug({'ids':ids,'attrs':attributes})
         oids = [ObjectId(i) for i in ids]
-        res = self.db.orders.update({'_id':{'$in':oids}},{'$set':attributes}, multi=True)
+        res = self.db.orders.update({'_id':{'$in':oids}},{'$set':{'status':status, 'update':time.time()}}, multi=True)
         logger.info('updated {} orders. Errors: {}.'.format(res['n'], res['err']))
         return res
 
