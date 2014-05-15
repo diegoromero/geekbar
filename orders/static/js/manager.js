@@ -37,7 +37,9 @@ function seats_tabs() {
 };
 
 function seats_accordion() {
-	$( ".seats_accordion" ).accordion();
+	$( ".seats_accordion" ).accordion({
+		heightStyle: "content"
+	});
 };
 
 function customMenu(node) {
