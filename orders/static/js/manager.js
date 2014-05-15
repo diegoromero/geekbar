@@ -659,10 +659,12 @@ $(document).ready(function() {
         $('ul.nav a[href="./' + url + '"]').parent().addClass('active');
 		
 	tabsfunc();
-	treemaker();
+	if ( url == "menus" ) {
+		treemaker();
+	};
 	item_insert_table();
 	
 	$('.loading').fadeOut("slow", function() {
-		$('.manger-content').fadeIn("slow");
+		$('.manager-content').fadeIn("slow");
 	});
 });
