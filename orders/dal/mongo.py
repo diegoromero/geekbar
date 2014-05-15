@@ -90,6 +90,12 @@ class MongoOrdersDAO(OrdersDAO):
     def new_bill(self, client_id):
         mongoid = get_mongo_id(client_id)
         self.db.clients.update({'_id': mongoid}, {'$inc': {'bills': 1}})
+        return self.db.bills.insert({
+                'client_id': client_id,
+                'bill_number': self.get_bills(mongoid),
+                'orders': [],
+                'status': 'not verified'
+                })
 
     def get_menu(self, menu_id):
         '''Gets the menu that matches the specified menu ID'''
