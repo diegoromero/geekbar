@@ -226,6 +226,7 @@ class MongoOrdersDAO(OrdersDAO):
     def delete_menu(self, menu_id):
         mongoid = get_mongo_id(menu_id)
         self.db.menus.remove({'_id': mongoid})
+        self.db.clients.update({'_id': client_id}, {'$pull': {'menus': str(mongoid)}})
 
     def del_item(self, client_id, item_id):
         '''Deletes items from the db and the structures of menus'''
