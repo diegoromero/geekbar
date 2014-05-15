@@ -292,7 +292,7 @@ def manager_menus(request):
                 try:
                     menus = dao.get_client_menus(client_id)
                 except TypeError:
-                menus = []
+                    menus = []
             elif 'item_form' in request.POST:
                 item_form = ItemForm(request.POST)
                 if item_form.is_valid():
