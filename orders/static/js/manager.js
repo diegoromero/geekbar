@@ -543,6 +543,19 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('.delete_menu_form').submit(function(event) {
+		event.preventDefault();
+		var form = $(this);
+		$.ajax({
+			data: $(this).serialize() + "&delete_menu",
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				$('#tabs_container').load(' #tabs', function(){tabsfunc(); treemaker(); });
+			}
+		});
+	});
+	
 	$('#insert_item_button').click(function() {
 		$('.ui-selected').each(function(){
 			$('.jstree[aria-expanded="true"]').jstree(
