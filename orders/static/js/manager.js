@@ -551,11 +551,11 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				alert('menu delete');
+				var href = form.parent().attr('id');
+				href = '#' + href;
+				form.parent().attr('id').remove();
+				$('a[href="'+href+'"]').parent().remove();
 			},
-			error: function(response) {
-				alert('error');
-			}
 		});
 	});
 	

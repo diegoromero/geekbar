@@ -223,10 +223,11 @@ class MongoOrdersDAO(OrdersDAO):
         menu_id = self.db.menus.insert({'title': title, 'structure': {}})
         self.db.clients.update({'_id': client_id}, {'$addToSet': {'menus': str(menu_id)}})
 
-    def delete_menu(self, menu_id):
+    def delete_menu(self, client_id, menu_id):
         mongoid = get_mongo_id(menu_id)
+        cmongoid = get_mongo_id(client_id)
         self.db.menus.remove({'_id': mongoid})
-        self.db.clients.update({'_id': client_id}, {'$pull': {'menus': str(mongoid)}})
+        self.db.clients.update({'_id': cmongoid}, {'$pull': {'menus': str(mongoid)}})
 
     def del_item(self, client_id, item_id):
         '''Deletes items from the db and the structures of menus'''

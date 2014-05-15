@@ -288,7 +288,7 @@ def manager_menus(request):
                 dao.update_menu_structure(menu['id'], menu['structure'])
             elif 'delete_menu' in request.POST:
                 menu = request.POST['menu_id']
-                dao.delete_menu(menu)
+                dao.delete_menu(client_id, menu)
             elif 'item_form' in request.POST:
                 item_form = ItemForm(request.POST)
                 if item_form.is_valid():
