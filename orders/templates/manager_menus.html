@@ -1,3 +1,5 @@
+<div class="loading">Loading&#8230;</div>
+<div class="manager-content" style="display: none;">
 <!-- Buttons trigger modals -->
 <a data-toggle="modal" href="#edit_item_modal" class="hidden" id="edit_item_modal_button">Edit Item</a>
 <a data-toggle="modal" href="#add_menu_modal" class="btn btn-primary btn-lg">Add Menu</a>
@@ -130,6 +132,7 @@
 	{% csrf_token %}
 	<input type="submit" value="Save" name="save_menu" class="btn btn-primary">
 </form>
+</div>
 
 <script type='text/javascript'>
 
