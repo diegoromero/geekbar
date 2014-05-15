@@ -148,7 +148,7 @@ def init_session(request, client_id, seat_id):
     if 'menu_id' not in request.session:
         request.session['menu_id'] = lmenu
     if 'bill_n' not in request.session:
-        request.session['bill_id'] = dao.new_bill(client_id)
+        dao.new_bill(client_id)
         bills = dao.get_bills(client_id)
         request.session['bill_n'] = bills
 
