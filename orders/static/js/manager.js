@@ -662,5 +662,7 @@ $(document).ready(function() {
 	treemaker();
 	item_insert_table();
 	
-	
+	$('.loading').fadeOut("slow", function() {
+		$('.manger-content').fadeIn("slow");
+	});
 });
