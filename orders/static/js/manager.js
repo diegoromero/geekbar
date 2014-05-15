@@ -376,6 +376,7 @@ $(document).ready(function() {
 		add: function (event, data) {
 			$('#upload_but').off('click');
 			data.context = $("#upload_button").on('click', function (e) {
+				console.log(data);
 				data.submit();
 			});
 		},
