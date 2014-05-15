@@ -433,7 +433,7 @@ $(document).ready(function() {
 	});
 	
 	$('#save_menu_form').submit(function() {
-		var tree = $('.jstree[aria-expanded="true"]').jstree("get_json", -1);
+		var tree = $('div[aria-expanded="true"]').children('.jstree').jstree("get_json", -1);
 		var token = $(this).serializeArray()[0];
 		$.ajax({
 			data: {
@@ -553,7 +553,7 @@ $(document).ready(function() {
 			success: function(response) {
 				var href = form.parent().attr('id');
 				href = '#' + href;
-				form.parent().attr('id').remove();
+				form.parent().remove();
 				$('a[href="'+href+'"]').parent().remove();
 			},
 		});
@@ -561,7 +561,7 @@ $(document).ready(function() {
 	
 	$('#insert_item_button').click(function() {
 		$('.ui-selected').each(function(){
-			$('.jstree[aria-expanded="true"]').jstree(
+			$('div[aria-expanded="true"]').children('.jstree').jstree(
 				"create",
 				null,
 				"inside",
