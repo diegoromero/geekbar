@@ -321,7 +321,8 @@ class MongoOrdersDAO(OrdersDAO):
         order = {'client_id':client_id, 'seat_id':seat_id, 'item_id':item_id, 'quantity':quantity,
                  'status':self.ORDER_PLACED, 'menu_id': menu_id, 'path': path, 'bill_number': bill_n,
                  'comment': comment, 'bill_status': bill_status}
-        return self.db.orders.insert(order)
+        order_id = self.db.orders.insert(order)
+        self.db.bills.update({'client_id': client_id, 'bill_number': bill_n}, {'$addToSet': {'orders': order_id}})
 
     def get_bill_status(self, client_id, bill_n):
         return self.db.bills.find_one({'client_id': client_id, 'bill_number': bill_n})['status']
