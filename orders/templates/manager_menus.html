@@ -117,11 +117,14 @@
 	<div id="tabs">
 		<ul>
 			{% for menu in menus %}
-				<li><a href="#tabs-{{ forloop.counter }}">{{ menu.title }}</a><p class="hidden">{{ menu.id }}</p></li>
+				<li><a href="#tabs-{{ forloop.counter }}-out">{{ menu.title }}</a><p class="hidden">{{ menu.id }}</p></li>
 			{% endfor %}
 		</ul>
 		{% for menu in menus %}
-			<div id="tabs-{{ forloop.counter }}">
+			<div id="tabs-{{ forloop.counter }}-out">
+				<div id="tabs-{{ forloop.counter }}">
+				</div>
+				<button type="button" class="btn btn-primary">Delete</button>
 			</div>
 		{% endfor %}
 	</div>

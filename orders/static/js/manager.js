@@ -153,7 +153,7 @@ function treemaker(){
 				"root" : {
 					"valid_children": ["section", "subsection"],
 					"icon": {
-						"image": "http://static.jstree.com/v.1.0rc/_docs/_drive.png"
+						"image": "https://s3.amazonaws.com/geekbar_bucket/media/root.png"
 					},
 					"start_drag" : false,
                     "move_node" : false,
@@ -169,7 +169,7 @@ function treemaker(){
 				"item": {
 					"valid_children": "none",
 					"icon": {
-						"image": "http://static.jstree.com/v.1.0rc/_demo/file.png"
+						"image": "https://s3.amazonaws.com/geekbar_bucket/media/tree-icon.png"
 					},
 					"rename" : false
 				}
