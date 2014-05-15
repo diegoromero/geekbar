@@ -289,10 +289,6 @@ def manager_menus(request):
             elif 'delete_menu' in request.POST:
                 menu = request.POST['menu_id']
                 dao.delete_menu(menu)
-                try:
-                    menus = dao.get_client_menus(client_id)
-                except TypeError:
-                    menus = []
             elif 'item_form' in request.POST:
                 item_form = ItemForm(request.POST)
                 if item_form.is_valid():

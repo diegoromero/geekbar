@@ -551,7 +551,10 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				$('#tabs_container').load(' #tabs', function(){tabsfunc(); treemaker(); });
+				alert('menu delete');
+			},
+			error: function(response) {
+				alert('error');
 			}
 		});
 	});
