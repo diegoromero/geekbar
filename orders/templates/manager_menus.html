@@ -124,7 +124,12 @@
 			<div id="tabs-{{ forloop.counter }}-out">
 				<div id="tabs-{{ forloop.counter }}">
 				</div>
-				<button type="button" class="btn btn-primary">Delete</button>
+				</br>
+				<form action="" method="post" class="delete_menu_form">
+					{% csrf_token %}
+					<input type="hidden" value="{{ menu.id }}" name="menu">
+					<input type="submit" value="Delete" name="delete_menu" class="btn btn-primary">
+				</form>
 			</div>
 		{% endfor %}
 	</div>
