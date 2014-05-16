@@ -456,9 +456,9 @@ def list_bills(request, query={}):
     '''Lists bills in the specified client's queue. It defaults to
     the not verified bills.'''
     client_id = request.session['client_id']
-    # default to ORDER_PLACED for now
+    # default to BILL_NOT_VERIFIED for now
     if 'status' not in query:
-        query['status'] = 'not verified'
+        query['status'] = dao.BILL_NOT_VERIFIED
 
     bills = dao.list_bills(client_id, query)
     return render_bills(request, client_id, bills)
@@ -483,7 +483,12 @@ def update_bill(request, bill_id):
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def filter_bills(request):
     client_id = request.session['client_id']
-    statii = ('not verified', 'verified', 'ignored', 'bill requested')
+    statii = []
+    for status in dao.BILL_STATII:
+        st = {}
+        st['id'] = status
+        st['name'] = status.replace('_','').capitalize()
+        statii.append(st)
     return render(request, 'index.html',
                   {'template': 'filter_bills.html', 'statii': statii})
     

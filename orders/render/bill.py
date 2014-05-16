@@ -11,5 +11,7 @@ def render_bills(request, client_id, bills):
     template_params['template'] = 'bills.html'
     template_params['searchable'] = True
     template_params['bills'] = bills
+    client_name = dao.get_client_name(client_id)
+    template_params['client_name'] = client_name
     
     return render(request, 'index_screen_bills.html', template_params)

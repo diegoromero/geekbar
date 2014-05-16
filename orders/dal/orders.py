@@ -19,3 +19,16 @@ class OrdersDAO:
                     BILL_REQUESTED,
                     ORDER_BILLED,
                     ORDER_PAID)
+
+    # bill statii
+    BILL_NOT_VERIFIED = '_not verified_'
+    BILL_VERIFIED = '_verified_'
+    BILL_IGNORED = '_ignored_'
+    BILL_REQUESTED = '_bill requested_'
+    BILL_PAID = '_paid_'
+
+    BILL_STATII = (BILL_NOT_VERIFIED,
+                   BILL_VERIFIED,
+                   BILL_IGNORED,
+                   BILL_REQUESTED,
+                   BILL_PAID)
