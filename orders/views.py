@@ -511,7 +511,7 @@ def filter_bills(request):
 def list_orders(request, query={}):
     '''Lists orders in the specified client's queue. It defaults to
     the pending orders.'''
-    request.session['client_id'] = client_id = dao.get_client_id_from_username(request.user.username)
+    client_id = request.session['client_id']
     
     if request.POST:
         query = {}
@@ -541,6 +541,13 @@ def list_orders(request, query={}):
     logger.info({'orders': orders,'modifiers':server_mods})
     request.session['query'] = query
     return render_orders(request, client_id, orders, server_mods, is_screen=True)
+
+def orders_bill_number(request, bill_number):
+    client_id = request.session['client_id']
+    query = {}
+    query['client_id'] = client_id
+    query['bill_n'] = bill_number
+    return redirect('orders.views.list_orders', query=query)
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def screen_refresh(request):

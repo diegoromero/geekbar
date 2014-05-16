@@ -4,5 +4,5 @@
 		<span class="order_id" style="display: none;">{{bill.id}}</span>
 		<p class="ui-li-desc">Status: {{bill.status}}</p>
 	</a>
-	<a href="{% url 'orders' query={'client_id': bill.client_id, 'bill_n': bill.bill_number} %}" data-icon="info"></a>
+	<a href="{% url 'orders_bill_number' bill.bill_number %}" data-icon="info"></a>
 </li>
