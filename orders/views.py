@@ -479,6 +479,13 @@ def update_bill(request, bill_id):
     res = dao.update_bill_status(bill_id, status)
     return render(request, 'index.html',
                   {'template':'bill_updated.html'})
+
+@user_passes_test(screen_check, login_url='/screen_signin/')
+def filter_bills(request):
+    client_id = request.session['client_id']
+    statii = ('not verified', 'verified', 'ignored', 'bill requested')
+    return render(request, 'index.html',
+                  {'template': 'filter_bills.html', 'statii': statii})
     
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
