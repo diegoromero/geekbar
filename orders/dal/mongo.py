@@ -94,7 +94,7 @@ class MongoOrdersDAO(OrdersDAO):
                 'client_id': client_id,
                 'bill_number': self.get_bills(mongoid),
                 'orders': [],
-                'status': 'not verified'
+                'status': self.BILL_NOT_VERIFIED
                 })
 
     def get_menu(self, menu_id):

@@ -456,6 +456,15 @@ def list_bills(request, query={}):
     '''Lists bills in the specified client's queue. It defaults to
     the not verified bills.'''
     client_id = request.session['client_id']
+
+    if request.POST:
+        query = {}
+        statii = []
+        for status in dao.BILL_STATII:
+            if status in request.POST:
+                statii.append(status)
+                query['status'] = statii
+    
     # default to BILL_NOT_VERIFIED for now
     if 'status' not in query:
         query['status'] = dao.BILL_NOT_VERIFIED
