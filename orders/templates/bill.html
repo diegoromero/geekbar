@@ -9,13 +9,13 @@
 				<legend>Update Bill Status:</legend>
 				{% for status in statii %}
 					{% if status == bill.status %}
-						<input type="radio" name="status" id="{{status}}"
-						value="{{status}}" checked="checked"/>
+						<input type="radio" name="status" id="{{status.value}}"
+						value="{{status.value}}" checked="checked"/>
 					{% else %}
-						<input type="radio" name="status" id="{{status}}"
-						value="{{status}}"/>
+						<input type="radio" name="status" id="{{status.value}}"
+						value="{{status.value}}"/>
 					{% endif %}
-					<label for="{{status}}">{{status}}</label>
+					<label for="{{status.value}}">{{status.name}}</label>
 				{% endfor %}
 			</fieldset>
 			<input type="submit" value="Update" data-theme="c"/>

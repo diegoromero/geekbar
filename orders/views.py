@@ -477,7 +477,9 @@ def bill_details(request, bill_id):
     '''Displays bill details and allows a server to update the status
     of the bill.'''
     bill = dao.get_bill(bill_id)
-    statii = ('not verified', 'verified', 'ignored', 'bill requested')
+    statii = []
+    for status in dao.BILL_STATII:
+        statii.append({'name':status.replace('_','').capitalize(), 'value':status})
     return render(request, 'index.html',
                   {'template': 'bill.html', 'bill': bill, 'statii': statii})
 
