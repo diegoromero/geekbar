@@ -470,6 +470,9 @@ def list_bills(request, query={}):
         query['status'] = dao.BILL_NOT_VERIFIED
 
     bills = dao.list_bills(client_id, query)
+    print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    print bills
+    print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     return render_bills(request, client_id, bills)
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
