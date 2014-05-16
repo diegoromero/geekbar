@@ -340,6 +340,9 @@ class MongoOrdersDAO(OrdersDAO):
 
     def list_bills(self, client_id, query={}):
         query['client_id'] = get_mongo_id(client_id)
+        print 'QUERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+        print query
+        print 'QUERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
         bills = self.db.bills.find(query)
         res = []
         for bill in bills:
