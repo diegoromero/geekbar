@@ -342,9 +342,6 @@ class MongoOrdersDAO(OrdersDAO):
         query['client_id'] = get_mongo_id(client_id)
         if 'status' in query and type(query['status']) in (tuple, list):
             query['status'] = {'$in':query['status']}
-        print 'QUERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-        print query
-        print 'QUERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
         bills = self.db.bills.find(query)
         res = []
         for bill in bills:
