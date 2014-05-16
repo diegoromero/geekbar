@@ -8,6 +8,7 @@ DEFAULT_TEMPLATES = {'top_template':'bill_list_filters.html',
 #RENDERER
 def render_bills(request, client_id, bills):
     template_params = DEFAULT_TEMPLATES.copy()
+    template_params['template'] = 'bills.html'
     template_params['searchable'] = True
     template_params['bills'] = bills
     
