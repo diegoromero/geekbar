@@ -176,6 +176,12 @@ class MongoOrdersDAO(OrdersDAO):
         cid = self.db.orders.find_one(ObjectId(order_id))['client_id']
         return cid
 
+    def get_client_id_by_bill(self, bill_id):
+        'Return the client id the specified order belongs to'
+        mongo_id = get_mongo_id(bill_id)
+        cid = self.db.bills.find_one(mongo_id)['client_id']
+        return cid
+
     def get_client_name(self, client_id):
         '''Get the client name'''
         mongo_id = get_mongo_id(client_id)
@@ -327,10 +333,19 @@ class MongoOrdersDAO(OrdersDAO):
     def get_bill_status(self, client_id, bill_n):
         return self.db.bills.find_one({'client_id': client_id, 'bill_number': bill_n})['status']
 
-    def update_bill_status(self, client_id, bill_n, new_status):
-        self.db.bills.update({'client_id': client_id, 'bill_number': bill_n},{'$set':{'status': new_status}})
-        for order_id in self.db.bills.find_one({'client_id': client_id, 'bill_number': bill_n})['orders']:
+    def update_bill_status(self, bill_id, new_status):
+        self.db.bills.update({'_id': bill_id},{'$set':{'status': new_status}})
+        for order_id in self.db.bills.find_one({'_id': bill_id})['orders']:
             self.db.orders.update({'_id': order_id}, {'$set':{'bill_status': new_status}})
+
+    def list_bills(self, client_id, query={}):
+        query['client_id'] = get_mongo_id(client_id)
+        bills = self.db.bills.find(query)
+        for bill in bills:
+            bill['id'] = bill['_id']
+
+        return bills
+        
 
     def list_orders(self, client_id, query={}):
         '''Lists orders for the specified client matched by the given
@@ -401,6 +416,12 @@ class MongoOrdersDAO(OrdersDAO):
         order['delay'] = compute_delay(order)
         order['id'] = str(order['_id'])
         return order
+
+    def get_bill(self, bill_id):
+        mongoid = get_mongo_id(bill_id)
+        bill = self.db.bills.find_one(mongoid)
+        bill['id'] = bill['_id']
+        return bill
 
     def update_order(self, order_id, status):
         'Updates the status of the specified order. Returns the new status of the order.'

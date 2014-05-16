@@ -1,0 +1,20 @@
+<div data-role="page">
+	<div data-role="header" data-theme="f" data-position="fixed" data-tap-toggle="false">
+		{% include top_template %}
+	</div>
+	<div data-role="content">
+		<div class="refresh_container">
+			<ul data-role="listview" data-theme="a" data-count-theme="a"
+				data-filter="{{searchable}}">
+				{% for bill in bills %}
+					{% include item_template %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div data-role="footer" data-theme="f" data-position="fixed" data-tap-toggle="false">
+		{% if bottom_template %}
+			{% include bottom_template %}
+		{% endif %}
+	</div>
+</div>

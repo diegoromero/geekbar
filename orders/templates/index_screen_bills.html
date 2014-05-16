@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html> 
+	<head>
+		<title>{{title}}</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'themes/geekbar-orders.min.css' %}"/>
+		<link rel="stylesheet" href="{% static 'styles/orders.css' %}" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		{% include template %}
+		<script type='text/javascript'>
+			(function poll(){
+				setTimeout(function(){
+					$('.refresh_container').load('screen_refresh_bills/', function() {poll();});
+				}, 7830);
+			})();
+		</script>
+	</body>
+</html>

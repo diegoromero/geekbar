@@ -1,0 +1,7 @@
+<li>
+	<a href="{% url 'bill_details' bill.id %}">
+		<h3>{{bill.bill_number}}</h3>
+		<span class="order_id" style="display: none;">{{bill.id}}</span>
+		<p class="ui-li-desc">Status:{{bill.status}}</p>
+	</a>
+</li>

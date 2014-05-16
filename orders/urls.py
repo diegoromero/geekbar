@@ -27,4 +27,8 @@ urlpatterns = patterns('',
     url(r'^orders/filter$', views.filter_orders, name='filter_orders'),
     url(r'^orders/$', views.list_orders, name='orders'),
     url(r'^orders/screen_refresh/$', views.screen_refresh),
+    url(r'^bill/(\w+)$', views.bill_details, name='bill_details'),                 
+    url(r'^bills/$', views.list_bills, name='bills'),
+    url(r'^bills/filter$', views.filter_bills, name='filter_bills'),
+    url(r'^bill/(\w+)/update$', views.update_bill, name='update_bill'),
 )

@@ -1,0 +1,25 @@
+<div data-role="page">
+	<div data-role="header">
+		<p>{{order.id}}</p>
+	</div>
+	<div data-role="content" data-theme="a">
+		<form action="{% url 'update_bill' bill.id %}" method="post">
+			{% csrf_token %}
+			<fieldset data-role="controlgroup">
+				<legend>Update Bill Status:</legend>
+				{% for status in statii %}
+					{% if status == bill.status %}
+						<input type="radio" name="status" id="{{status}}"
+						value="{{status}}" checked="checked"/>
+					{% else %}
+						<input type="radio" name="status" id="{{status}}"
+						value="{{status}}"/>
+					{% endif %}
+					<label for="{{status}}">{{status}}</label>
+				{% endfor %}
+			</fieldset>
+			<input type="submit" value="Update" data-theme="c"/>
+		</form>
+	</div>
+	<div data-role="footer"/>
+</div>

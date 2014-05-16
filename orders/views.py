@@ -14,6 +14,7 @@ from django.conf import settings
 
 from settings import dao, render_menu, customer_mods, server_mods
 from render.order import render_orders
+from render.bill import render_bills
 from orders.forms import SectionForm, ItemForm, ItemInsert
 
 logger = logging.getLogger('orders.views')
@@ -64,7 +65,7 @@ def screen_signin(request):
             manager view'''
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('orders.views.list_orders')
+            return redirect('orders.views.screen')
         except AttributeError:
             '''If it cant log in it gives a error message'''
             error = True
@@ -443,6 +444,7 @@ def bill(request):
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
+@user_passes_test(screen_check, login_url='/screen_signin/')
 def screen(request):
     'Screen logged in screen'
     request.session['client_id'] = client_id = dao.get_client_id_from_username(request.user.username)
@@ -450,10 +452,39 @@ def screen(request):
                   {'template': 'screen.html'})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
+def list_bills(request, query={}):
+    '''Lists bills in the specified client's queue. It defaults to
+    the not verified bills.'''
+    client_id = request.session['client_id']
+    # default to ORDER_PLACED for now
+    if 'status' not in query:
+        query['status'] = 'not verified'
+
+    bills = dao.list_bills(client_id, query)
+    return render_bills(request, client_id, bills)
+
+@user_passes_test(screen_check, login_url='/screen_signin/')
+def bill_details(request, bill_id):
+    '''Displays bill details and allows a server to update the status
+    of the bill.'''
+    bill = dao.get_bill(bill_id)
+    statii = ('not verified', 'verified', 'ignored', 'bill requested')
+    return render(request, 'index.html',
+                  {'template': 'bill.html', 'bill': bill, 'statii': statii})
+
+@user_passes_test(screen_check, login_url='/screen_signin/')
+def update_bill(request, bill_id):
+    '''Updates the specified bill with the params in the request'''
+    status = request.POST['status']
+    res = dao.update_bill_status(bill_id, status)
+    return render(request, 'index.html',
+                  {'template':'bill_updated.html'})
+    
+
+@user_passes_test(screen_check, login_url='/screen_signin/')
 def list_orders(request, query={}):
     '''Lists orders in the specified client's queue. It defaults to
-    the pending orders. TODO: provide a way for the server or manager
-    to filter by any combination of date, status and seat'''
+    the pending orders.'''
     request.session['client_id'] = client_id = dao.get_client_id_from_username(request.user.username)
     
     if request.POST:
