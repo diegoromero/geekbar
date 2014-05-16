@@ -11,7 +11,7 @@
 			<fieldset data-role="controlgroup" data-type="horizontal" data-theme="a">
 				<legend>Filter by status</legend>
 				{% for status in statii %}
-					<input type="checkbox" name="{{status}}" id="{{status}}" class="custom"
+					<input type="checkbox" name="{{status.id}}" id="{{status.id}}" class="custom"
 					data-mini="true" data-theme="a"/>
 					<label for="{{status.id}}">{{status.name}}</label>
 				{% endfor %}
