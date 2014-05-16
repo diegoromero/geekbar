@@ -443,6 +443,12 @@ def bill(request):
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
+def screen(request):
+    'Screen logged in screen'
+    request.session['client_id'] = client_id = dao.get_client_id_from_username(request.user.username)
+    return render(request, 'index.html',
+                  {'template': 'screen.html'})
+
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def list_orders(request, query={}):
     '''Lists orders in the specified client's queue. It defaults to
