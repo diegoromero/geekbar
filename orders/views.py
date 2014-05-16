@@ -149,7 +149,7 @@ def init_session(request, client_id, seat_id):
     if 'menu_id' not in request.session:
         request.session['menu_id'] = lmenu
     if 'bill_n' not in request.session:
-        dao.new_bill(client_id)
+        request.session['bill_id'] = dao.new_bill(client_id)
         bills = dao.get_bills(client_id)
         request.session['bill_n'] = bills
 
@@ -441,6 +441,9 @@ def bill(request):
     orders = customer_orders(request)
     ids = [order['id'] for order in orders]
     dao.update_orders(ids, dao.BILL_REQUESTED)
+    bill_id = request.session['bill_id']
+    if dao.get_bill_status(bill_id) == dao.BILL_VERIFIED:
+        dao.update_bill_status(bill_id, dao.BILL_REQUESTED)
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
@@ -516,7 +519,12 @@ def list_orders(request, query={}):
         for status in dao.ORDER_STATII:
             if status in request.POST:
                 statii.append(status)
-                query['status'] = statii
+        query['status'] = statii
+        bill_statii = []
+        for status in dao.BILL_STATII:
+            if status in request.POST:
+                bill_statii.append(status)
+        query['bill_status'] = bill_statii    
         if 'seats' in request.POST:
             query['seat_id'] = [str(i) for i in request.POST.getlist('seats')]
         if 'menus' in request.POST:
@@ -527,6 +535,8 @@ def list_orders(request, query={}):
     # default to ORDER_PLACED for now
     if 'status' not in query:
         query['status'] = dao.ORDER_PLACED
+    if 'bill_status' not in query:
+        query['bill_status'] = dao.BILL_VERIFIED
     orders = dao.list_orders(client_id, query)
     logger.info({'orders': orders,'modifiers':server_mods})
     request.session['query'] = query
@@ -558,11 +568,18 @@ def filter_orders(request):
         st['id'] = status
         st['name'] = status.replace('_','').capitalize()
         statii.append(st)
+    bill_statii = []
+    for status in dao.BILL_STATII:
+        st = {}
+        st['id'] = status
+        st['name'] = status.replace('_','').capitalize()
+        bill_statii.append(st)
     seats = dao.get_seats_ids(client_id)
     menus = dao.get_client_menus(client_id)
     logger.info({'statii':statii})
     return render(request, 'index.html', {'template':'filter_orders.html', 'client_id':client_id,
-                                          'statii':statii, 'seats': seats, 'menus': menus})
+                                          'statii':statii, 'seats': seats, 'menus': menus,
+                                          'bill_statii': bill_statii})
 
 def order(request, order_id): 
     '''Displays order details and allows a server to update the status

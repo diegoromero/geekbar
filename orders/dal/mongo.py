@@ -330,8 +330,8 @@ class MongoOrdersDAO(OrdersDAO):
         order_id = self.db.orders.insert(order)
         self.db.bills.update({'client_id': client_id, 'bill_number': bill_n}, {'$addToSet': {'orders': order_id}})
 
-    def get_bill_status(self, client_id, bill_n):
-        return self.db.bills.find_one({'client_id': client_id, 'bill_number': bill_n})['status']
+    def get_bill_status(self, bill_id):
+        return self.db.bills.find_one({'_id': bill_id})['status']
 
     def update_bill_status(self, bill_id, new_status):
         mongoid = get_mongo_id(bill_id)
@@ -362,6 +362,8 @@ class MongoOrdersDAO(OrdersDAO):
         query['client_id'] = get_mongo_id(client_id)
         if 'status' in query and type(query['status']) in (tuple, list):
             query['status'] = {'$in':query['status']}
+        if 'bill_status' in query and type(query['bill_status']) in (tuple, list):
+            query['bill_status'] = {'$in':query['bill_status']}
         if 'seat_id' in query and type(query['seat_id']) in (tuple, list):
             query['seat_id'] = {'$in':query['seat_id']}
         if 'menu_id' in query and type(query['menu_id']) in (tuple, list):
