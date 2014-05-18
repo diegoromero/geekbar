@@ -521,12 +521,12 @@ def list_orders(request, query={}):
         for status in dao.ORDER_STATII:
             if status in request.POST:
                 statii.append(status)
-        query['status'] = statii
+                query['status'] = statii
         bill_statii = []
         for status in dao.BILL_STATII:
             if status in request.POST:
                 bill_statii.append(status)
-        query['bill_status'] = bill_statii    
+                query['bill_status'] = bill_statii    
         if 'seats' in request.POST:
             query['seat_id'] = [str(i) for i in request.POST.getlist('seats')]
         if 'menus' in request.POST:
@@ -534,7 +534,6 @@ def list_orders(request, query={}):
         if request.POST['bill_number'] <> '':
             query['bill_number'] = int(request.POST['bill_number'])
             
-    # default to ORDER_PLACED for now
     
     orders = dao.list_orders(client_id, query)
     logger.info({'orders': orders,'modifiers':server_mods})
