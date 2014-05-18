@@ -11,9 +11,15 @@
 			<fieldset data-role="controlgroup" data-type="horizontal" data-theme="a">
 				<legend>Filter by order status</legend>
 				{% for status in statii %}
-					<input type="checkbox" name="{{status.id}}" id="{{status.id}}" class="custom"
-					data-mini="true" data-theme="a"/>
-					<label for="{{status.id}}">{{status.name}}</label>
+					{% if status.id == '_placed_' %}
+						<input type="checkbox" name="{{status.id}}" id="{{status.id}}" class="custom" checked="checked"
+						data-mini="true" data-theme="a"/>
+						<label for="{{status.id}}">{{status.name}}</label>
+					{% else %}
+						<input type="checkbox" name="{{status.id}}" id="{{status.id}}" class="custom"
+						data-mini="true" data-theme="a"/>
+						<label for="{{status.id}}">{{status.name}}</label>
+					{% endif %}
 				{% endfor %}
 			</fieldset>
 			

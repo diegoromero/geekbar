@@ -1,7 +1,7 @@
+//refresh suspended while dev
+
+/*
 var refresh_rate = 7830;
-
-
-
 $(document).ready(function() {
 	(function poll(){
 		setTimeout(function(){
@@ -9,3 +9,5 @@ $(document).ready(function() {
 		}, refresh_rate);
 	})();
 });
+
+*/

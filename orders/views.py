@@ -535,10 +535,7 @@ def list_orders(request, query={}):
             query['bill_number'] = int(request.POST['bill_number'])
             
     # default to ORDER_PLACED for now
-    if 'status' not in query:
-        query['status'] = dao.ORDER_PLACED
-    if 'bill_status' not in query:
-        query['bill_status'] = dao.BILL_VERIFIED
+    
     orders = dao.list_orders(client_id, query)
     logger.info({'orders': orders,'modifiers':server_mods})
     request.session['query'] = query
