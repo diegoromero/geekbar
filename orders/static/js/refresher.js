@@ -1,4 +1,6 @@
 var refresh_rate = 7830;
+var orders = false;
+var bills = false;
 
 function poll_orders(){
 	setTimeout(function(){
@@ -12,14 +14,25 @@ function poll_bills(){
 	}, refresh_rate);
 };
 
-
-$(document).ready(function() {
+function check(){
 	var parts = location.pathname.split("/");
 	var url = parts[parts.length - 2];
-	
+	console.log('check');
 	if ( url == "orders" ) {
+		$('.nav-orders').addClass('active');
+		orders = true;
+		bills = false;
 		poll_orders();
-	} else if ( url == "bils") {
+	} else if ( url == "bills") {
+		$('.nav-bills').addClass('active');
+		orders = false;
+		bills = true;
 		poll_bills();
 	};
+}
+
+
+$(document).ready(function() {
+	check();
+	console.log('ready');
 });
