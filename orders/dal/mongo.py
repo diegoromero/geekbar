@@ -333,9 +333,9 @@ class MongoOrdersDAO(OrdersDAO):
     def get_bill_status(self, bill_id):
         return self.db.bills.find_one({'_id': bill_id})['status']
 
-    def update_bill_status(self, bill_id, new_status):
+    def update_bill(self, bill_id, new_status, comment):
         mongoid = get_mongo_id(bill_id)
-        self.db.bills.update({'_id': mongoid},{'$set':{'status': new_status}})
+        self.db.bills.update({'_id': mongoid},{'$set':{'status': new_status, 'comment': comment}})
         for order_id in self.db.bills.find_one({'_id': mongoid})['orders']:
             self.db.orders.update({'_id': order_id}, {'$set':{'bill_status': new_status}})
 
@@ -430,9 +430,13 @@ class MongoOrdersDAO(OrdersDAO):
         bill['id'] = bill['_id']
         return bill
 
-    def update_order(self, order_id, status):
+    def update_order(self, order_id, status, comment):
         'Updates the status of the specified order. Returns the new status of the order.'
-        res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set':{'status':status, 'update':time.time()}}, new=True)
+        current_status = self.db.orders.find({'_id':ObjectId(order_id)})['status']
+        if status != current_status:
+            res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set':{'status':status, 'comment':comment, 'update':time.time()}}, new=True)
+        else:
+            res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set':{'comment':comment}}, new=True)
         return res['status']
 
     def update_orders(self, ids, status):

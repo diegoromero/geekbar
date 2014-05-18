@@ -491,7 +491,8 @@ def bill_details(request, bill_id):
 def update_bill(request, bill_id):
     '''Updates the specified bill with the params in the request'''
     status = request.POST['status']
-    res = dao.update_bill_status(bill_id, status)
+    comment = request.POST['comment']
+    res = dao.update_bill(bill_id, status, comment)
     return render(request, 'index.html',
                   {'template':'bill_updated.html'})
 
@@ -616,7 +617,8 @@ def update_order(request, order_id):
     '''Updates the specified order with the params in the request'''
     logger.info('order:%s', order_id)
     status = request.POST['status']
-    res = dao.update_order(order_id, status)
+    comment = request.POST['comment']
+    res = dao.update_order(order_id, status, comment)
     if res != status:
         # TODO: return a 503?
         return
