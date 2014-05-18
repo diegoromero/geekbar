@@ -1,0 +1,13 @@
+{% if forloop.first %}
+	<li class="ui-li-static ui-body-inherit ui-first-child">
+		{% include 'verbose_screen_refresh_content_bills.html' %}
+	</li>
+{% elif forloop.last %}
+	<li class="ui-li-static ui-body-inherit ui-last-child">
+		{% include 'verbose_screen_refresh_content_bills.html' %}
+	</li>
+{% else %}
+	<li class="ui-li-static ui-body-inherit">
+		{% include 'verbose_screen_refresh_content_bills.html' %}
+	</li>
+{% endif %}

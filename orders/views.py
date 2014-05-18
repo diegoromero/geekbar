@@ -473,6 +473,7 @@ def list_bills(request, query={}):
         query['status'] = dao.BILL_NOT_VERIFIED
 
     bills = dao.list_bills(client_id, query)
+    request.session['query'] = query
     return render_bills(request, client_id, bills)
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
@@ -561,6 +562,16 @@ def screen_refresh(request):
         item['status'] = item['status'].replace('_','').capitalize()
     return render(request, 'screen_refresh.html',
                   {'orders': orders})
+
+@user_passes_test(screen_check, login_url='/screen_signin/')
+def screen_refresh_bills(request):
+    client_id = request.session['client_id'] 
+    query = request.session['query']
+    bills = dao.list_bills(client_id, query)
+    for item in bills:
+        item['status'] = item['status'].replace('_','').capitalize()
+    return render(request, 'screen_refresh_bills.html',
+                  {'bills': bills})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')   
 def filter_orders(request):

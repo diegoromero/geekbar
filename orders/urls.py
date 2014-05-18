@@ -30,6 +30,7 @@ urlpatterns = patterns('',
     url(r'^orders/screen_refresh/$', views.screen_refresh),
     url(r'^bill/(\w+)$', views.bill_details, name='bill_details'),                 
     url(r'^bills/$', views.list_bills, name='bills'),
+    url(r'^bills/screen_refresh/$', views.screen_refresh_bills),
     url(r'^bills/filter$', views.filter_bills, name='filter_bills'),
     url(r'^bill/(\w+)/update$', views.update_bill, name='update_bill'),
 )
