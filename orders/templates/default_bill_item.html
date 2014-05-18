@@ -1,11 +1,10 @@
 <li>
-	<a href="{% url 'bill_details' bill.id %}">
-		<h3>Bill #: {{bill.bill_number}}</h3>
-		<span class="order_id" style="display: none;">{{bill.id}}</span>
-		<p class="ui-li-desc">Status: {{bill.status}}</p>
-		<div class="ui-li-desc" data-role="controlgroup" data-type="horizontal">
-			<a href="" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext"></a>
-			<a href="{% url 'orders_bill_number' bill.bill_number %}" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext"></a>
-		</div>
-	</a>
+	<h3>Bill #: {{bill.bill_number}}</h3>
+	<span class="order_id" style="display: none;">{{bill.id}}</span>
+	<p class="ui-li-desc">Status: {{bill.status}}</p>
+	<div data-role="controlgroup" data-type="horizontal">
+            <a href="{% url 'bill_details' bill.id %}" class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext">Edit</a>
+            <a href="" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext">Add Order</a>
+            <a href="{% url 'orders_bill_number' bill.bill_number %}" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext">Info</a>
+    </div>
 </li>
