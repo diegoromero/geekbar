@@ -5,7 +5,7 @@
 		<p class="ui-li-desc">Status: {{bill.status}}</p>
 	</a>
 	<div position=relative align=right data-role="controlgroup" data-type="horizontal">
-		<a href="" data-icon="plus"></a>
-		<a href="{% url 'orders_bill_number' bill.bill_number %}" data-icon="info"></a>
+		<a href="" data-role="button" data-icon="plus" data-iconpos="notext"></a>
+		<a href="{% url 'orders_bill_number' bill.bill_number %}" data-role="button" data-icon="info" data-iconpos="notext"></a>
 	</div>
 </li>
