@@ -3,11 +3,9 @@
 		<h3>Bill #: {{bill.bill_number}}</h3>
 		<span class="order_id" style="display: none;">{{bill.id}}</span>
 		<p class="ui-li-desc">Status: {{bill.status}}</p>
-		<p class="ui-li-desc">
-			<div data-role="controlgroup" data-type="horizontal">
-				<a href="" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext"></a>
-				<a href="{% url 'orders_bill_number' bill.bill_number %}" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext"></a>
-			</div>
-		</p>
+		<div class="ui-li-desc" data-role="controlgroup" data-type="horizontal">
+			<a href="" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext"></a>
+			<a href="{% url 'orders_bill_number' bill.bill_number %}" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext"></a>
+		</div>
 	</a>
 </li>
