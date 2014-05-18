@@ -542,11 +542,13 @@ def list_orders(request, query={}):
     request.session['query'] = query
     return render_orders(request, client_id, orders, server_mods, is_screen=True)
 
+@user_passes_test(screen_check, login_url='/screen_signin/')
 def orders_bill_number(request, bill_number):
     client_id = request.session['client_id']
     query = {}
     query['client_id'] = client_id
     query['bill_n'] = bill_number
+    query['status'] = dao.ORDER_STATII
     return list_orders(request, query=query)
 
 @user_passes_test(screen_check, login_url='/screen_signin/')

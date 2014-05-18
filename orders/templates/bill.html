@@ -8,7 +8,7 @@
 			<fieldset data-role="controlgroup">
 				<legend>Update Bill Status:</legend>
 				{% for status in statii %}
-					{% if status == bill.status %}
+					{% if status.value == bill.status %}
 						<input type="radio" name="status" id="{{status.value}}"
 						value="{{status.value}}" checked="checked"/>
 					{% else %}
