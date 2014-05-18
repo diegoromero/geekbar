@@ -4,8 +4,8 @@
 		<span class="order_id" style="display: none;">{{bill.id}}</span>
 		<p class="ui-li-desc">Status: {{bill.status}}</p>
 	</a>
-	<div position=relative align=right data-role="controlgroup" data-type="horizontal">
-		<a href="" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-		<a href="{% url 'orders_bill_number' bill.bill_number %}" data-role="button" data-icon="info" data-iconpos="notext"></a>
+	<div data-role="controlgroup" data-type="horizontal">
+		<a href="" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext"></a>
+		<a href="{% url 'orders_bill_number' bill.bill_number %}" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext"></a>
 	</div>
 </li>
