@@ -432,7 +432,7 @@ class MongoOrdersDAO(OrdersDAO):
 
     def update_order(self, order_id, status, comment):
         'Updates the status of the specified order. Returns the new status of the order.'
-        current_status = self.db.orders.find({'_id':ObjectId(order_id)})['status']
+        current_status = self.db.orders.find_one({'_id':ObjectId(order_id)})['status']
         if status != current_status:
             res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set':{'status':status, 'comment':comment, 'update':time.time()}}, new=True)
         else:
