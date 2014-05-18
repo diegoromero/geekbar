@@ -7,9 +7,9 @@ function poll(){
 
 $(document).ready(function() {
 	var parts = location.pathname.split("/");
-	var url = parts[parts.length - 1];
+	var url = parts[parts.length - 2];
 	
 	if ( url == "orders" ) {
 		poll();
-	} else if;
+	};
 });
