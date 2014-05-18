@@ -3,7 +3,8 @@ from django.shortcuts import render
 from orders.settings import dao
 
 DEFAULT_TEMPLATES = {'top_template':'bill_list_filters.html',
-                     'item_template':'default_bill_item.html'}
+                     'item_template':'default_bill_item.html',
+                     'bottom_template':'screen_navbar.html'}
 
 #RENDERER
 def render_bills(request, client_id, bills):

@@ -15,7 +15,8 @@ logger = logging.getLogger('orders')
 
 # templates used by render_orders if no modifiers override them.
 DEFAULT_TEMPLATES = {'top_template':'default_orders_header.html',
-                     'item_template':'default_order_item.html'}
+                     'item_template':'default_order_item.html',
+                     'bottom_template':'screen_navbar.html'}
 
 # MODIFIERS - all modifiers must implement this interface
 # param: list of orders to be rendered.
