@@ -391,7 +391,7 @@ class MongoOrdersDAO(OrdersDAO):
     def orderid_sub_total(self, oids):
         stotal = 0
         for oid in oids:
-            order = self.db.find_one({'_id': oid})
+            order = self.db.orders.find_one({'_id': oid})
             stotal += (int(order['quantity']) * float(order['price']))
         return stotal
 
