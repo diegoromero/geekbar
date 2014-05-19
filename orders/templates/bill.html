@@ -3,7 +3,7 @@
 		<a href="javascript:history.back()" data-role="button" data-mini="true" class="ui-btn-left" data-icon="arrow-l">
 		Go Back
 		</a>
-		<p>{{bill.bill_number}}</p>
+		<h1>Bill #: {{bill.bill_number}}</h1>
 	</div>
 	<div data-role="content" data-theme="a">
 		<form action="{% url 'update_bill' bill.id %}" method="post">
