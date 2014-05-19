@@ -532,6 +532,9 @@ def list_orders(request, query={}):
         if request.POST['bill_number'] != '':
             query['bill_number'] = int(request.POST['bill_number'])
             
+    print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    print query
+    print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
     orders = dao.list_orders(client_id, query)
     logger.info({'orders': orders,'modifiers':server_mods})
     request.session['query'] = query
