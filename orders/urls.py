@@ -34,4 +34,5 @@ urlpatterns = patterns('',
     url(r'^bills/filter$', views.filter_bills, name='filter_bills'),
     url(r'^bill/(\w+)/update$', views.update_bill, name='update_bill'),
     url(r'^bill/add_order/(.+)$', views.bill_add_order, name='bill_add_order'),
+    url(r'^bill/place_order/(.+)/(.+)$', views.bill_place_order, name='bill_place_order'),
 )

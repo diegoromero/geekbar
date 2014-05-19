@@ -333,6 +333,12 @@ class MongoOrdersDAO(OrdersDAO):
     def get_bill_status(self, bill_id):
         return self.db.bills.find_one({'_id': bill_id})['status']
 
+    def get_bill(self, bill_id):
+        mongoid = get_mongo_id(bill_id)
+        bill = self.db.fills.find_one({'_id': mongoid})
+        bill['id'] = bill['_id']
+        return bill
+
     def update_bill(self, bill_id, new_status, comment):
         mongoid = get_mongo_id(bill_id)
         self.db.bills.update({'_id': mongoid},{'$set':{'status': new_status, 'comment': comment}})
@@ -346,7 +352,7 @@ class MongoOrdersDAO(OrdersDAO):
         bills = self.db.bills.find(query)
         res = []
         for bill in bills:
-            bill['id'] = bill['_id']
+            bill['id'] = str(bill['_id'])
             res.append(bill)
 
         return res

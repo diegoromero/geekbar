@@ -486,13 +486,31 @@ def bill_details(request, bill_id):
                   {'template': 'bill.html', 'bill': bill, 'statii': statii})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
-def bill_add_order(request, bill_number):
+def bill_add_order(request, bill_id):
     client_id = request.session['client_id']
     items = dao.get_client_items(client_id)
+    bill = dao.get_bill(bill_id)
 
     return render(request, 'index_screen.html',
                   {'template': 'bill_add_order.html', 'items': items,
-                   'bill_number': bill_number})
+                   'bill': bill})
+
+@user_passes_test(screen_check, login_url='/screen_signin/')
+def bill_place_order(request, bill_id, item_id):
+    client_id = request.session['client_id']
+    bill = dao.get_bill(bill_id)
+    item = dao.get_item(item_id)
+    if request.POST:
+        quantity = request.POST['quantity']
+        comment = request.POST['comment']
+        menu = dao.get_menu_of_seat(client_id, bill['seat'])
+        dao.add_order(item['id'], quantity, comment, client_id, bill['seat'], menu, 'waiter', bill['bill_number'])
+        message = '{} of {} placed'.format(quantity, item_name)
+        return render(request, 'index_screen.html',
+                  {'template':'confirmation_bill.html', 'message':message})
+    
+    return render(request, 'index_screen.html',
+                  {'template': 'bill_place_order.html'})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def update_bill(request, bill_id):

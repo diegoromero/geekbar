@@ -1,0 +1,25 @@
+<div data-role="page">
+	<div data-role="header" data-position="fixed" data-tap-toggle="false">
+		<a href="javascript:history.back()" data-role="button" data-mini="true" class="ui-btn-left" data-icon="arrow-l">
+		Go Back
+		</a>
+		<h1>Bill #: {{bill_number}}</h1>
+	</div>
+	<div data-role="content" data-theme="a">
+		<label for="quantity">Order Quantity:</label>
+		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+		    <button type="button" data-icon="minus" data-iconpos="notext" data-role="button" class="minus">Minus</button>
+			<button type="button" data-role="button" class="quantity">1</button>
+		    <button type="button" data-icon="plus" data-iconpos="notext" data-role="button" class="plus">Plus</button>
+		</div>
+		<form action="" method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="quantity" id="quantity" value="1">
+			<textarea name="comment" placeholder="Comment"></textarea>
+			<input type="submit" value="Place Order" data-theme="c"/>
+		</form>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		{% include 'screen_navbar.html' %}
+	</div>
+</div>
