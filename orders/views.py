@@ -468,10 +468,6 @@ def list_bills(request, query={}):
                 statii.append(status)
                 query['status'] = statii
     
-    # default to BILL_NOT_VERIFIED for now
-    if 'status' not in query:
-        query['status'] = dao.BILL_NOT_VERIFIED
-
     bills = dao.list_bills(client_id, query)
     request.session['query'] = query
     return render_bills(request, client_id, bills)

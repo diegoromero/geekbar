@@ -388,6 +388,13 @@ class MongoOrdersDAO(OrdersDAO):
         logger.info('orders: %s',res)
         return res
 
+    def orderid_sub_total(self, oids):
+        stotal = 0
+        for oid in oids:
+            order = self.db.find_one({'_id': oid})
+            stotal += (int(order['quantity']) * float(order['price']))
+        return stotal
+
     def orders_sub_total(self, orders):
         sub_total = 0
         for order in orders:
@@ -417,7 +424,7 @@ class MongoOrdersDAO(OrdersDAO):
         '''Returns the order object that matches the given id. Adds
         the name of the item in the order as well as its delay as
         these two are almost always needed'''
-        oid = ObjectId(order_id) 
+        oid = get_mongo_id(order_id) 
         order = self.db.orders.find_one(oid)
         order['item_name'] = self.get_item_name(order['item_id'])
         order['delay'] = compute_delay(order)
