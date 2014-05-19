@@ -486,12 +486,13 @@ def bill_details(request, bill_id):
                   {'template': 'bill.html', 'bill': bill, 'statii': statii})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
-def bill_add_order(request):
+def bill_add_order(request, bill_number):
     client_id = request.session['client_id']
     items = dao.get_client_items(client_id)
 
     return render(request, 'index_screen.html',
-                  {'template': 'bill_add_order.html', 'items': items})
+                  {'template': 'bill_add_order.html', 'items': items,
+                   'bill_number': bill_number})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def update_bill(request, bill_id):

@@ -219,7 +219,7 @@ class MongoOrdersDAO(OrdersDAO):
         return self.db.clients.find_one(client_id)['name']
 
     def get_client_items(self, client_id):
-        items = list(self.db.items.find({'client_id': client_id}))
+        items = list(self.db.items.find({'client_id': client_id}).sort({'name':1}))
         for item in items:
             item['id'] = str(item['_id'])
         return items

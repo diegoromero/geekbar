@@ -3,10 +3,10 @@
 		<a href="javascript:history.back()" data-role="button" data-mini="true" class="ui-btn-left" data-icon="arrow-l">
 		Go Back
 		</a>
-		<h1>Bill #: {{bill.bill_number}}</h1>
+		<h1>Bill #: {{bill_number}}</h1>
 	</div>
 	<div data-role="content" data-theme="a">
-		<ul data-role="listview" data-filter="true" data-filter-placeholder="Search item..." data-inset="true">
+		<ul data-role="listview" data-filter="true" data-filter-placeholder="Search item...">
 			{% for item in items %}
 				<li><a href="">{{ item.name }}</a></li>
 			{% endfor %}
