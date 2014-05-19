@@ -1,6 +1,9 @@
 <div data-role="page">
-	<div data-role="header">
-		<p>{{order.id}}</p>
+	<div data-role="header" data-position="fixed" data-tap-toggle="false">
+		<a href="javascript:history.back()" data-role="button" data-mini="true" class="ui-btn-left" data-icon="arrow-l">
+		Go Back
+		</a>
+		<p>{{bill.bill_number}}</p>
 	</div>
 	<div data-role="content" data-theme="a">
 		<form action="{% url 'update_bill' bill.id %}" method="post">
@@ -23,5 +26,7 @@
 			<input type="submit" value="Update" data-theme="c"/>
 		</form>
 	</div>
-	<div data-role="footer"/>
+	<div data-role="footer" data-position="fixed">
+		{% include 'screen_navbar.html' %}
+	</div>	
 </div>
