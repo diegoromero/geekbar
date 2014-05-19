@@ -9,7 +9,7 @@
 		method="post">
 			{% csrf_token %}
 			<fieldset data-role="controlgroup" data-type="horizontal" data-theme="a">
-				<legend>Filter by status</legend>
+				<legend>Filter by status:</legend>
 				{% for status in statii %}
 					{% if status.id == '_not verified_' %}
 						<input type="checkbox" name="{{status.id}}" id="{{status.id}}" class="custom" checked="checked"
@@ -23,8 +23,16 @@
 				{% endfor %}
 			</fieldset>
 			
-			<label for="bill_number">Filter by Bill #</label>
+			<label for="bill_number">Filter by Bill #:</label>
 			<input type="number" name="bill_number" id="bill_number" value="">
+			
+			<label for="seats">Filter by Seats</label>
+			<select multiple="multiple" data-native-menu="false" name="seats" id="seats" data-mini="true">
+				<option value="">Seats:</option>
+				{% for seat in seats %}
+					<option value="{{ seat }}">{{ seat }}</option>
+				{% endfor %}
+			</select>
 			
 			<button type="submit" data-theme="b">Show Bills</button>
 		</form>

@@ -469,6 +469,8 @@ def list_bills(request, query={}):
                 query['status'] = statii
         if request.POST['bill_number'] != '':
             query['bill_number'] = int(request.POST['bill_number'])
+        if 'seats' in request.POST:
+            query['seat_id'] = [str(i) for i in request.POST.getlist('seats')]
     
     bills = dao.list_bills(client_id, query)
     request.session['query'] = query
@@ -505,7 +507,7 @@ def bill_place_order(request, bill_id, item_id):
         comment = request.POST['comment']
         menu = dao.get_menu_of_seat(client_id, bill['seat'])
         dao.add_order(item['id'], quantity, comment, client_id, bill['seat'], menu, 'waiter', bill['bill_number'])
-        message = '{} of {} placed'.format(quantity, item['name'])
+        message = '{} order of {} placed'.format(quantity, item['name'])
         return render(request, 'index_screen.html',
                   {'template':'confirmation_bill.html', 'message':message})
     
@@ -530,8 +532,10 @@ def filter_bills(request):
         st['id'] = status
         st['name'] = status.replace('_','').capitalize()
         statii.append(st)
+    seats = dao.get_seats_ids(client_id)
     return render(request, 'index_screen.html',
-                  {'template': 'filter_bills.html', 'statii': statii})
+                  {'template': 'filter_bills.html', 'statii': statii,
+                   'seats': seats})
     
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
