@@ -505,7 +505,7 @@ def bill_place_order(request, bill_id, item_id):
         comment = request.POST['comment']
         menu = dao.get_menu_of_seat(client_id, bill['seat'])
         dao.add_order(item['id'], quantity, comment, client_id, bill['seat'], menu, 'waiter', bill['bill_number'])
-        message = '{} of {} placed'.format(quantity, item_name)
+        message = '{} of {} placed'.format(quantity, item['name'])
         return render(request, 'index_screen.html',
                   {'template':'confirmation_bill.html', 'message':message})
     
