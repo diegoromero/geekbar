@@ -323,7 +323,7 @@ class MongoOrdersDAO(OrdersDAO):
         # event will have a server_id, a timestamp and an action so
         # the order history can be traced and troubleshooted easily.
         logger.info({'item':item_id, 'qty':quantity, 'client':client_id, 'seat':seat_id})
-        bill_status = self.get_bill_status(client_id, bill_n)
+        bill_status = self.get_bill_status_w_cid_bn(client_id, bill_n)
         order = {'client_id':client_id, 'seat_id':seat_id, 'item_id':item_id, 'quantity':quantity,
                  'status':self.ORDER_PLACED, 'menu_id': menu_id, 'path': path, 'bill_number': bill_n,
                  'comment': comment, 'bill_status': bill_status}
@@ -332,6 +332,10 @@ class MongoOrdersDAO(OrdersDAO):
 
     def get_bill_status(self, bill_id):
         return self.db.bills.find_one({'_id': bill_id})['status']
+
+    def get_bill_status_w_cid_bn(self, client_id, bill_n):
+        mongoid = get_mongo_id(client_id)
+        return self.db.bills.find_one({'client_id': mongoid, 'bill_number': bill_n})['status']
 
     def get_bill(self, bill_id):
         mongoid = get_mongo_id(bill_id)
