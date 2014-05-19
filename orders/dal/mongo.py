@@ -398,7 +398,7 @@ class MongoOrdersDAO(OrdersDAO):
             if iid in price:
                 order['price'] = price[iid]
             else:
-                order['price'] = price[iid] = self.db.items.find({'_id': iid})['price']
+                order['price'] = price[iid] = self.db.items.find_one({'_id': iid})['price']
             if order['status'] in statii:
                 stotal += (int(order['quantity']) * float(order['price']))
         return stotal
