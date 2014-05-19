@@ -16,8 +16,6 @@ def render_bills(request, client_id, bills):
     template_params['client_name'] = client_name
     for bill in bills:
         bill['status'] = bill['status'].replace('_','').capitalize()
-        last_order = dao.get_order(bill['orders'][-1])
-        bill['seat'] = last_order['seat_id']
         bill['sub_total'] = dao.orderid_sub_total(bill['orders'])
     
     return render(request, 'index_screen_bills.html', template_params)

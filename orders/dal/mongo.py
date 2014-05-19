@@ -328,7 +328,7 @@ class MongoOrdersDAO(OrdersDAO):
                  'status':self.ORDER_PLACED, 'menu_id': menu_id, 'path': path, 'bill_number': bill_n,
                  'comment': comment, 'bill_status': bill_status}
         order_id = self.db.orders.insert(order)
-        self.db.bills.update({'client_id': client_id, 'bill_number': bill_n}, {'$addToSet': {'orders': order_id}})
+        self.db.bills.update({'client_id': client_id, 'bill_number': bill_n}, {'$addToSet': {'orders': order_id}, '$set': {'seat': seat_id}})
 
     def get_bill_status(self, bill_id):
         return self.db.bills.find_one({'_id': bill_id})['status']
@@ -389,15 +389,18 @@ class MongoOrdersDAO(OrdersDAO):
         return res
 
     def orderid_sub_total(self, oids):
+        statii = (self.ORDER_PLACED, self.ORDER_PREPARING, self.ORDER_PREPARED, self.ORDER_SERVED)
         price = {}           
         stotal = 0
         for oid in oids:
             order = self.db.orders.find_one({'_id': oid})
-            if order['item_id'] in price:
-                order['price'] = price[order['item_id']]
+            iid = get_mongo_id(order['item_id']) 
+            if iid in price:
+                order['price'] = price[iid]
             else:
-                order['price'] = price[order['item_id']] = self.get_item_price(order['item_id'])
-            stotal += (int(order['quantity']) * float(order['price']))
+                order['price'] = price[iid] = self.db.items.find({'_id': iid})['price']
+            if order['status'] in statii:
+                stotal += (int(order['quantity']) * float(order['price']))
         return stotal
 
     def orders_sub_total(self, orders):
@@ -442,13 +445,12 @@ class MongoOrdersDAO(OrdersDAO):
         bill['id'] = bill['_id']
         return bill
 
-    def update_order(self, order_id, status, comment):
+    def update_order(self, order_id, update):
         'Updates the status of the specified order. Returns the new status of the order.'
         current_status = self.db.orders.find_one({'_id':ObjectId(order_id)})['status']
-        if status != current_status:
-            res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set':{'status':status, 'comment':comment, 'update':time.time()}}, new=True)
-        else:
-            res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set':{'comment':comment}}, new=True)
+        if update['status'] != current_status:
+            update['update'] = time.time()
+        res = self.db.orders.find_and_modify({'_id':ObjectId(order_id)},{'$set': update}, new=True)
         return res['status']
 
     def update_orders(self, ids, status):

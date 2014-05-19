@@ -420,7 +420,7 @@ def myorders(request):
     return render_orders(request, client_id, orders, customer_mods, sub_total=sub_total)
 
 def customer_orders(request, statii = (dao.ORDER_PLACED, dao.ORDER_PREPARING,
-                                       dao.ORDER_PREPARED, dao.ORDER_SERVED, dao.BILL_REQUESTED)):
+                                       dao.ORDER_PREPARED, dao.ORDER_SERVED)):
     '''Helper function that returns a list of customer orders by
     extracting the seat and location id from the session in the input
     request. It defaults to orders in one of the following statii:
@@ -467,6 +467,8 @@ def list_bills(request, query={}):
             if status in request.POST:
                 statii.append(status)
                 query['status'] = statii
+        if request.POST['bill_number'] != '':
+            query['bill_number'] = int(request.POST['bill_number'])
     
     bills = dao.list_bills(client_id, query)
     request.session['query'] = query
@@ -527,7 +529,7 @@ def list_orders(request, query={}):
             query['seat_id'] = [str(i) for i in request.POST.getlist('seats')]
         if 'menus' in request.POST:
             query['menu_id'] = [str(i) for i in request.POST.getlist('menus')]
-        if request.POST['bill_number'] <> '':
+        if request.POST['bill_number'] != '':
             query['bill_number'] = int(request.POST['bill_number'])
             
     
@@ -608,9 +610,10 @@ def order(request, order_id):
 def update_order(request, order_id):
     '''Updates the specified order with the params in the request'''
     logger.info('order:%s', order_id)
-    status = request.POST['status']
-    comment = request.POST['comment']
-    res = dao.update_order(order_id, status, comment)
+    update = {}
+    update['status'] = request.POST['status']
+    update['comment'] = request.POST['comment']
+    res = dao.update_order(order_id, update)
     if res != status:
         # TODO: return a 503?
         return
@@ -625,12 +628,17 @@ def cancel_order(request, order_id):
     per item in the list, which might not be a good idea.'''
     logger.debug({'order':order_id})
     client_id = request.session['client_id']
+    update = {}
     try: 
         order = dao.get_order(order_id)
         sid = request.session['seat_id']
         if order['seat_id'] != sid:
             return HttpResponseForbidden('Only the user who placed the order can cancel it!')
-        res = dao.update_order(order_id, dao.ORDER_CANCELED)
+        if order['status'] == dao.ORDER_PLACED:
+            update['status'] = dao.ORDER_CANCELED
+            res = dao.update_order(order_id, update['status'])
+        else:
+            return HttpResponseForbidden('Ordered can not be canceled. The ordered is already processed')
         if res != dao.ORDER_CANCELED:
             logger.error('error canceling order %s from seat %s', order_id, sid)
             return http.HttpResponseServerError('failed to update order status, please try again later')
