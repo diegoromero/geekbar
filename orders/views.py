@@ -470,7 +470,7 @@ def list_bills(request, query={}):
         if request.POST['bill_number'] != '':
             query['bill_number'] = int(request.POST['bill_number'])
         if 'seats' in request.POST:
-            query['seat_id'] = [str(i) for i in request.POST.getlist('seats')]
+            query['seat'] = [str(i) for i in request.POST.getlist('seats')]
     
     bills = dao.list_bills(client_id, query)
     request.session['query'] = query
