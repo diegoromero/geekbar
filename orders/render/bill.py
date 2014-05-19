@@ -17,6 +17,9 @@ def render_bills(request, client_id, bills):
     for bill in bills:
         bill['status'] = bill['status'].replace('_','').capitalize()
         last_order = dao.get_order(bill['orders'][-1])
+        print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+        print last_order
+        print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
         bill['seat'] = last_order['seat']
         bill['sub_total'] = dao.orderid_sub_total(bill['orders'])
     
