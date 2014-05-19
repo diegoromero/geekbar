@@ -389,9 +389,14 @@ class MongoOrdersDAO(OrdersDAO):
         return res
 
     def orderid_sub_total(self, oids):
+        price = {}           
         stotal = 0
         for oid in oids:
             order = self.db.orders.find_one({'_id': oid})
+            if order['_id'] in price:
+                order['price'] = price[order['_id']]
+            else:
+                order['price'] = price[order['_id']] = self.get_item_price(order['_id'])
             stotal += (int(order['quantity']) * float(order['price']))
         return stotal
 
@@ -401,7 +406,7 @@ class MongoOrdersDAO(OrdersDAO):
             sub_total += (int(order['quantity']) * float(order['price']))
         return sub_total         
             
-    def list_orders_json(self, client_id, query={}):
+    def list_order_json(self, client_id, query={}):
         orders = self.list_orders(client_id, query=query)
         json_list = {}
         json_list['orders'] = []
