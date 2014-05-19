@@ -1,7 +1,10 @@
 <div data-role="page">
-	<div data-role="header">
-		<p>{{order.quantity}} orders of {{order.item_name}} 
-		<span class="delay">{{order.delay}}</span></p>
+	<div data-role="header" data-position="fixed" data-tap-toggle="false">
+		<a href="javascript:history.back()" data-role="button" data-mini="true" class="ui-btn-left" data-icon="arrow-l">
+		Go Back
+		</a>
+		<h1>{{order.quantity}} orders of {{order.item_name}} 
+		<span class="delay">{{order.delay}}</span></h1>
 	</div>
 	<div data-role="content" data-theme="a">
 		<form action="{% url 'update_order' order.id %}" method="post">
@@ -24,5 +27,7 @@
 			<input type="submit" value="Update" data-theme="c"/>
 		</form>
 	</div>
-	<div data-role="footer"/>
+	<div data-role="footer" data-position="fixed">
+		{% include 'screen_navbar.html' %}
+	</div>
 </div>
