@@ -451,7 +451,7 @@ def bill(request):
 def screen(request):
     'Screen logged in screen'
     request.session['client_id'] = client_id = dao.get_client_id_from_username(request.user.username)
-    return render(request, 'index.html',
+    return render(request, 'index_screen.html',
                   {'template': 'screen.html'})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
@@ -482,8 +482,16 @@ def bill_details(request, bill_id):
     statii = []
     for status in dao.BILL_STATII:
         statii.append({'name':status.replace('_','').capitalize(), 'value':status})
-    return render(request, 'index.html',
+    return render(request, 'index_screen.html',
                   {'template': 'bill.html', 'bill': bill, 'statii': statii})
+
+@user_passes_test(screen_check, login_url='/screen_signin/')
+def bill_add_order(request):
+    client_id = request.session['client_id']
+    items = dao.get_client_items(client_id)
+
+    return render(request, 'index_screen.html',
+                  {'template': 'bill_add_order.html', 'items': items})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def update_bill(request, bill_id):
@@ -491,7 +499,7 @@ def update_bill(request, bill_id):
     status = request.POST['status']
     comment = request.POST['comment']
     res = dao.update_bill(bill_id, status, comment)
-    return render(request, 'index.html',
+    return render(request, 'index_screen.html',
                   {'template':'bill_updated.html'})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
@@ -503,7 +511,7 @@ def filter_bills(request):
         st['id'] = status
         st['name'] = status.replace('_','').capitalize()
         statii.append(st)
-    return render(request, 'index.html',
+    return render(request, 'index_screen.html',
                   {'template': 'filter_bills.html', 'statii': statii})
     
 
@@ -590,7 +598,7 @@ def filter_orders(request):
     seats = dao.get_seats_ids(client_id)
     menus = dao.get_client_menus(client_id)
     logger.info({'statii':statii})
-    return render(request, 'index.html', {'template':'filter_orders.html', 'client_id':client_id,
+    return render(request, 'index_screen.html', {'template':'filter_orders.html', 'client_id':client_id,
                                           'statii':statii, 'seats': seats, 'menus': menus,
                                           'bill_statii': bill_statii})
 
