@@ -489,9 +489,6 @@ def bill_details(request, bill_id):
 def bill_add_order(request, bill_number):
     client_id = request.session['client_id']
     items = dao.get_client_items(client_id)
-    print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-    print items
-    print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
 
     return render(request, 'index_screen.html',
                   {'template': 'bill_add_order.html', 'items': items,
