@@ -354,7 +354,7 @@ class MongoOrdersDAO(OrdersDAO):
         if 'status' in query and type(query['status']) in (tuple, list):
             query['status'] = {'$in':query['status']}
         if 'seat_id' in query and type(query['seat_id']) in (tuple, list):
-            query['seat_id'] = {'$in':query['seat_id']}
+            query['seat'] = {'$in':query['seat_id']}
         bills = self.db.bills.find(query)
         res = []
         for bill in bills:
