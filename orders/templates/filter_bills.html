@@ -23,9 +23,6 @@
 				{% endfor %}
 			</fieldset>
 			
-			<label for="bill_number">Filter by Bill #:</label>
-			<input type="number" name="bill_number" id="bill_number" value="">
-			
 			<label for="seats">Filter by Seats</label>
 			<select multiple="multiple" data-native-menu="false" name="seats" id="seats" data-mini="true">
 				<option value="">Seats:</option>
@@ -33,6 +30,9 @@
 					<option value="{{ seat }}">{{ seat }}</option>
 				{% endfor %}
 			</select>
+			
+			<label for="bill_number">Filter by Bill #:</label>
+			<input type="number" name="bill_number" id="bill_number" value="">
 			
 			<button type="submit" data-theme="b">Show Bills</button>
 		</form>
