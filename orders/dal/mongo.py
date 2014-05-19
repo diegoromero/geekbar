@@ -220,6 +220,9 @@ class MongoOrdersDAO(OrdersDAO):
 
     def get_client_items(self, client_id):
         items = self.db.items.find({'client_id': client_id}).sort('name')
+        print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+        print items
+        print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
         for item in items:
             item['id'] = str(item['_id'])
         return items
