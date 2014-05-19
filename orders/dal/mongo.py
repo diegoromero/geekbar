@@ -393,10 +393,10 @@ class MongoOrdersDAO(OrdersDAO):
         stotal = 0
         for oid in oids:
             order = self.db.orders.find_one({'_id': oid})
-            if order['_id'] in price:
-                order['price'] = price[order['_id']]
+            if order['item_id'] in price:
+                order['price'] = price[order['item_id']]
             else:
-                order['price'] = price[order['_id']] = self.get_item_price(order['_id'])
+                order['price'] = price[order['item_id']] = self.get_item_price(order['item_id'])
             stotal += (int(order['quantity']) * float(order['price']))
         return stotal
 
