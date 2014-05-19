@@ -544,8 +544,6 @@ def orders_bill_number(request, bill_number):
     query = {}
     query['client_id'] = client_id
     query['bill_n'] = bill_number
-    query['status'] = dao.ORDER_STATII
-    query['bill_status'] = dao.BILL_STATII
     return list_orders(request, query=query)
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
