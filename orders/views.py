@@ -642,9 +642,6 @@ def update_order(request, order_id):
     update['status'] = request.POST['status']
     update['comment'] = request.POST['comment']
     res = dao.update_order(order_id, update)
-    if res != status:
-        # TODO: return a 503?
-        return
     client_id = dao.get_client_id(order_id)
     return render(request, 'index.html',
                   {'template':'updated.html', 'client_id':client_id})
