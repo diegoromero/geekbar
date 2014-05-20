@@ -584,8 +584,10 @@ def screen_refresh(request):
     orders = dao.list_orders(client_id, query=query)
     for item in orders:
         item['status'] = item['status'].replace('_','').capitalize()
-    return render(request, 'screen_refresh.html',
-                  {'orders': orders})
+
+    return render_orders(request, client_id, orders, server_mods, is_screen=True)
+    '''return render(request, 'screen_refresh.html',
+                  {'orders': orders})'''
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def screen_refresh_bills(request):
