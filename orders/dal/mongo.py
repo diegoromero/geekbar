@@ -575,6 +575,9 @@ def compute_delay(mongo_obj):
     idx = 0
     while secs < units[idx][0]:
         idx += 1
+        if idx == 4:
+            idx -= 1
+            break
     qty = secs // units[idx][0]
     ans = str(qty) + units[idx][1]
     if qty > 1: 
