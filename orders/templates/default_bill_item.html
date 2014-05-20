@@ -6,8 +6,8 @@
 	<p class="ui-li-desc">Status: {{bill.status}}</p>
 	<p class="ui-li-desc">Comment: {{bill.comment}}</p>
 	<div data-role="controlgroup" data-type="horizontal">
-            <a href="{% url 'bill_details' bill.id %}" class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-first-child">Edit</a>
-            <a href="{% url 'bill_add_order' bill.id %}" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext">Add Order</a>
-            <a href="{% url 'orders_bill_number' bill.bill_number %}" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext ui-last-child">Info</a>
+            <a data-theme="b" href="{% url 'bill_details' bill.id %}" class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-first-child">Edit</a>
+            <a data-theme="b" href="{% url 'bill_add_order' bill.id %}" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext">Add Order</a>
+            <a data-theme="b" href="{% url 'orders_bill_number' bill.bill_number %}" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext ui-last-child">Info</a>
     </div>
 </li>
