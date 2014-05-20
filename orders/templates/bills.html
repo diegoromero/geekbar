@@ -3,12 +3,14 @@
 		{% include top_template %}
 	</div>
 	<div data-role="content">
-		<div class="refresh_container">
-			<ul data-role="listview" data-theme="a" data-filter="{{searchable}}">
-				{% for bill in bills %}
-					{% include item_template %}
-				{% endfor %}
-			</ul>
+		<div class="refresh_wrapper">
+			<div class="refresh_container">
+				<ul data-role="listview" data-theme="a" data-filter="{{searchable}}">
+					{% for bill in bills %}
+						{% include item_template %}
+					{% endfor %}
+				</ul>
+			</div>
 		</div>
 	</div>
 	<div data-role="footer" data-theme="f" data-position="fixed">
