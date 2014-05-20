@@ -512,7 +512,8 @@ def bill_place_order(request, bill_id, item_id):
                   {'template':'confirmation_bill.html', 'message':message})
     
     return render(request, 'index_screen.html',
-                  {'template': 'bill_place_order.html'})
+                  {'template': 'bill_place_order.html',
+                   'bill_number': bill['bill_number']})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def update_bill(request, bill_id):
