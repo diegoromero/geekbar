@@ -5,7 +5,7 @@
 		</a>
 		<h1>Bill #: {{bill_number}}</h1>
 	</div>
-	<div data-role="content" data-theme="a">
+	<div data-role="content" data-theme="a" class="fs">
 		<label for="quantity">Order Quantity:</label>
 		<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 		    <button type="button" data-icon="minus" data-iconpos="notext" data-role="button" class="minus">Minus</button>
@@ -22,4 +22,20 @@
 	<div data-role="footer" data-position="fixed">
 		{% include 'screen_navbar.html' %}
 	</div>
+	<script>
+	$('.plus').on('click', function() {
+		var quant = parseInt($(this).siblings('.quantity').text());
+		quant++;
+		$(this).siblings('.quantity').text(quant.toString());
+		$(this).parents('.fs').children('form').children('input[name=quantity]').val(quant);
+	});
+	$('.minus').on('click', function() {
+		var quant = parseInt($(this).siblings('.quantity').text());
+		if (quant > 1) {
+			quant--;
+			$(this).siblings('.quantity').text(quant.toString());
+			$(this).parents('.fs').children('form').children('input[name=quantity]').val(quant);
+		};
+	});
+	</script>
 </div>
