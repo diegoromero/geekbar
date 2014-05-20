@@ -586,8 +586,6 @@ def screen_refresh(request):
         item['status'] = item['status'].replace('_','').capitalize()
 
     return render_orders(request, client_id, orders, server_mods, is_screen=True)
-    '''return render(request, 'screen_refresh.html',
-                  {'orders': orders})'''
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def screen_refresh_bills(request):
@@ -596,8 +594,8 @@ def screen_refresh_bills(request):
     bills = dao.list_bills(client_id, query)
     for item in bills:
         item['status'] = item['status'].replace('_','').capitalize()
-    return render(request, 'screen_refresh_bills.html',
-                  {'bills': bills})
+
+    return render_bills(request, client_id, bills)
 
 @user_passes_test(screen_check, login_url='/screen_signin/')   
 def filter_orders(request):
