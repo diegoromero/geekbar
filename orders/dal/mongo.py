@@ -343,6 +343,12 @@ class MongoOrdersDAO(OrdersDAO):
         bill['id'] = bill['_id']
         return bill
 
+    def request_bill(self, bill_id):
+        mongoid = get_mongo_id(bill_id)
+        self.db.bills.update({'_id': mongoid},{'$set':{'status': dao.BILL_REQUESTED}})
+        for order_id in self.db.bills.find_one({'_id': mongoid})['orders']:
+            self.db.orders.update({'_id': order_id}, {'$set':{'bill_status': dao.BILL_REQUESTED}})
+
     def update_bill(self, bill_id, new_status, comment):
         mongoid = get_mongo_id(bill_id)
         self.db.bills.update({'_id': mongoid},{'$set':{'status': new_status, 'comment': comment}})

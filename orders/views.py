@@ -142,12 +142,10 @@ def init_session(request, client_id, seat_id):
         # but not place orders. For now we just error.
         raise Http404
     lmenu = dao.get_menu_of_seat(client_id, seat_id)
-    if 'seat_id' not in request.session:
-        request.session['seat_id'] = seat_id
+    request.session['seat_id'] = seat_id
+    request.session['menu_id'] = lmenu
     if 'client_id' not in request.session:
-        request.session['client_id'] = client_id
-    if 'menu_id' not in request.session:
-        request.session['menu_id'] = lmenu
+        request.session['client_id'] = client_id        
     if 'bill_n' not in request.session:
         request.session['bill_id'] = dao.new_bill(client_id)
         bills = dao.get_bills(client_id)
@@ -438,12 +436,10 @@ def bill(request):
     '''requests the bill by updating the status of all active orders
     from this session to dao.BILL_REQUESTED'''
     message = 'bill coming!'
-    orders = customer_orders(request)
-    ids = [order['id'] for order in orders]
-    dao.update_orders(ids, dao.BILL_REQUESTED)
     bill_id = request.session['bill_id']
     if dao.get_bill_status(bill_id) == dao.BILL_VERIFIED:
-        dao.update_bill_status(bill_id, dao.BILL_REQUESTED)
+        dao.request_bill(bill_id)
+    request.session.set_expiry(300)
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
