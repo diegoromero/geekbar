@@ -435,11 +435,12 @@ def customer_orders(request, statii = (dao.ORDER_PLACED, dao.ORDER_PREPARING,
 def bill(request):
     '''requests the bill by updating the status of all active orders
     from this session to dao.BILL_REQUESTED'''
-    message = 'bill coming!'
     bill_id = request.session['bill_id']
-    if dao.get_bill_status(bill_id) == dao.BILL_VERIFIED:
+    bill = dao.get_bill(bill_id)
+    if bill['status'] == dao.BILL_VERIFIED:
         dao.request_bill(bill_id)
     request.session.set_expiry(300)
+    message = 'your bill (number: %s) is coming!)' % bill['bill_number']
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
