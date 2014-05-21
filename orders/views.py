@@ -658,7 +658,7 @@ def cancel_order(request, order_id):
             return HttpResponseForbidden('Only the user who placed the order can cancel it!')
         if order['status'] == dao.ORDER_PLACED:
             update['status'] = dao.ORDER_CANCELED
-            res = dao.update_order(order_id, update['status'])
+            res = dao.update_order(order_id, update)
         else:
             return HttpResponseForbidden('Ordered can not be canceled. The ordered is already processed')
         if res != dao.ORDER_CANCELED:
