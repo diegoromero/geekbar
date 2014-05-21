@@ -114,7 +114,11 @@ class MongoOrdersDAO(OrdersDAO):
     def get_menus_paths(self, menus):
         paths = []
         for menu in menus:
-            paths += self.get_menu_paths(menu['_id'])
+            temp = self.get_menu_paths(menu['_id'])
+            if type(temp) is list:
+                paths += temp
+            else:
+                paths.append(temp)
         return paths
 
     def get_client_menus_list(self, client_id):
