@@ -109,19 +109,12 @@ class MongoOrdersDAO(OrdersDAO):
     def get_menu_paths(self, menu_id):
         mongoid = get_mongo_id(menu_id)
         menu = self.db.menus.find_one(mongoid)
-        return paths(menu, name='', path=[], parent='')
+        return paths(menu)
 
     def get_menus_paths(self, menus):
         paths = []
-        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-        print menus
-        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
         for menu in menus:
             paths += self.get_menu_paths(menu['_id'])
-            print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-            print paths
-            print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-
         return paths
 
     def get_client_menus_list(self, client_id):
@@ -622,13 +615,20 @@ def get_mongo_id(iid):
 
 def paths(data, name='', path=[], parent=''):
     if 'structure' in data:
+        paths_name = []
         for child in data['structure']:
-            paths(data['structure'][child], name=child)
-        return path
+            paths_name += paths(data['structure'][child], name=child)
+        return paths_name
     elif type(data) is dict:
         if parent != '': path.append(parent)
         parent += '/' + name
+        p = []
         for child in data:
-            paths(data[child], name=child, path=path, parent=parent)
+            temp = paths(data[child], name=child, path=path, parent=parent)
+            if type(temp) is list:
+                p += temp
+            else:
+                p.append(temp)
+        return p
     elif type(data) is list:
-        path.append(parent + '/' + name)
+        return parent + '/' + name
