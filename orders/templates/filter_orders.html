@@ -48,6 +48,14 @@
 				{% endfor %}
 			</select>
 			
+			<label for="seats">Filter by Path</label>
+			<select multiple="multiple" data-native-menu="false" name="paths" id="paths" data-mini="true">
+				<option value="">Paths:</option>
+				{% for path in paths %}
+					<option value="{{ path }}">{{ path }}</option>
+				{% endfor %}
+			</select>
+			
 			<label for="bill_number">Filter by Bill #</label>
 			<input type="number" name="bill_number" id="bill_number" value="">
 			

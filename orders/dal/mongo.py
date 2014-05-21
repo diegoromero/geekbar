@@ -106,6 +106,17 @@ class MongoOrdersDAO(OrdersDAO):
         logger.info('menu:%s', menu)
         return menu
 
+    def get_menu_paths(self, menu_id):
+        mongoid = get_mongo_id(menu_id)
+        menu = self.db.menus.find_one(mongoid)
+        return paths(menu)
+
+    def get_menus_paths(self, menus):
+        paths = []
+        for menu in menus:
+            paths.append(self.get_menu_paths(menu['_id']))
+        return paths
+
     def get_client_menus_list(self, client_id):
         '''Gets the list of menus from the client'''
         mongoid = get_mongo_id(client_id)
@@ -384,6 +395,8 @@ class MongoOrdersDAO(OrdersDAO):
             query['bill_status'] = {'$in':query['bill_status']}
         if 'seat_id' in query and type(query['seat_id']) in (tuple, list):
             query['seat_id'] = {'$in':query['seat_id']}
+        if 'path' in query and type(query['path']) in (tuple, list):
+            query['path'] = {'$in':query['path']}
         if 'menu_id' in query and type(query['menu_id']) in (tuple, list):
             query['menu_id'] = {'$in':query['menu_id']}
         orders = self.db.orders.find(query)
@@ -599,3 +612,16 @@ def get_mongo_id(iid):
         mongo_id = iid
     logger.info('mongo_id: %s',mongo_id)
     return mongo_id
+
+def paths(data, name='', path=[], parent=''):
+    if 'structure' in data:
+        for child in data['structure']:
+            paths(data['structure'][child], name=child)
+        return path
+    elif type(data) is dict:
+        if parent != '': path.append(parent)
+        parent += '/' + name
+        for child in data:
+            paths(data[child], name=child, path=path, parent=parent)
+    elif type(data) is list:
+        path.append(parent + '/' + name)

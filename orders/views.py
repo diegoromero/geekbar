@@ -556,6 +556,8 @@ def list_orders(request, query={}):
                 query['bill_status'] = bill_statii    
         if 'seats' in request.POST:
             query['seat_id'] = [str(i) for i in request.POST.getlist('seats')]
+        if 'paths' in request.POST:
+            query['path'] = [str(i) for i in request.POST.getlist('paths')]
         if 'menus' in request.POST:
             query['menu_id'] = [str(i) for i in request.POST.getlist('menus')]
         if request.POST['bill_number'] != '':
@@ -619,10 +621,11 @@ def filter_orders(request):
         bill_statii.append(st)
     seats = dao.get_seats_ids(client_id)
     menus = dao.get_client_menus(client_id)
+    paths = dao.get_menus_paths(menus)
     logger.info({'statii':statii})
     return render(request, 'index_screen.html', {'template':'filter_orders.html', 'client_id':client_id,
                                           'statii':statii, 'seats': seats, 'menus': menus,
-                                          'bill_statii': bill_statii})
+                                          'bill_statii': bill_statii, 'paths': paths})
 
 def order(request, order_id): 
     '''Displays order details and allows a server to update the status
