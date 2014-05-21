@@ -56,10 +56,10 @@ def render_tree_menu(request, menu={}, path='', client=''):
         #template_items.insert(0, {'type':'divider', 'name':sections[-1]})
     elif type(result) == dict:
         items_list = False
-        for divider in result:
+        for divider in sorted(result):
             template_items.append({'type':'divider', 'name':divider})
             section = result[divider]
-            for item in section:
+            for item in sorted(section):
                 if type(section) == list:
                     # item is a leaf node (menu entry).
                     items = dao.get_items(section)

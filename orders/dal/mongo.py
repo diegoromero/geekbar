@@ -139,7 +139,7 @@ class MongoOrdersDAO(OrdersDAO):
         logger.debug('fetching %d items from mongo %s',len(mongoids), mongoids)
         items  = self.db.items.find({'_id':{'$in':mongoids}})
         res = []
-        for item in items:
+        for item in sorted(items, key=lambda k:k['name']):
             item['id'] = str(item['_id'])
             res.append(item)
         logger.info('got %d items %s', len(res), res)

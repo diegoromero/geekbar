@@ -467,9 +467,10 @@ def list_bills(request, query={}):
             query['bill_number'] = int(request.POST['bill_number'])
         if 'seats' in request.POST:
             query['seat'] = [str(i) for i in request.POST.getlist('seats')]
-    
+        request.session['query'] = query 
+
+    query = request.session['query']
     bills = dao.list_bills(client_id, query)
-    request.session['query'] = query
     return render_bills(request, client_id, bills)
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
@@ -559,10 +560,11 @@ def list_orders(request, query={}):
             query['menu_id'] = [str(i) for i in request.POST.getlist('menus')]
         if request.POST['bill_number'] != '':
             query['bill_number'] = int(request.POST['bill_number'])
-            
+        request.session['query'] = query
+
+    query = request.session['query']      
     orders = dao.list_orders(client_id, query)
     logger.info({'orders': orders,'modifiers':server_mods})
-    request.session['query'] = query
     return render_orders(request, client_id, orders, server_mods, is_screen=True)
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
