@@ -617,7 +617,11 @@ def paths(data, name='', path=[], parent=''):
     if 'structure' in data:
         paths_name = []
         for child in data['structure']:
-            paths_name += paths(data['structure'][child], name=child)
+            temp = paths(data['structure'][child], name=child)
+            if type(temp) is list:
+                paths_name += temp
+            else:
+                paths_name.append(temp)
         return paths_name
     elif type(data) is dict:
         if parent != '': path.append(parent)
