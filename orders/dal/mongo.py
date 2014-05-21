@@ -113,8 +113,15 @@ class MongoOrdersDAO(OrdersDAO):
 
     def get_menus_paths(self, menus):
         paths = []
+        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+        print menus
+        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
         for menu in menus:
             paths += self.get_menu_paths(menu['_id'])
+            print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+            print paths
+            print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+
         return paths
 
     def get_client_menus_list(self, client_id):
