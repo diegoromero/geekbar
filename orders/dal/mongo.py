@@ -109,7 +109,7 @@ class MongoOrdersDAO(OrdersDAO):
     def get_menu_paths(self, menu_id):
         mongoid = get_mongo_id(menu_id)
         menu = self.db.menus.find_one(mongoid)
-        return paths(menu)
+        return paths(menu, name='', path=[], parent='')
 
     def get_menus_paths(self, menus):
         paths = []
