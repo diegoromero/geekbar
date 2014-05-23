@@ -1,1 +1,1 @@
-web: gunicorn geekbar.wsgi -w 4 -k gevent --max-requests 250 --preload
+web: gunicorn geekbar.wsgi -c config/gunicorn -w 4 -k gevent --max-requests 250 --preload
