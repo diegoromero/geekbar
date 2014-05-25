@@ -24,10 +24,16 @@ logger = logging.getLogger('orders.views')
 # client_name.
 def home(request):
     '''Home view with a signin and singup form'''
+    if request.POST:
+        contact = {}
+        contact['name'] = request.POST['name']
+        contact['email'] = request.POST['email']
+        contact['phone'] = request.POST['phone']
+        contact['msg'] = request.POST['msg']
+        dao.add_contact(contact)
 
-    return render(request, 'home_index.html',
-                  {'title': 'Welcome',
-                   'template': 'home.html'})
+    return render(request, 'index_homepage.html',
+                  {})
 
 def signin(request):
     '''Sign In view'''
@@ -214,7 +220,7 @@ def screen_check(user):
     else:
         return False
 
-@user_passes_test(manager_check)
+@user_passes_test(manager_check, login_url='/signin/')
 def manager(request):
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)
@@ -224,7 +230,7 @@ def manager(request):
                    'title': 'Manager',
                    'client': client_name})
 
-@user_passes_test(manager_check)
+@user_passes_test(manager_check, login_url='/signin/')
 def manager_items(request):
     client_id = dao.get_client_id_from_username(request.user.username)
     items = dao.get_client_items(client_id)
@@ -266,7 +272,7 @@ def manager_items(request):
                    'signature': settings.SIGNATURE,
                    'client': client_id})
 
-@user_passes_test(manager_check)
+@user_passes_test(manager_check, login_url='/signin/')
 def manager_menus(request):
     client_id = dao.get_client_id_from_username(request.user.username)
     try:
@@ -307,7 +313,7 @@ def manager_menus(request):
                    'template': 'manager_menus.html',
                    'title': 'Manager'})
 
-@user_passes_test(manager_check)
+@user_passes_test(manager_check, login_url='/signin/')
 def manager_seats(request):
     client_id = dao.get_client_id_from_username(request.user.username)
     if request.method == 'POST':
@@ -346,7 +352,7 @@ def manager_seats(request):
                    'seats': seats, 'client': client_id,
                    'menus': menus})
 
-@user_passes_test(manager_check)
+@user_passes_test(manager_check, login_url='/signin/')
 def manager_profile(request):
     client_id = dao.get_client_id_from_username(request.user.username)
     client_name = dao.get_client_name(client_id)

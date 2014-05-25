@@ -329,6 +329,11 @@ class MongoOrdersDAO(OrdersDAO):
         menu_id = self.get_menu_id(client_id)
         self.db.menus.update({'_id': menu_id}, {'$pull': { "structure." + str(section): item_id}})
 
+    def add_contact(self, contact):
+        new_contact = {'name': contact['name'],'email': contact['email'],
+                       'phone': contact['phone'],'msg': contact['msg']}
+        self.db.contacs.insert(new_contact)
+
     def add_order(self, item_id, quantity, comment, client_id, seat_id, menu_id, path, bill_n):
         # TODO: Orders will need to have an array of events. Each
         # event will have a server_id, a timestamp and an action so
