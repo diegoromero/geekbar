@@ -100,7 +100,7 @@ def signup(request):
         try:
             '''Tries to create a new client, if succeeds it logs in
             and redirects to the manager view'''
-            new_user = User.create_user(username=username, email=email, password=password, manager=True)
+            new_user = User.create_user(username=username, email=email, password=password)
             client_id = dao.create_client(username)
             dao.add_client_id_to_user(new_user.username, client_id)
             dao.set_manager(screen_user.username, True)
