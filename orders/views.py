@@ -35,6 +35,11 @@ def home(request):
     return render(request, 'index_homepage.html',
                   {})
 
+def login_view(request):
+    return render(request, 'home_index.html',
+                  {'title': 'Login',
+                   'template': 'home.html'})
+
 def signin(request):
     '''Sign In view'''
     if request.method == 'POST':

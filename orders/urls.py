@@ -3,6 +3,7 @@ from orders import views
 
 urlpatterns = patterns('',
     url(r'^$', views.home),
+    url(r'^login/$', views.login_view),                
     url(r'^signup/$', views.signup),
     url(r'^signin/$', views.signin),
     url(r'^signout/$', views.signout),
