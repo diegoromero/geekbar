@@ -261,16 +261,21 @@ $(document).ready(function() {
 	seats_tabs();
 	
 	$('.delete_button').submit(function() {
-		$.ajax({
-			data: $(this).serialize(),
-			type: $(this).attr('method'),
-			url: $(this).attr('action'),
-			success: function(response) {
-				$(this).find('.ajaxwrapper').html(response);
-			}
-		});
-		$(this).closest('.menu_items').hide();
-		return false;	
+		var item_quantity = $('#myTable tbody').children().length
+		if (item_quantity > 1) {
+			$.ajax({
+				data: $(this).serialize(),
+				type: $(this).attr('method'),
+				url: $(this).attr('action'),
+				success: function(response) {
+					$(this).find('.ajaxwrapper').html(response);
+				}
+			});
+			$(this).closest('.menu_items').remove();
+		} else {
+			alert("Warning: You can't delete your last item");
+		};
+		return false;
 	});
 	
 	$('.save_edit_button').submit(function() {
