@@ -490,7 +490,7 @@ class MongoOrdersDAO(OrdersDAO):
     def is_valid_seat(self, client_id, seat_id): 
         '''Returns whether the given seat id belongs the the given
         client id'''
-        logger.info('client_id: %s, seat_id: %s', client_id, seat_id)
+        client_id = get_mongo_id(client_id)
         try:
             seats = self.get_client(client_id)['seats']
         except Exception as e:
