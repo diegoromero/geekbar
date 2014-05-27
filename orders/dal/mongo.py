@@ -33,7 +33,7 @@ class MongoOrdersDAO(OrdersDAO):
             self.db.orders.remove()
             self.db.django_session.remove()
 
-    def create_new_client(self, name):
+    def create_client(self, name):
         self.db.clients.insert({
             'name': name,
             'menus': ['m0', 'm1'], 

@@ -93,10 +93,6 @@ def screen_signin(request):
                    'error_value': error_value})
 
 def signup(request):
-    if request.user.is_authenticated():
-        '''If the user is already registered it goes
-        to the manager screen'''
-        return redirect('orders.views.manager')
     if request.method == 'POST':
         username = request.POST['user[name]']
         email = request.POST['user[email]']
