@@ -100,8 +100,11 @@ def signup(request):
         try:
             '''Tries to create a new client, if succeeds it logs in
             and redirects to the manager view'''
-            User.create_user(username=username, email=email, password=password, manager=True)
-            #dao.create_client(username)
+            new_user = User.create_user(username=username, email=email, password=password, manager=True)
+            client_id = dao.create_client(username)
+            dao.add_client_id_to_user(new_user.username, client_id)
+            dao.set_manager(screen_user.username, True)
+            dao.set_screen(screen_user.username, False)
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('orders.views.manager')
@@ -373,10 +376,13 @@ def manager_profile(request):
                 username = request.POST['username']
                 password = request.POST['password']
                 email = username + '@geekbar.com'
-                screen_user = User.create_user(username=username, email=email, password=password)
-                dao.add_client_id_to_user(screen_user.username, client_id)
-                dao.set_manager(screen_user.username, False)
-                dao.set_screen(screen_user.username, True)
+                try:
+                    screen_user = User.create_user(username=username, email=email, password=password)
+                    dao.add_client_id_to_user(screen_user.username, client_id)
+                    dao.set_manager(screen_user.username, False)
+                    dao.set_screen(screen_user.username, True)
+                except NotUniqueError:
+                    error_value = 'Username already registered'
             elif 'change_screen_user_password_form' in request.POST:
                 new_pass = request.POST['password']
                 username = request.POST['username']
