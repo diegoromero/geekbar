@@ -427,9 +427,6 @@ def myorders(request):
     orders = customer_orders(request)
     sub_total = dao.orders_sub_total(orders)
     client_id = request.session['client_id']
-    print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-    print client_id
-    print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
     return render_orders(request, client_id, orders, customer_mods, sub_total=sub_total)
 
 def customer_orders(request, statii = (dao.ORDER_PLACED, dao.ORDER_PREPARING,

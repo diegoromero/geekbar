@@ -188,13 +188,7 @@ class MongoOrdersDAO(OrdersDAO):
 
     def get_client_name(self, client_id):
         '''Get the client name'''
-        print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
-        print client_id
-        print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
         client_id = get_mongo_id(client_id)
-        print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-        print client_id
-        print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
         return self.db.clients.find_one({'_id': client_id})['name']
 
     def set_client_name(self, client_id, name):
@@ -224,9 +218,6 @@ class MongoOrdersDAO(OrdersDAO):
             valid = seat_id in seats[room]['seats']
             if valid:
                 return seats[room]['menu']
-
-    def get_client_name(self, client_id):
-        return self.db.clients.find_one(client_id)['name']
 
     def get_client_items(self, client_id):
         items = list(self.db.items.find({'client_id': client_id}).sort('name'))
