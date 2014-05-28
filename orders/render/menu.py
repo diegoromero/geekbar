@@ -59,10 +59,12 @@ def render_tree_menu(request, menu={}, path='', client=''):
         for divider in sorted(result):
             if type(result[divider]) == dict:
                 template_items.append({'type': 'divider', 'name': divider})
+                section = result[divider]
                 for item in sorted(section):
                     template_items.append({'type':'section','name':item,
                                            'path':'/'.join((path, divider, item))})
             elif type(result[divider]) == list:
+                section = result[divider]
                 for item in sorted(section):
                     template_items.append({'type':'section','name':item,
                                            'path':'/'.join((path, divider, item))})
