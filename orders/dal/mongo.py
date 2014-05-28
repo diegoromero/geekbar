@@ -84,7 +84,7 @@ class MongoOrdersDAO(OrdersDAO):
         mongoid = get_mongo_id(client_id)
         self.db.clients.update({'_id': mongoid}, {'$inc': {'bills': 1}})
         return self.db.bills.insert({
-                'client_id': client_id,
+                'client_id': mongoid,
                 'bill_number': self.get_bills(mongoid),
                 'orders': [],
                 'status': self.BILL_NOT_VERIFIED
