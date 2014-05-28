@@ -451,7 +451,7 @@ def bill(request):
     bill = dao.get_bill(bill_id)
     if bill['status'] == dao.BILL_VERIFIED:
         dao.request_bill(bill_id)
-    request.session.set_expiry(300)
+    request.session.set_expiry(60)
     message = 'your bill (number: %s) is coming!)' % bill['bill_number']
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
