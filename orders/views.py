@@ -180,11 +180,10 @@ def back_to_menu(request):
     a session where client_id and seat_id have already been recorded;
     this happens by default when they scan the QR code. If this is not
     true, a 404 is returned.'''
-    if 'seat_id' in request.session and 'client_id' in request.session:
-        cid = request.session['client_id']
-        sid = request.session['seat_id']
-        return init_session(request, cid, sid)
-    raise Http404
+    cid = request.session['client_id']
+    sid = request.session['seat_id']
+    return init_session(request, cid, sid)
+
 
 def item(request, item_id):
     '''Renders a single item on a page that allows the customer to
