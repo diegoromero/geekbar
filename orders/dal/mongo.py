@@ -188,6 +188,9 @@ class MongoOrdersDAO(OrdersDAO):
 
     def get_client_name(self, client_id):
         '''Get the client name'''
+        print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
+        print client_id
+        print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
         client_id = get_mongo_id(client_id)
         print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
         print client_id
