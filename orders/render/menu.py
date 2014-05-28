@@ -65,7 +65,7 @@ def render_tree_menu(request, menu={}, path='', client=''):
                                            'path':'/'.join((path, divider))})
             elif type(result[divider]) == list:
                 template_items.append({'type':'section','name':divider,
-                                        'path':'/'.join((path, divider))})
+                                        'path':'/'.join((path, divider, result[divider]))})
         '''
         for divider in sorted(result):
             template_items.append({'type':'divider', 'name':divider})
