@@ -93,6 +93,9 @@ def render_orders(request, client_id, orders, modifiers=[], is_screen=False, sub
     more flexible myorders.html to replace orders.html'''
     template_params = DEFAULT_TEMPLATES.copy()
     template_params['template'] = 'orders.html'
+    print '###########################################################'
+    print client_id
+    print '###########################################################'
     client_name = dao.get_client_name(client_id)
     template_params['client_name'] = client_name
     template_orders = orders
