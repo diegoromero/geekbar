@@ -188,8 +188,8 @@ class MongoOrdersDAO(OrdersDAO):
 
     def get_client_name(self, client_id):
         '''Get the client name'''
-        mongo_id = get_mongo_id(client_id)
-        return self.db.clients.find_one({'_id': mongo_id})['name']
+        client_id = get_mongo_id(client_id)
+        return self.db.clients.find_one({'_id': client_id})['name']
 
     def set_client_name(self, client_id, name):
         mongo_id = get_mongo_id(client_id)
