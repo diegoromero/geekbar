@@ -149,6 +149,12 @@ class MongoOrdersDAO(OrdersDAO):
         logger.info('got %d items %s', len(res), res)
         return res
 
+    def toggle_item_availability(self, item_id):
+        item_id = get_mongo_id(item_id)
+        availability = self.db.items.find_one({'_id': item_id})['available']
+        self.db.items.update({'_id': item_id}, {'$set': {'available': not availability}})
+        
+
     def get_seats(self, client_id):
         '''Gets the seat property of the client'''
         mongo_id = get_mongo_id(client_id)

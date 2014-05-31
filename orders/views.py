@@ -264,6 +264,9 @@ def manager_items(request):
             elif 'set_item_photo' in request.POST:
                 #This case handles the upload item photo form
                 dao.set_item_photo(request.POST['item_id'])
+            elif 'toggle_availability' in request.POST:
+                item_id = request.POST['item_id']
+                dao.toggle_item_availability(item_id)
                 
     return render(request, 'desktop_index.html',
                   {'items': items,

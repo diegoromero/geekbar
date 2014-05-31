@@ -215,3 +215,11 @@ div#users-contain table td, div#users-contain table th {
     transform: rotate(360deg);
   }
 }
+
+.icon-green {
+	color: green;
+}
+
+.icon-red {
+	color: red;
+}

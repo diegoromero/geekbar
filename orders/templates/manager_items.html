@@ -65,6 +65,7 @@
 			<th>Name</th>
 			<th>Price</th>
 			<th>Description</th>
+			<th filter='false'>Available</th>
 			<th filter='false'>Options</th>
 		</tr>
 	</thead>
@@ -84,18 +85,29 @@
 			<td contentEditable class="item_price">{{ item.price }}</td>
 			<td contentEditable class="item_description">{{ item.description}}</td>
 			<td>
-			<form action="" method="post" class="delete_button floaty">
-				<div class="ajaxwrapper">
+				<form action="" method="post" class="availability_toggle">
 					{% csrf_token %}
-					<input type="hidden" name="delete_item_id" value={{ item.id }}>
-					<input type="submit" value="Delete" name="delete_item" class="sendbutton">
-				</div>
-			</form>
-			<form action="" method="post" class="save_edit_button floaty">
-				{% csrf_token %}
-				<input type="hidden" name="item_id" value={{ item.id }}>
-				<input type="submit" value="Save" name="save_edit">
-			</form>
+					<input type="hidden" name="item_id" value={{ item.id }}>
+					{% if item.available %}
+						<button type="submit"><span class="glyphicon glyphicon-ok icon-green"></span></button>
+					{% else %}
+						<button type="submit"><span class="glyphicon glyphicon-remove icon-red"></span></button>
+					{% endif %}
+				</form>
+			</td>
+			<td>
+				<form action="" method="post" class="delete_button floaty">
+					<div class="ajaxwrapper">
+						{% csrf_token %}
+						<input type="hidden" name="delete_item_id" value={{ item.id }}>
+						<input type="submit" value="Delete" name="delete_item" class="sendbutton">
+					</div>
+				</form>
+				<form action="" method="post" class="save_edit_button floaty">
+					{% csrf_token %}
+					<input type="hidden" name="item_id" value={{ item.id }}>
+					<input type="submit" value="Save" name="save_edit">
+				</form>
 			</td>
 		</tr>
 	{% endfor %}

@@ -191,7 +191,8 @@ function treemaker(){
 		sortList: [[1,0], [2,0]],
 		headers: {
 			0: { sorter: false },
-			4: { sorter: false }
+			4: { sorter: false },
+			5: { sorter: false }
 		}
 	}).tableFilter();
  };
@@ -508,6 +509,19 @@ $(document).ready(function() {
 			success: function(response) {
 				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	seats_accordion(); seats_tabs(); });
 			}
+		});
+	});
+	
+	$('.availability_toggle').submit(function(event) {
+		event.preventDefault();
+		var form = $(this);
+		$.ajax({
+			data: $(this).serialize() + '&toggle_availability',
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(response) {
+				form.find('.glyphicon').toggleClass('icon-green icon-red glyphicon-ok glyphicon-remove');
+			}			
 		});
 	});
 	
