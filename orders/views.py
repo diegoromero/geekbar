@@ -417,9 +417,12 @@ def place_order(request, item_id, client_id):
     menu_id = request.session['menu_id']
     path = request.session['path']
     logger.info('item_id:%s, client_id:%s, quantity:%s', item_id, client_id, quantity)
-    dao.add_order(item_id, quantity, comment, client_id, seat_id, menu_id, path, bill_n)
     item_name = dao.get_item(item_id)['name']
-    message = '{} {} coming!. Seat back and relax.'.format(quantity, item_name)
+    if dao.is_available(item_id):
+        dao.add_order(item_id, quantity, comment, client_id, seat_id, menu_id, path, bill_n)
+        message = '{} {} coming!. Seat back and relax.'.format(quantity, item_name)
+    else:
+        message = '{} is not available at the moment.'.format(item_name)
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
@@ -519,8 +522,11 @@ def bill_place_order(request, bill_id, item_id):
         quantity = request.POST['quantity']
         comment = request.POST['comment']
         menu = dao.get_menu_of_seat(client_id, bill['seat'])
-        dao.add_order(item['id'], quantity, comment, client_id, bill['seat'], menu, 'waiter', bill['bill_number'])
-        message = '{} order of {} placed'.format(quantity, item['name'])
+        if item['available']:
+            dao.add_order(item['id'], quantity, comment, client_id, bill['seat'], menu, 'waiter', bill['bill_number'])
+            message = '{} order of {} placed'.format(quantity, item['name'])
+        else:
+            message = '{} is not available at the moment.'.format(item['name'])
         return render(request, 'index_screen.html',
                   {'template':'confirmation_bill.html', 'message':message})
     

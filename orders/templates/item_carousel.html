@@ -10,5 +10,9 @@
 	{% csrf_token %}
 	<input type="hidden" name="quantity" id="quantity" value="1">
 	<textarea name="comment" placeholder="Comment"></textarea>
-	<input type="submit" value="Order" data-role="button"/>
+	{% if item.available %}
+		<button type="submit">Order</button>
+	{% else %}
+		<button type="submit" disabled="">Not Available</button>
+	{% endif %}
 </form>

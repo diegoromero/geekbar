@@ -153,7 +153,10 @@ class MongoOrdersDAO(OrdersDAO):
         item_id = get_mongo_id(item_id)
         availability = self.db.items.find_one({'_id': item_id})['available']
         self.db.items.update({'_id': item_id}, {'$set': {'available': not availability}})
-        
+
+    def is_available(self, item_id):
+        item_id = get_mongo_id(item_id)
+        return self.db.items.find_one({'_id': item_id})['available']
 
     def get_seats(self, client_id):
         '''Gets the seat property of the client'''
@@ -236,7 +239,8 @@ class MongoOrdersDAO(OrdersDAO):
                               'name': name,
                               'price': price,
                               'description': description,
-                              'photo': False})
+                              'photo': False,
+                              'available': True})
 
     def add_menu(self, title, client_id):
         menu_id = self.db.menus.insert({'title': title, 'structure': {}})
