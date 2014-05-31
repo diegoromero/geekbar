@@ -3,20 +3,19 @@
 <label for="quantity">Order Quantity:</label>
 <div data-role="controlgroup" data-type="horizontal" data-mini="true">
 	{% if item.available %}
-	    <button type="button" data-icon="minus" data-iconpos="notext" data-role="button" class="minus">Minus</button>
-		<button type="button" data-role="button" class="quantity">1</button>
-	    <button type="button" data-icon="plus" data-iconpos="notext" data-role="button" class="plus">Plus</button>
+	    <button style="opacity: 0.8" type="button" data-icon="minus" data-iconpos="notext" data-role="button" class="minus">Minus</button>
+		<button style="opacity: 0.8" type="button" data-role="button" class="quantity">1</button>
+	    <button style="opacity: 0.8" type="button" data-icon="plus" data-iconpos="notext" data-role="button" class="plus">Plus</button>
 	{% else %}
 		<button type="button" data-icon="minus" data-iconpos="notext" data-role="button" class="minus" disabled="">Minus</button>
 		<button type="button" data-role="button" class="quantity" disabled="">1</button>
-	    <button type="button" data-icon="plus" data-iconpos="notext" data-role="button" class="plus" disabled="">Plus</button>
 	{% endif %}
 </div>
 <form action="{% url 'order' item.id item.client_id %}" method="POST">
 	{% csrf_token %}
 	<input type="hidden" name="quantity" id="quantity" value="1">
 	{% if item.available %}
-		<textarea name="comment" placeholder="Comment"></textarea>
+		<textarea style="opacity: 0.8" name="comment" placeholder="Comment"></textarea>
 		<button type="submit">Order</button>
 	{% else %}
 		<textarea name="comment" placeholder="This item is not available at the moment." disabled=""></textarea>
