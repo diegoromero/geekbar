@@ -87,7 +87,8 @@ class MongoOrdersDAO(OrdersDAO):
                 'client_id': mongoid,
                 'bill_number': self.get_bills(mongoid),
                 'orders': [],
-                'status': self.BILL_NOT_VERIFIED
+                'status': self.BILL_NOT_VERIFIED,
+                'createdAt': datetime.datetime.utcnow()
                 })
 
     def get_menu(self, menu_id):
@@ -341,7 +342,7 @@ class MongoOrdersDAO(OrdersDAO):
         bill_status = self.get_bill_status_w_cid_bn(client_id, bill_n)
         order = {'client_id':client_id, 'seat_id':seat_id, 'item_id':item_id, 'quantity':quantity,
                  'status':self.ORDER_PLACED, 'menu_id': menu_id, 'path': path, 'bill_number': bill_n,
-                 'comment': comment, 'bill_status': bill_status}
+                 'comment': comment, 'bill_status': bill_status, 'createdAt': datetime.datetime.utcnow()}
         order_id = self.db.orders.insert(order)
         self.db.bills.update({'client_id': client_id, 'bill_number': bill_n}, {'$addToSet': {'orders': order_id}, '$set': {'seat': seat_id}})
 
