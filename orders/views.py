@@ -599,7 +599,9 @@ def orders_bill_number(request, bill_number):
     query = {}
     query['client_id'] = client_id
     query['bill_number'] = int(bill_number)
-    return list_orders(request, query=query)
+    request.session['query'] = query
+    return render(request, 'index_screen.html'
+                  {'template': 'redirect_bills.html'})
 
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def screen_refresh(request):
