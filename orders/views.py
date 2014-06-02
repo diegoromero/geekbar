@@ -587,7 +587,8 @@ def list_orders(request, query={}):
             query['bill_number'] = int(request.POST['bill_number'])
         request.session['query'] = query
 
-    query = request.session['query']      
+    if not any(query):
+        query = request.session['query']      
     orders = dao.list_orders(client_id, query)
     logger.info({'orders': orders,'modifiers':server_mods})
     return render_orders(request, client_id, orders, server_mods, is_screen=True)
