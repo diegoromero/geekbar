@@ -229,6 +229,19 @@ class MongoOrdersDAO(OrdersDAO):
             if valid:
                 return seats[room]['menu']
 
+    def get_item_path(self, item_id, menu_id):
+        item_id = str(item_id)
+        menu_id = get_mongo_id(menu_id)
+        menu = self.db.menus.find_one({'_id': menu_id})
+        pathss = paths(menu)
+        for path in pathss:
+            section = menu['structure']
+            ps = path.split('/')[1:]
+            for j in ps:
+                section = section[j]
+                if item_id in section:
+                    return path
+
     def get_client_items(self, client_id):
         items = list(self.db.items.find({'client_id': client_id}).sort('name'))
         for item in items:

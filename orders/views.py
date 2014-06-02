@@ -523,7 +523,8 @@ def bill_place_order(request, bill_id, item_id):
         comment = request.POST['comment']
         menu = dao.get_menu_of_seat(client_id, bill['seat'])
         if item['available']:
-            dao.add_order(item['id'], quantity, comment, client_id, bill['seat'], menu, 'waiter', bill['bill_number'])
+            path = dao.get_item_path(item['id'], menu)
+            dao.add_order(item['id'], quantity, comment, client_id, bill['seat'], menu, path, bill['bill_number'])
             message = '{} order of {} placed'.format(quantity, item['name'])
         else:
             message = '{} is not available at the moment.'.format(item['name'])
