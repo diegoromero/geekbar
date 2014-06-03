@@ -549,9 +549,9 @@ def filter_bills(request):
     client_id = request.session['client_id']
     statii = []
     for status in dao.BILL_STATII:
-        st = {}
-        st['id'] = status
-        st['name'] = status.replace('_','').capitalize()
+        st = {'id': status,
+              'name': status.replace('_', '').capitalize()
+        }
         statii.append(st)
     seats = dao.get_seats_ids(client_id)
     return render(request, 'index_screen.html',
@@ -596,9 +596,8 @@ def list_orders(request, query={}):
 @user_passes_test(screen_check, login_url='/screen_signin/')
 def orders_bill_number(request, bill_number):
     client_id = request.session['client_id']
-    query = {}
-    query['client_id'] = client_id
-    query['bill_number'] = int(bill_number)
+    query = {'client_id': client_id,
+             'bill_number': int(bill_number)}
     request.session['query'] = query
     return render(request, 'index_screen.html',
                   {'template': 'updated.html'})
@@ -635,15 +634,13 @@ def filter_orders(request):
     # Render form instead if there's no filter
     statii = []
     for status in dao.ORDER_STATII:
-        st = {}
-        st['id'] = status
-        st['name'] = status.replace('_','').capitalize()
+        st = {'id': status,
+              'name': status.replace('_', '').capitalize()}
         statii.append(st)
     bill_statii = []
     for status in dao.BILL_STATII:
-        st = {}
-        st['id'] = status
-        st['name'] = status.replace('_','').capitalize()
+        st = {'id': status,
+              'name': status.replace('_', '').capitalize()}
         bill_statii.append(st)
     seats = dao.get_seats_ids(client_id)
     menus = dao.get_client_menus(client_id)
@@ -666,9 +663,8 @@ def order(request, order_id):
 def update_order(request, order_id):
     '''Updates the specified order with the params in the request'''
     logger.info('order:%s', order_id)
-    update = {}
-    update['status'] = request.POST['status']
-    update['comment'] = request.POST['comment']
+    update = {'status': request.POST['status'],
+              'comment': request.POST['comment']}
     res = dao.update_order(order_id, update)
     client_id = dao.get_client_id(order_id)
     return render(request, 'index.html',
