@@ -67,7 +67,9 @@
 					{% for seat in content.seats %}
 						<h3>{{ seat }}</h3>
 						<div>
-							<div class="qrcode" client="{{ client }}" seat="{{ seat }}"></div>
+							<div class="qrcode" client="{{ client }}" seat="{{ seat }}">
+								<img>
+							</div>
 							</br>
 							<form action="" method="post" class="delete_seat_form">
 								{% csrf_token %}
