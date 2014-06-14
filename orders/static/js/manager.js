@@ -24,6 +24,15 @@ function draw_qrcode(){
 	});
 };
 
+function qr_canvas_to_img() {
+	$('canvas').each(function() {
+		var canvas = this;
+		var dataURL = canvas.toDataURL();
+		$(this).siblings('img').attr('src', dataURL);
+		this.remove();
+	});
+};
+
 function tabsfunc() {
 	//This function sets the tabs with jQuery UI
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
@@ -257,6 +266,7 @@ $(document).ready(function() {
 	$('#screen_new_pass_2').keyup(validate_screen_password);
 	
 	draw_qrcode();
+	qr_canvas_to_img();
 	seats_accordion();
     tabledisplay();
 	seats_tabs();
@@ -482,7 +492,7 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				$('#seats_div_wrapper').load(' #seats_div', function(){draw_qrcode();});
+				$('#seats_div_wrapper').load(' #seats_div', function(){draw_qrcode(); qr_canvas_to_img();});
 			}
 		});
 	});
@@ -495,7 +505,7 @@ $(document).ready(function() {
 			url: $(this).attr('action'),
 			success: function(response) {
 				//TODO: new rooms created dont have the ajax functions attach to them
-				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	seats_accordion(); seats_tabs(); });	
+				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	qr_canvas_to_img(); seats_accordion(); seats_tabs(); });	
 			}
 		});
 	});
@@ -507,7 +517,7 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	seats_accordion(); seats_tabs(); });
+				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	qr_canvas_to_img(); seats_accordion(); seats_tabs(); });
 			}
 		});
 	});
@@ -544,7 +554,7 @@ $(document).ready(function() {
 			type: $(this).attr('method'),
 			url: $(this).attr('action'),
 			success: function(response) {
-				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	seats_accordion(); seats_tabs(); });
+				$('#rooms_container').load(' #rooms', function(){draw_qrcode();	qr_canvas_to_img(); seats_accordion(); seats_tabs(); });
 			}
 		});
 	});
