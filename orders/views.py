@@ -420,9 +420,9 @@ def place_order(request, item_id, client_id):
     item_name = dao.get_item(item_id)['name']
     if dao.is_available(item_id):
         dao.add_order(item_id, quantity, comment, client_id, seat_id, menu_id, path, bill_n)
-        message = '{} {} coming!. Seat back and relax.'.format(quantity, item_name)
+        message = '{} {} ya vienen! Sientate y relajate.'.format(quantity, item_name)
     else:
-        message = '{} is not available at the moment.'.format(item_name)
+        message = '{} no esta disponible en estos momentos.'.format(item_name)
     return render(request, 'index.html',
                   {'template':'confirmation.html', 'message':message})
 
