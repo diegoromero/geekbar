@@ -1,6 +1,7 @@
 <h3 style="display: inline-block;">{{item.name}}</h3>
-<p>{{item.description}} - {{item.price}}</p>
-<label for="quantity">Order Quantity:</label>
+<p>{{item.description}}</p>
+<p>BsF. {{item.price}}</p>
+<label for="quantity">Cantidad:</label>
 <div data-role="controlgroup" data-type="horizontal" data-mini="true">
 	{% if item.available %}
 	    <button style="opacity: 0.8" type="button" data-icon="minus" data-iconpos="notext" data-role="button" class="minus">Minus</button>
@@ -15,10 +16,10 @@
 	{% csrf_token %}
 	<input type="hidden" name="quantity" id="quantity" value="1">
 	{% if item.available %}
-		<textarea style="opacity: 0.8" name="comment" placeholder="Comment"></textarea>
-		<button type="submit">Order</button>
+		<textarea style="opacity: 0.8" name="comment" placeholder="Comentario"></textarea>
+		<button type="submit">Ordenar</button>
 	{% else %}
-		<textarea name="comment" placeholder="This item is not available at the moment." disabled=""></textarea>
-		<button type="submit" disabled="">Not Available</button>
+		<textarea name="comment" placeholder="Este producto no esta disponible en estos momentos." disabled=""></textarea>
+		<button type="submit" disabled="">No Disponible</button>
 	{% endif %}
 </form>
