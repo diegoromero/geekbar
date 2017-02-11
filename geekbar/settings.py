@@ -3,7 +3,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 import mongoengine
-_MONGODB_DATABASE_HOST = os.environ['MONGOHQ_URL']
+_MONGODB_DATABASE_HOST = os.environ['MONGODB_URI']
 _MONGODB_NAME = _MONGODB_DATABASE_HOST.split('/')[-1]
 
 _MONGODB_CLIENT = mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
@@ -119,7 +119,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    
+
 )
 
 # List of finder classes that know how to find static files in
