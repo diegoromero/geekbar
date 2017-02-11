@@ -6,7 +6,10 @@ import mongoengine
 _MONGODB_DATABASE_HOST = os.environ['MONGODB_URI']
 _MONGODB_NAME = _MONGODB_DATABASE_HOST.split('/')[-1]
 
-_MONGODB_CLIENT = mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
+_MONGODB_CLIENT = mongoengine.connect(
+    db='heroku_t86nzw0f',
+    host='mongodb://heroku_t86nzw0f:115k1l6npe9530tuvndne419fr@ds147799.mlab.com:47799/heroku_t86nzw0f'
+)
 _MONGODB = eval('_MONGODB_CLIENT.' + _MONGODB_NAME)
 
 # Django settings for geekbar project.
