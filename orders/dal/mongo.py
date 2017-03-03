@@ -23,7 +23,7 @@ class MongoOrdersDAO(OrdersDAO):
         if bootstrap:
             # load bootstrap data
             self.db.user.remove()
-            User.create_user(username='c0', email='c@0.com', password='maia')
+            User.create_user(username='c@0.com', email='c@0.com', password='c@0.com')
             self.db.menus.remove()
             self.db.menus.insert(menus)
             self.db.items.remove()
@@ -36,7 +36,7 @@ class MongoOrdersDAO(OrdersDAO):
     def create_client(self, name):
         new_user = self.db.clients.insert({
             'name': name,
-            'menus': [], 
+            'menus': [],
             'seats': {},
             'bills': 0
         })
@@ -125,7 +125,7 @@ class MongoOrdersDAO(OrdersDAO):
             menus.append(self.db.menus.find_one({'_id': mongoid}))
             menus[-1]['id'] = str(mongoid)
         return menus
-    
+
     def get_item(self, item_id):
         '''Get the specified item from the DB'''
         logger.debug('item_id: %s',item_id)
@@ -289,7 +289,7 @@ class MongoOrdersDAO(OrdersDAO):
                 menu_structure = menu_structure.replace(last, '[]')
             menu_structure = eval(menu_structure)
             self.update_menu_structure(str(menu['_id']), menu_structure)
-        
+
     def add_section(self, client_id, name, has_subsections, inside):
         '''adds a new section to the active menu of the client
         name(string) = name of the section to insert,
@@ -397,7 +397,7 @@ class MongoOrdersDAO(OrdersDAO):
             res.append(bill)
 
         return res
-        
+
 
     def list_orders(self, client_id, query={}):
         '''Lists orders for the specified client matched by the given
@@ -439,11 +439,11 @@ class MongoOrdersDAO(OrdersDAO):
 
     def orderid_sub_total(self, oids):
         statii = (self.ORDER_PLACED, self.ORDER_PREPARING, self.ORDER_PREPARED, self.ORDER_SERVED)
-        price = {}           
+        price = {}
         stotal = 0
         for oid in oids:
             order = self.db.orders.find_one({'_id': oid})
-            iid = get_mongo_id(order['item_id']) 
+            iid = get_mongo_id(order['item_id'])
             if iid in price:
                 order['price'] = price[iid]
             else:
@@ -456,8 +456,8 @@ class MongoOrdersDAO(OrdersDAO):
         sub_total = 0
         for order in orders:
             sub_total += (int(order['quantity']) * float(order['price']))
-        return sub_total         
-            
+        return sub_total
+
     def list_order_json(self, client_id, query={}):
         orders = self.list_orders(client_id, query=query)
         json_list = {'orders': []}
@@ -476,11 +476,11 @@ class MongoOrdersDAO(OrdersDAO):
         price = self.db.items.find_one(item_id)['price']
         return price
 
-    def get_order(self, order_id): 
+    def get_order(self, order_id):
         '''Returns the order object that matches the given id. Adds
         the name of the item in the order as well as its delay as
         these two are almost always needed'''
-        oid = get_mongo_id(order_id) 
+        oid = get_mongo_id(order_id)
         order = self.db.orders.find_one(oid)
         order['item_name'] = self.get_item_name(order['item_id'])
         order['delay'] = compute_delay(order)
@@ -509,7 +509,7 @@ class MongoOrdersDAO(OrdersDAO):
         logger.info('updated {} orders. Errors: {}.'.format(res['n'], res['err']))
         return res
 
-    def is_valid_seat(self, client_id, seat_id): 
+    def is_valid_seat(self, client_id, seat_id):
         '''Returns whether the given seat id belongs the the given
         client id'''
         client_id = get_mongo_id(client_id)
@@ -588,7 +588,7 @@ class MongoOrdersDAO(OrdersDAO):
         seats = self.db.clients.find_one({'_id': clientid})['seats']
         seats[room_name]['seats'].remove(seat_name)
         self.db.clients.update({'_id': clientid}, {'$set': {'seats': seats}})
-        
+
 # Helper methods. The functions below are not part of the 'interface'
 # and need not be implemented by other OrdersDAO
 # implementations. These are what would be 'private' and perhaps
@@ -616,7 +616,7 @@ def compute_delay(mongo_obj):
             break
     qty = secs // units[idx][0]
     ans = str(qty) + units[idx][1]
-    if qty > 1: 
+    if qty > 1:
         ans += 's'
     return ans + ' ago'
 

@@ -3,17 +3,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 import mongoengine
-_MONGODB_DATABASE_HOST = os.environ['MONGODB_URI']
-_MONGODB_NAME = _MONGODB_DATABASE_HOST.split('/')[-1]
 
-_MONGODB_CLIENT = mongoengine.connect(
-    db='heroku_t86nzw0f',
-    username='heroku_t86nzw0f',
-    password='115k1l6npe9530tuvndne419fr',
-    host='ds147799.mlab.com',
-    port=47799
-)
-_MONGODB = eval('_MONGODB_CLIENT.' + _MONGODB_NAME)
+_MONGODB_NAME = "heroku_t86nzw0f"
+_MONGODB_DATABASE_HOST = "mongodb://heroku_t86nzw0f:115k1l6npe9530tuvndne419fr@ds147799.mlab.com:47799/heroku_t86nzw0f"
+_MONGODB_CLIENT = mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
+_MONGODB = _MONGODB_CLIENT.heroku_t86nzw0f
 
 # Django settings for geekbar project.
 
@@ -156,9 +150,15 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+try:
+    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+except:
+    AWS_STORAGE_BUCKET_NAME = 'geekbar_bucket'
+    AWS_ACCESS_KEY_ID = 'AKIAJWUZ3QMBZYAGZDEA'
+    AWS_SECRET_ACCESS_KEY = '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'
+
 DEFAULT_FILE_STORAGE = 'geekbar.s3utils.MediaS3BotoStorage'
 STATICFILES_STORAGE = 'geekbar.s3utils.StaticS3BotoStorage'
 S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
