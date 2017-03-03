@@ -150,14 +150,10 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-try:
-    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-except:
-    AWS_STORAGE_BUCKET_NAME = 'geekbar_bucket'
-    AWS_ACCESS_KEY_ID = 'AKIAJWUZ3QMBZYAGZDEA'
-    AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+
 
 DEFAULT_FILE_STORAGE = 'geekbar.s3utils.MediaS3BotoStorage'
 STATICFILES_STORAGE = 'geekbar.s3utils.StaticS3BotoStorage'
